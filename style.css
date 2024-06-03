@@ -2,6 +2,9 @@ html {
 	background-color: rgb(25, 25, 25);
 	font-family: Roboto;
 }
+p {
+	color: white;
+}
 div#totaldiv {
 	position: static;
 }
