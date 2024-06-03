@@ -22,7 +22,7 @@ function widthcheck() {
 }
 function init() {
 	document.getElementById('maincontent').innerHTML="<div class='prestiges'><p class='prestigeinfo'>Score: 10</p><p class='prestigemult'>Multiplier: x1</p><button class='prestigeac' onclick=pres(0)><p>Prestige to Layer 1</p><p>Requires: 10 Score</p></button></div>";
-	document.getElementsByClassName('prestiges')[0].style.top = 60px;
+	document.getElementsByClassName("prestiges")[0].style.top = "60px";
 	screencheck = setInterval(widthcheck, 20);
 	gameintv = setInterval(update, 1000);
 }
