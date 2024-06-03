@@ -3,10 +3,10 @@ html {
 	color: white;
 	font-family: Roboto;
 }
-.mainbar {
+div#totaldiv div.mainbar {
 	position: fixed;
 }
-.topbar {
+div#totaldiv div.mainbar button.topbar {
 	width: 200px;
 	height: 50px;
 	background-color: rgb(50, 50, 50);
@@ -15,6 +15,6 @@ html {
 	transition-duration: 0.25s;
 	float: left;
 }
-.topbar:hover {
+div#totaldiv div.mainbar button.topbar:hover {
 	background-color: rgb(150, 150, 150);
 }
