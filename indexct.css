@@ -1,7 +1,7 @@
-p {
+a {
   text-decoration: underline;
   color: blue;
 }
-p:active {
+a:active {
   color: purple;
 }
