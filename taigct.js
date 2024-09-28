@@ -1,0 +1,1 @@
+var ns = [1,1,1,1,1]; function f(a) { for (var i = 0; i < 5; i++) { if (i<a-1) { ns[i]-=1; } else if (i>a-1) { ns[i]+=1; } if (ns[i]<0) {ns[i] += 5;} else if (ns[i] >= 5) {ns[i] -= 5;}} update(); } function update() { for (var i = 0; i < 5; i++) { document.getElementById('b'+(i+1)).innerHTML=ns[i];} }
