@@ -1,0 +1,107 @@
+button {
+width: 300px;
+height: 50px;
+background-color: rgb(100, 200, 100);
+transition-duration: 0.5s;
+border: none;
+border-radius: 5px;
+}
+button:hover {
+background-color: rgb(50, 150, 50);
+}
+#p1 {
+position: fixed;
+left: 420px;
+top: 0px;
+}
+#p2 {
+position: fixed;
+left: 420px;
+top: 40px;
+}
+#p3 {
+position: fixed;
+left: 420px;
+top: 80px;
+color: red;
+}
+#p4 {
+position: fixed;
+left: 420px;
+top: 160px;
+}
+#p5 {
+position: fixed;
+left: 420px;
+top: 200px;
+}
+#b1 {
+position: fixed;
+left: 20px;
+top: 600px;
+}
+#b2 {
+position: fixed;
+left: 20px;
+top: 540px;
+}
+#b8 { position: fixed;
+left: 340px;
+top: 540px;
+}
+#b9 { position: fixed;
+left: 660px;
+top: 540px;
+}
+#b3 {
+position: fixed;
+left: 420px;
+top: 260px;
+height: 40px;
+width: 250px;
+}
+#b4 {
+position: fixed;
+left: 690px;
+top: 260px;
+height: 40px;
+width: 250px;
+}
+#b5 {
+position: fixed;
+left: 420px;
+top: 320px;
+height: 40px;
+width: 250px;
+background-color: rgb(100, 200, 100);
+}
+#p6 {
+position: fixed;
+left: 420px;
+top: 380px;
+}
+#b6 {
+position: fixed;
+left: 420px;
+top: 480px;
+height: 40px;
+width: 250px;
+}
+#b7 {
+position: fixed;
+left: 690px;
+top: 480px;
+height: 40px;
+width: 250px;
+}
+#p7 {
+position: fixed;
+left: 420px;
+top: 420px;
+}
+#layers {
+color: rgb(50, 150, 250);
+}
+#typ {
+color: rgb(50, 150, 50);
+}
