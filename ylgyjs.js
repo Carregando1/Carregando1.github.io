@@ -292,6 +292,7 @@ setup();
 return;
 }
 layer = 1;
+total = 0;
 document.getElementById('layers').innerHTML=(layer+" / 30");
 for (var i = 0; i < level.length; i++) {
 total += level[i].length/2;
