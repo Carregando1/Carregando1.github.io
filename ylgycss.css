@@ -75,6 +75,13 @@ height: 40px;
 width: 250px;
 background-color: rgb(100, 200, 100);
 }
+#b10 {
+position: fixed;
+left: 690px;
+top: 320px;
+height: 40px;
+width: 250px;
+}
 #p6 {
 position: fixed;
 left: 420px;
