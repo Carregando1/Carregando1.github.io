@@ -1,4 +1,5 @@
 var level = [[]];
+var viewmode = true; //Default: True = View Layer Above
 let intv;
 function home() {
 editmode = false;
@@ -13,7 +14,7 @@ if (level.length != 30) {
 level = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
 }
 editmode = true;
-document.getElementById('all').innerHTML="<canvas id='cnv' width='400px' height='520px' ></canvas><p id='p1'>Click on a position to place a block.</p><p id='p2'>Blocks in the same layer may not overlap each other.</p><p id='p3'>Errors appear here.</p><p id='p4'>The top layer is layer 1.</p><p id='p5'>Current Layer: <span id='layers'>1 / 20</span></p><button onclick='inc()' id='b3'>Increase Layer by 1</button><button onclick='dec()' id='b4'>Decrease Layer by 1</button><button onclick='erase()' id='b5'>Eraser Mode: Off</button><p id='p6'>This level has a total of 0 blocks.</p><p id='p7'>Number of Block Types: <span id='typ'>12</span></p><button onclick='inct()' id='b6'>Increase Type by 1</button><button onclick='dect()' id='b7'>Decrease Type by 1</button><button onclick='save()' id='b2'>Save Level</button><button onclick='upload()' id='b8'>Upload Level</button><button onclick='verify()' id='b9'>Verify Level</button><button onclick='home()' id='b1'>Return to Main Page</button>";
+document.getElementById('all').innerHTML="<canvas id='cnv' width='400px' height='520px' ></canvas><p id='p1'>Click on a position to place a block.</p><p id='p2'>Blocks in the same layer may not overlap each other.</p><p id='p3'>Errors appear here.</p><p id='p4'>The top layer is layer 1.</p><p id='p5'>Current Layer: <span id='layers'>1 / 30</span></p><button onclick='inc()' id='b3'>Increase Layer by 1</button><button onclick='dec()' id='b4'>Decrease Layer by 1</button><button onclick='erase()' id='b5'>Eraser Mode: Off</button><button onclick='view()' id='b10'>Viewing: Layer Above</button><p id='p6'>This level has a total of 0 blocks.</p><p id='p7'>Number of Block Types: <span id='typ'>12</span></p><button onclick='inct()' id='b6'>Increase Type by 1</button><button onclick='dect()' id='b7'>Decrease Type by 1</button><button onclick='save()' id='b2'>Save Level</button><button onclick='upload()' id='b8'>Upload Level</button><button onclick='verify()' id='b9'>Verify Level</button><button onclick='home()' id='b1'>Return to Main Page</button>";
 setup();
 }
 var editmode = false;
@@ -37,8 +38,8 @@ function setup() {
   if (canvas.getContext) {
     var ctx = canvas.getContext('2d');
     //0, 0 = 240, 240
-    for (var i = 0; i < 20; i++) {
-      for (var j = 0; j < 26; j++) {
+    for (var i = 1; i < 19; i++) {
+      for (var j = 1; j < 25; j++) {
         ctx.lineWidth = 2;
         ctx.fillStyle='white';
         ctx.fillRect(i*20, j*20, 20, 20);
@@ -46,13 +47,22 @@ function setup() {
         ctx.strokeRect(i*20, j*20, 20, 20);
       }
     }
-  if (layer != 1) {
+  if (layer != 1 && viewmode) {
   for (var i = 0; i < level[layer-2].length/2; i++) {
   ctx.fillStyle='rgb(150, 150, 150)';
   ctx.fillRect(40 * level[layer-2][2*i] + 20, 40 * level[layer-2][2*i+1] + 20, 40, 40);
   ctx.strokeStyle = 'rgb(200, 200, 200)';
   ctx.lineWidth = 2;
   ctx.strokeRect(40 * level[layer-2][2*i] + 20, 40 * level[layer-2][2*i+1] + 20, 40, 40);
+  }
+  }
+  if (layer != 30 && !(viewmode)) {
+  for (var i = 0; i < level[layer].length/2; i++) {
+  ctx.fillStyle='rgb(150, 150, 150)';
+  ctx.fillRect(40 * level[layer][2*i] + 20, 40 * level[layer][2*i+1] + 20, 40, 40);
+  ctx.strokeStyle = 'rgb(200, 200, 200)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(40 * level[layer][2*i] + 20, 40 * level[layer][2*i+1] + 20, 40, 40);
   }
   }
   for (var i = 0; i < level[layer-1].length/2; i++) {
@@ -98,12 +108,18 @@ function edit1() {
 	if (layer != 1) {
 	for (var i = 0; i < level[layer - 2].length/2; i++) {
 	if (level[layer - 2][2*i] - xpos == 0 && level[layer - 2][2*i+1] - ypos == 0) {
+	document.getElementById('p3').innerHTML=("A block can not coincide with the position of any block in the layer immediately above.");
+	return;
+	}
+	}
+	if (layer != 30) {
+	for (var i = 0; i < level[layer].length/2; i++) {
+	if (level[layer][2*i] - xpos == 0 && level[layer][2*i+1] - ypos == 0) {
 	document.getElementById('p3').innerHTML=("A block can not coincide with the position of any block in the layer immediately below.");
 	return;
 	}
 	}
-	for (var i = 0; i < level[layer - 2].length/2; i++) {
-	if (Math.abs(level[layer - 2][2*i] - xpos) < 1 && Math.abs(level[layer - 2][2*i+1] - ypos) < 1) {
+	}
 	ctx.fillStyle = "black";
 	document.getElementById('p3').innerHTML=("Errors appear here.");
        	ctx.fillRect(40 * xpos + 20, 40 * ypos + 20, 40, 40);
@@ -116,11 +132,13 @@ function edit1() {
 	total++;
 	document.getElementById('p6').innerHTML='This level has a total of '+total+' blocks.';
 	return;
-	}
-	}
-	document.getElementById('p3').innerHTML=("Each block below the top layer must be under a block from the layer immediately above it.");
-	return;
 	} else {
+	for (var i = 0; i < level[1].length/2; i++) {
+	if (level[1][2*i] - xpos == 0 && level[1][2*i+1] - ypos == 0) {
+	document.getElementById('p3').innerHTML=("A block can not coincide with the position of any block in the layer immediately below.");
+	return;
+	}
+	}
 	ctx.fillStyle = "black";
 	document.getElementById('p3').innerHTML=("Errors appear here.");
        	ctx.fillRect(40 * xpos + 20, 40 * ypos + 20, 40, 40);
@@ -151,7 +169,7 @@ function edit1() {
 //Check for hanging blocks before play. Can be created through erase tool.
 var savestring = "";
 function save() {
-savestring = "#"+type.toString();
+savestring = "#"+type.toString()+"#";
 for (var i = 0; i < level.length; i++) {
 for (var j = 0; j < level[i].length/2; j++) {
 if (level[i][j*2] < 10) {
@@ -221,10 +239,20 @@ setup();
 return;
 }
 if (stringcheck == 0) {
+if (Number(savestring.substring(1, 3)) < 12 || Number(savestring.substring(1, 3)) > 16 || savestring.charAt(3) != '#') {
+alert("Input code specifies invalid number of block types. Level could not be loaded.");
+layer = 1;
+level = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
+document.getElementById('layers').innerHTML=(layer+" / 30");
+document.getElementById('p6').innerHTML='This level has a total of 0 blocks.';
+setup();
+return;
+} else {
 type = Number(savestring.substring(1, 3));
 document.getElementById('typ').innerHTML=(type);
-stringcheck = 3;
+stringcheck = 4;
 continue loop2;
+}
 }
 if (savestring.charAt(stringcheck) == '|') {
 paritycheck += 1;
@@ -355,4 +383,14 @@ document.getElementById('p3').innerHTML=("Errors appear here.");
 type--;
 document.getElementById('typ').innerHTML=(type);
 }
+}
+function view() {
+viewmode = !(viewmode);
+if (viewmode) {
+document.getElementById('b10').innerHTML=('Viewing: Layer Above');
+setup();
+return;
+}
+document.getElementById('b10').innerHTML=('Viewing: Layer Below');
+setup();
 }
