@@ -82,100 +82,100 @@ function evaluate() {
         }
         if (state2[Math.floor(j/7)+2][j%7+2] == 0) {
           if (state2[Math.floor(j/7)+2-1][j%7+2+1] == 1 && state2[Math.floor(j/7)+2+1][j%7+2-1] == 0) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2][j%7+2+1] == 1 && state2[Math.floor(j/7)+2][j%7+2-1] == 0) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2+1][j%7+2+1] == 1 && state2[Math.floor(j/7)+2-1][j%7+2-1] == 0) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2] == 1 && state2[Math.floor(j/7)+2+1][j%7+2] == 0) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2+1][j%7+2-1] == 1) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2][j%7+2+1] == 0 && state2[Math.floor(j/7)+2][j%7+2-1] == 1) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2+1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2-1][j%7+2-1] == 1) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2] == 0 && state2[Math.floor(j/7)+2+1][j%7+2] == 1) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2-2][j%7+2+2] == 1) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2][j%7+2+1] == 0 && state2[Math.floor(j/7)+2][j%7+2+2] == 1) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2+1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2+2][j%7+2+2] == 1) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2] == 0 && state2[Math.floor(j/7)+2-2][j%7+2] == 1) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2+1][j%7+2-1] == 0 && state2[Math.floor(j/7)+2+2][j%7+2-2] == 1) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2][j%7+2-1] == 0 && state2[Math.floor(j/7)+2][j%7+2-2] == 1) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2-1] == 0 && state2[Math.floor(j/7)+2-2][j%7+2-2] == 1) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2+1][j%7+2] == 0 && state2[Math.floor(j/7)+2+2][j%7+2] == 1) {
-            evalnum += 0.25;
+            evalnum += 0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2+1] == -1 && state2[Math.floor(j/7)+2+1][j%7+2-1] == 0) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2][j%7+2+1] == -1 && state2[Math.floor(j/7)+2][j%7+2-1] == 0) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2+1][j%7+2+1] == -1 && state2[Math.floor(j/7)+2-1][j%7+2-1] == 0) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2] == -1 && state2[Math.floor(j/7)+2+1][j%7+2] == 0) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2+1][j%7+2-1] == -1) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2][j%7+2+1] == 0 && state2[Math.floor(j/7)+2][j%7+2-1] == -1) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2+1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2-1][j%7+2-1] == -1) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2] == 0 && state2[Math.floor(j/7)+2+1][j%7+2] == -1) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2-2][j%7+2+2] == -1) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2][j%7+2+1] == 0 && state2[Math.floor(j/7)+2][j%7+2+2] == -1) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2+1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2+2][j%7+2+2] == -1) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2] == 0 && state2[Math.floor(j/7)+2-2][j%7+2] == -1) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2+1][j%7+2-1] == 0 && state2[Math.floor(j/7)+2+2][j%7+2-2] == -1) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2][j%7+2-1] == 0 && state2[Math.floor(j/7)+2][j%7+2-2] == -1) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2-1][j%7+2-1] == 0 && state2[Math.floor(j/7)+2-2][j%7+2-2] == -1) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
           if (state2[Math.floor(j/7)+2+1][j%7+2] == 0 && state2[Math.floor(j/7)+2+2][j%7+2] == -1) {
-            evalnum += -0.25;
+            evalnum += -0.125;
           }
         }
       }
