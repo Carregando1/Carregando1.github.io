@@ -7,7 +7,7 @@ function f(a) {
   document.getElementById('turn').innerHTML="T7Fish thinking";
   moves.push(a);
   display();
-  evaluate();
+  search();
 }
 function resetstate() {
   state = [[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,2,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2]];
@@ -43,7 +43,7 @@ var scorea;
 var scoreb;
 var state2 = [[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,2,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2]];
 var teststr;
-function evaluate() {
+function search() {
   minevalnum = 1000;
   for (var i = 0; i < 49; i++) {
     evalnum = 0;
@@ -51,134 +51,7 @@ function evaluate() {
     state2 = state;
     if (state2[Math.floor(i/7)+2][i%7+2] == 0) {
       state2[Math.floor(i/7)+2][i%7+2] = -1;
-      for (var j = 0; j < 49; j++) {
-        if (state2[Math.floor(j/7)+2][j%7+2] == -1) {
-          if (state2[Math.floor(j/7)+2-1][j%7+2+1] == -1 && state2[Math.floor(j/7)+2+1][j%7+2-1] == -1) {
-            evalnum -= 1;
-          }
-          if (state2[Math.floor(j/7)+2][j%7+2+1] == -1 && state2[Math.floor(j/7)+2][j%7+2-1] == -1) {
-            evalnum -= 1;
-          }
-          if (state2[Math.floor(j/7)+2+1][j%7+2+1] == -1 && state2[Math.floor(j/7)+2-1][j%7+2-1] == -1) {
-            evalnum -= 1;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2] == -1 && state2[Math.floor(j/7)+2+1][j%7+2] == -1) {
-            evalnum -= 1;
-          }
-        }
-        if (state2[Math.floor(j/7)+2][j%7+2] == 1) {
-          if (state2[Math.floor(j/7)+2-1][j%7+2+1] == 1 && state2[Math.floor(j/7)+2+1][j%7+2-1] == 1) {
-            evalnum += 1;
-          }
-          if (state2[Math.floor(j/7)+2][j%7+2+1] == 1 && state2[Math.floor(j/7)+2][j%7+2-1] == 1) {
-            evalnum += 1;
-          }
-          if (state2[Math.floor(j/7)+2+1][j%7+2+1] == 1 && state2[Math.floor(j/7)+2-1][j%7+2-1] == 1) {
-            evalnum += 1;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2] == 1 && state2[Math.floor(j/7)+2+1][j%7+2] == 1) {
-            evalnum += 1;
-          }
-        }
-        if (state2[Math.floor(j/7)+2][j%7+2] == 0) {
-          if (state2[Math.floor(j/7)+2-1][j%7+2+1] == 1 && state2[Math.floor(j/7)+2+1][j%7+2-1] == 0) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2][j%7+2+1] == 1 && state2[Math.floor(j/7)+2][j%7+2-1] == 0) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2+1][j%7+2+1] == 1 && state2[Math.floor(j/7)+2-1][j%7+2-1] == 0) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2] == 1 && state2[Math.floor(j/7)+2+1][j%7+2] == 0) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2+1][j%7+2-1] == 1) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2][j%7+2+1] == 0 && state2[Math.floor(j/7)+2][j%7+2-1] == 1) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2+1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2-1][j%7+2-1] == 1) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2] == 0 && state2[Math.floor(j/7)+2+1][j%7+2] == 1) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2-2][j%7+2+2] == 1) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2][j%7+2+1] == 0 && state2[Math.floor(j/7)+2][j%7+2+2] == 1) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2+1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2+2][j%7+2+2] == 1) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2] == 0 && state2[Math.floor(j/7)+2-2][j%7+2] == 1) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2+1][j%7+2-1] == 0 && state2[Math.floor(j/7)+2+2][j%7+2-2] == 1) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2][j%7+2-1] == 0 && state2[Math.floor(j/7)+2][j%7+2-2] == 1) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2-1] == 0 && state2[Math.floor(j/7)+2-2][j%7+2-2] == 1) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2+1][j%7+2] == 0 && state2[Math.floor(j/7)+2+2][j%7+2] == 1) {
-            evalnum += 0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2+1] == -1 && state2[Math.floor(j/7)+2+1][j%7+2-1] == 0) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2][j%7+2+1] == -1 && state2[Math.floor(j/7)+2][j%7+2-1] == 0) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2+1][j%7+2+1] == -1 && state2[Math.floor(j/7)+2-1][j%7+2-1] == 0) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2] == -1 && state2[Math.floor(j/7)+2+1][j%7+2] == 0) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2+1][j%7+2-1] == -1) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2][j%7+2+1] == 0 && state2[Math.floor(j/7)+2][j%7+2-1] == -1) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2+1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2-1][j%7+2-1] == -1) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2] == 0 && state2[Math.floor(j/7)+2+1][j%7+2] == -1) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2-2][j%7+2+2] == -1) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2][j%7+2+1] == 0 && state2[Math.floor(j/7)+2][j%7+2+2] == -1) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2+1][j%7+2+1] == 0 && state2[Math.floor(j/7)+2+2][j%7+2+2] == -1) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2] == 0 && state2[Math.floor(j/7)+2-2][j%7+2] == -1) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2+1][j%7+2-1] == 0 && state2[Math.floor(j/7)+2+2][j%7+2-2] == -1) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2][j%7+2-1] == 0 && state2[Math.floor(j/7)+2][j%7+2-2] == -1) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2-1][j%7+2-1] == 0 && state2[Math.floor(j/7)+2-2][j%7+2-2] == -1) {
-            evalnum += -0.125;
-          }
-          if (state2[Math.floor(j/7)+2+1][j%7+2] == 0 && state2[Math.floor(j/7)+2+2][j%7+2] == -1) {
-            evalnum += -0.125;
-          }
-        }
-      }
+      evalnum = evaluate(state2);
       if (minevalnum > evalnum) {
         minevalnum = evalnum;
         minevalind = i+1;
@@ -189,17 +62,218 @@ function evaluate() {
   }
   document.getElementById('eval').innerHTML=minevalnum;
   moves.push(minevalind);
+  state[Math.floor((minevalind-1)/7)+2][(minevalind-1)%7+2]=-1;
+  document.getElementById('sc').innerHTML="Red: "+evaluate3(state, 1)+" 3-in-a-rows, Blue: "+evaluate3(state, -1)+" 3-in-a-rows";
+  document.getElementById('turn').innerHTML="Your move!";
   if (moves.length == 48) {
+    document.getElementById('turn').innerHTML="Game over";
     if (minevalnum > 0) {
-    document.getElementById('eval').innerHTML="Red wins by "+minevalnum+" 3-in-a-rows";
+    document.getElementById('eval').innerHTML="Red wins by "+evaluate3(state, 1)-evaluate3(state, -1)+" 3-in-a-rows";
     } else if (minevalnum < 0) {
-      document.getElementById('eval').innerHTML="Blue wins by "+(-1 *minevalnum)+" 3-in-a-rows";
+      document.getElementById('eval').innerHTML="Blue wins by "+(evaluate3(state, -1)-evaluate3(state, 1))+" 3-in-a-rows";
     } else {
       document.getElementById('eval').innerHTML="Draw";
     }
   }
-  state[Math.floor((minevalind-1)/7)+2][(minevalind-1)%7+2]=-1;
   display();
-  document.getElementById('turn').innerHTML="Your move!";
   
+}
+var res = 0;
+function evaluate(pos) {
+  res = 0;
+  for (var j = 0; j < 49; j++) {
+    if (pos[Math.floor(j/7)+2][j%7+2] == -1) {
+      if (pos[Math.floor(j/7)+2-1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2+1][j%7+2-1] == -1) {
+        res -= 10;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2+1] == -1 && pos[Math.floor(j/7)+2][j%7+2-1] == -1) {
+        res -= 10;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2-1][j%7+2-1] == -1) {
+        res -= 10;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2] == -1 && pos[Math.floor(j/7)+2+1][j%7+2] == -1) {
+        res -= 10;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
+        res -= 4.5;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2+1] == -1 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
+        res -= 4.5;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
+        res -= 4.5;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2] == -1 && pos[Math.floor(j/7)+2+2][j%7+2] == 0) {
+        res -= 4.5;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2-1] == -1 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 0) {
+        res -= 4.5;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2-1] == -1 && pos[Math.floor(j/7)+2][j%7+2-2] == 0) {
+        res -= 4.5;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2-1] == -1 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 0) {
+        res -= 4.5;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2] == -1 && pos[Math.floor(j/7)+2-2][j%7+2] == 0) {
+        res -= 4.5;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2-2] == -1) {
+        res -= 4.5;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2-2] == -1) {
+        res -= 4.5;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2-2] == -1) {
+        res -= 4.5;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == -1) {
+        res -= 4.5;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
+        res -= 2;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2+1] == -1 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
+        res -= 2;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
+        res -= 2;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2] == 0 && pos[Math.floor(j/7)+2+2][j%7+2] == 0) {
+        res -= 2;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 0) {
+        res -= 2;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2-2] == 0) {
+        res -= 2;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 0) {
+        res -= 2;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == 0) {
+        res -= 2;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-1][j%7+2+1] == 0) {
+        res -= 2;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2+1] == 0) {
+        res -= 2;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+1][j%7+2+1] == 0) {
+        res -= 2;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2+1][j%7+2] == 0) {
+        res -= 2;
+      }
+    }
+    if (pos[Math.floor(j/7)+2][j%7+2] == 1) {
+      if (pos[Math.floor(j/7)+2-1][j%7+2+1] == 1 && pos[Math.floor(j/7)+2+1][j%7+2-1] == 1) {
+        res += 10;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2+1] == 1 && pos[Math.floor(j/7)+2][j%7+2-1] == 1) {
+        res += 10;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 1 && pos[Math.floor(j/7)+2-1][j%7+2-1] == 1) {
+        res += 10;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2] == 1 && pos[Math.floor(j/7)+2+1][j%7+2] == 1) {
+        res += 10;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2+1] == 1 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
+        res += 4.5;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2+1] == 1 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
+        res += 4.5;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 1 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
+        res += 4.5;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2] == 1 && pos[Math.floor(j/7)+2+2][j%7+2] == 0) {
+        res += 4.5;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 1 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 0) {
+        res += 4.5;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2-1] == 1 && pos[Math.floor(j/7)+2][j%7+2-2] == 0) {
+        res += 4.5;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 1 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 0) {
+        res += 4.5;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2] == 1 && pos[Math.floor(j/7)+2-2][j%7+2] == 0) {
+        res += 4.5;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 1) {
+        res += 4.5;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2-2] == 1) {
+        res += 4.5;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 1) {
+        res += 4.5;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == 1) {
+        res += 4.5;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
+        res += 2;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2+1] == -1 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
+        res += 2;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
+        res += 2;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2] == 0 && pos[Math.floor(j/7)+2+2][j%7+2] == 0) {
+        res += 2;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 0) {
+        res += 2;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2-2] == 0) {
+        res += 2;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 0) {
+        res += 2;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == 0) {
+        res += 2;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-1][j%7+2+1] == 0) {
+        res += 2;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2+1] == 0) {
+        res += 2;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+1][j%7+2+1] == 0) {
+        res += 2;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2+1][j%7+2] == 0) {
+        res += 2;
+      }
+    } 
+  }
+  return res/20;
+}
+function evaluate3(pos,num) {
+  res = 0;
+  for (var j = 0; j < 49; j++) {
+    if (pos[Math.floor(j/7)+2][j%7+2] == num) {
+      if (pos[Math.floor(j/7)+2-1][j%7+2+1] == num && pos[Math.floor(j/7)+2+1][j%7+2-1] == num) {
+        res += 1;
+      }
+      if (pos[Math.floor(j/7)+2][j%7+2+1] == num && pos[Math.floor(j/7)+2][j%7+2-1] == num) {
+        res += 1;
+      }
+      if (pos[Math.floor(j/7)+2+1][j%7+2+1] == num && pos[Math.floor(j/7)+2-1][j%7+2-1] == num) {
+        res += 1;
+      }
+      if (pos[Math.floor(j/7)+2-1][j%7+2] == num && pos[Math.floor(j/7)+2+1][j%7+2] == num) {
+        res += 1;
+      }
+    }
+  }
+  return res;
 }
