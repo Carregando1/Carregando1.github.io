@@ -1,13 +1,26 @@
 var state = [[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,2,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2]];
 var moves = [];
+var botmode = 1;
 var evalmatrix = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]];
 var displaystr = "";
 var statetemp;
+function db() {
+  botmode = 0;
+  document.getElementById('t7').innerHTML='T7 Player vs Player';
+}
 function f(a) {
-  document.getElementById('turn').innerHTML="T7Fish thinking";
+  if (botmode == 1) {
+    document.getElementById('turn').innerHTML="T7Fish thinking";
+  } else if (botmode == 0 && moves.length%2 == 0) {
+    document.getElementById('turn').innerHTML="Blue's turn";
+  } else {
+    document.getElementById('turn').innerHTML="Red's turn";
+  }
   moves.push(a);
   display();
-  search();
+  if (botmode == 1) {
+    search();
+  }
 }
 function resetstate() {
   state = [[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,2,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2]];
@@ -21,6 +34,19 @@ function resetstate() {
 }
 function display() {
   resetstate();
+  if (botmode == 0) {
+    document.getElementById('sc').innerHTML="Red: "+evaluate3(state, 1)+" 3-in-a-rows, Blue: "+evaluate3(state, -1)+" 3-in-a-rows";
+  if (moves.length == 48) {
+    document.getElementById('turn').innerHTML="Game over";
+    if (evaluate3(state, 1)-evaluate3(state, -1) > 0) {
+      document.getElementById('eval').innerHTML="Red wins by "+(evaluate3(state, 1)-evaluate3(state, -1))+" 3-in-a-rows";
+    } else if (evaluate3(state, 1)-evaluate3(state, -1) < 0) {
+      document.getElementById('eval').innerHTML="Blue wins by "+(evaluate3(state, -1)-evaluate3(state, 1))+" 3-in-a-rows";
+    } else {
+      document.getElementById('eval').innerHTML="Blue wins by draw rule";
+    }
+  }
+  }
   for (var i = 0; i < 49; i++) {
     if (state[Math.floor(i/7)+2][i%7+2] == 2) {
       displaystr = "gray";
@@ -68,11 +94,11 @@ function search() {
   if (moves.length == 48) {
     document.getElementById('turn').innerHTML="Game over";
     if (minevalnum > 0) {
-    document.getElementById('eval').innerHTML="Red wins by "+evaluate3(state, 1)-evaluate3(state, -1)+" 3-in-a-rows";
+    document.getElementById('eval').innerHTML="Red wins by "+(evaluate3(state, 1)-evaluate3(state, -1))+" 3-in-a-rows";
     } else if (minevalnum < 0) {
       document.getElementById('eval').innerHTML="Blue wins by "+(evaluate3(state, -1)-evaluate3(state, 1))+" 3-in-a-rows";
     } else {
-      document.getElementById('eval').innerHTML="Draw";
+      document.getElementById('eval').innerHTML="Blue wins by draw rule";
     }
   }
   display();
@@ -131,10 +157,10 @@ function evaluate(pos) {
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == -1) {
         res -= 4.5;
       }
-      if (pos[Math.floor(j/7)+2-1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
+      if (pos[Math.floor(j/7)+2-1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
         res -= 2;
       }
-      if (pos[Math.floor(j/7)+2][j%7+2+1] == -1 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
+      if (pos[Math.floor(j/7)+2][j%7+2+1] == 0 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
         res -= 2;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
@@ -217,10 +243,10 @@ function evaluate(pos) {
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == 1) {
         res += 4.5;
       }
-      if (pos[Math.floor(j/7)+2-1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
+      if (pos[Math.floor(j/7)+2-1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
         res += 2;
       }
-      if (pos[Math.floor(j/7)+2][j%7+2+1] == -1 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
+      if (pos[Math.floor(j/7)+2][j%7+2+1] == 0 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
         res += 2;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
@@ -255,7 +281,7 @@ function evaluate(pos) {
       }
     } 
   }
-  return res/20;
+  return Math.round(res/2)/10;
 }
 function evaluate3(pos,num) {
   res = 0;
