@@ -1,12 +1,46 @@
-var state = [[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,2,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2]];
+var state = [[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,2,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2]];
 var moves = [];
 var botmode = 1;
 var evalmatrix = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]];
 var displaystr = "";
 var statetemp;
+var evalm = 0;
 function db() {
   botmode = 0;
   document.getElementById('t7').innerHTML='T7 Player vs Player';
+}
+function evalmode() {
+  evalm = 1;
+    for (var i = 0; i < 49; i++) {
+      document.getElementsByClassName("top")[i].style.color="black";
+    }
+    for (var k = 0; k < 49; k++) {
+      minevalnum = 1000;
+      resetstate();
+      state2 = state;
+      if (state2[Math.floor(k/7)+2][k%7+2] == 0) {
+        for (var i = 0; i < 49; i++) {
+          evalnum = 0;
+          if (state2[Math.floor(i/7)+2][i%7+2] == 0) {
+            resetstate();
+            state2 = state;
+            state2[Math.floor(k/7)+2][k%7+2] = 1;
+            state2[Math.floor(i/7)+2][i%7+2] = -1;
+            evalnum = evaluate(state2);
+            if (minevalnum > evalnum) {
+              minevalnum = evalnum;
+            }
+          } else {
+          continue;
+          }
+        }
+        document.getElementsByClassName('top')[k].innerHTML=minevalnum;
+      } else {
+        document.getElementsByClassName('top')[k].innerHTML="C";
+        document.getElementsByClassName('top')[k].style.color="gray";
+        continue;
+      }
+    }
 }
 function f(a) {
   if (botmode == 1) {
@@ -23,7 +57,7 @@ function f(a) {
   }
 }
 function resetstate() {
-  state = [[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,2,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2]];
+  state = [[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,0,2,2],[2,2,0,0,0,0,0,0,2,2,2],[2,2,2,2,2,2,2,2,2,2,2],[2,2,2,2,2,2,2,2,2,2,2]];
   for (var i = 0; i < moves.length; i++) {
     if (i%2 == 0) {
       state[Math.floor((moves[i]-1)/7)+2][(moves[i]-1)%7+2]=1;
@@ -102,7 +136,38 @@ function search() {
     }
   }
   display();
-  
+  if (evalm) {
+    for (var i = 0; i < 49; i++) {
+      document.getElementsByClassName("top")[i].style.color="black";
+    }
+    for (var k = 0; k < 49; k++) {
+      minevalnum = 1000;
+      resetstate();
+      state2 = state;
+      if (state2[Math.floor(k/7)+2][k%7+2] == 0) {
+        for (var i = 0; i < 49; i++) {
+          evalnum = 0;
+          if (state2[Math.floor(i/7)+2][i%7+2] == 0) {
+            resetstate();
+            state2 = state;
+            state2[Math.floor(k/7)+2][k%7+2] = 1;
+            state2[Math.floor(i/7)+2][i%7+2] = -1;
+            evalnum = evaluate(state2);
+            if (minevalnum > evalnum) {
+              minevalnum = evalnum;
+            }
+          } else {
+          continue;
+          }
+        }
+        document.getElementsByClassName('top')[k].innerHTML=minevalnum;
+      } else {
+        document.getElementsByClassName('top')[k].innerHTML="C";
+        document.getElementsByClassName('top')[k].style.color="gray";
+        continue;
+      }
+    }
+  }
 }
 var res = 0;
 function evaluate(pos) {
