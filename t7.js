@@ -175,178 +175,178 @@ function evaluate(pos) {
   for (var j = 0; j < 49; j++) {
     if (pos[Math.floor(j/7)+2][j%7+2] == -1) {
       if (pos[Math.floor(j/7)+2-1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2+1][j%7+2-1] == -1) {
-        res -= 10;
+        res -= 1;
       }
       if (pos[Math.floor(j/7)+2][j%7+2+1] == -1 && pos[Math.floor(j/7)+2][j%7+2-1] == -1) {
-        res -= 10;
+        res -= 1;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2-1][j%7+2-1] == -1) {
-        res -= 10;
+        res -= 1;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == -1 && pos[Math.floor(j/7)+2+1][j%7+2] == -1) {
-        res -= 10;
+        res -= 1;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2][j%7+2+1] == -1 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2] == -1 && pos[Math.floor(j/7)+2+2][j%7+2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == -1 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == -1 && pos[Math.floor(j/7)+2][j%7+2-2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == -1 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == -1 && pos[Math.floor(j/7)+2-2][j%7+2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2-2] == -1) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2-2] == -1) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2-2] == -1) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == -1) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2][j%7+2+1] == 0 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2] == 0 && pos[Math.floor(j/7)+2+2][j%7+2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2-2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-1][j%7+2+1] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2+1] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+1][j%7+2+1] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2+1][j%7+2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
     }
     if (pos[Math.floor(j/7)+2][j%7+2] == 1) {
       if (pos[Math.floor(j/7)+2-1][j%7+2+1] == 1 && pos[Math.floor(j/7)+2+1][j%7+2-1] == 1) {
-        res += 10;
+        res += 1;
       }
       if (pos[Math.floor(j/7)+2][j%7+2+1] == 1 && pos[Math.floor(j/7)+2][j%7+2-1] == 1) {
-        res += 10;
+        res += 1;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 1 && pos[Math.floor(j/7)+2-1][j%7+2-1] == 1) {
-        res += 10;
+        res += 1;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 1 && pos[Math.floor(j/7)+2+1][j%7+2] == 1) {
-        res += 10;
+        res += 1;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2+1] == 1 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2][j%7+2+1] == 1 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 1 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2] == 1 && pos[Math.floor(j/7)+2+2][j%7+2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 1 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 1 && pos[Math.floor(j/7)+2][j%7+2-2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 1 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 1 && pos[Math.floor(j/7)+2-2][j%7+2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 1) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2-2] == 1) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 1) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == 1) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2][j%7+2+1] == 0 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2] == 0 && pos[Math.floor(j/7)+2+2][j%7+2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2-2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-1][j%7+2+1] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2+1] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+1][j%7+2+1] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2+1][j%7+2] == 0) {
-        res += 2;
+        res += 0.25;
       }
     } 
   }
-  return Math.round(res/2)/10;
+  return Math.round(res*10)/10;
 }
 function evaluate3(pos,num) {
   res = 0;
