@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><head><title>Anti-T7</title><link href="t7anti.css" rel="stylesheet" type="text/css" /><script src="t7anti.js"></script></head><body onload=display()>
+  <p id='t7' onclick=db()>Anti-T7Fish Depth 1, click on this text to disable T7Fish</p><p>Click on a square to make it become your color. The bottom right square can not be clicked.</p><p>Make more 3-in-a-rows (horizontal, vertical, or diagonal) than your bot opponent to win! If you make the same amount of 3-in-a-rows, though, you lose.</p><br>
+  <button class='top' id='' onclick=f(1)>1</button><button class='top' id='' onclick=f(2)>1</button><button class='top' id='' onclick=f(3)>1</button><button class='top' id='' onclick=f(4)>1</button><button class='top' id='' onclick=f(5)>1</button><button class='top' id='' onclick=f(6)>1</button><button class='top' id='' onclick=f(7)>1</button>
+  <br>
+  <button class='top' id='' onclick=f(8)>1</button><button class='top' id='' onclick=f(9)>1</button><button class='top' id='' onclick=f(10)>1</button><button class='top' id='' onclick=f(11)>1</button><button class='top' id='' onclick=f(12)>1</button><button class='top' id='' onclick=f(13)>1</button><button class='top' id='' onclick=f(14)>1</button>
+  <br>
+  <button class='top' id='' onclick=f(15)>1</button><button class='top' id='' onclick=f(16)>1</button><button class='top' id='' onclick=f(17)>1</button><button class='top' id='' onclick=f(18)>1</button><button class='top' id='' onclick=f(19)>1</button><button class='top' id='' onclick=f(20)>1</button><button class='top' id='' onclick=f(21)>1</button>
+  <br>
+  <button class='top' id='' onclick=f(22)>1</button><button class='top' id='' onclick=f(23)>1</button><button class='top' id='' onclick=f(24)>1</button><button class='top' id='' onclick=f(25)>1</button><button class='top' id='' onclick=f(26)>1</button><button class='top' id='' onclick=f(27)>1</button><button class='top' id='' onclick=f(28)>1</button>
+  <br>
+  <button class='top' id='' onclick=f(29)>1</button><button class='top' id='' onclick=f(30)>1</button><button class='top' id='' onclick=f(31)>1</button><button class='top' id='' onclick=f(32)>1</button><button class='top' id='' onclick=f(33)>1</button><button class='top' id='' onclick=f(34)>1</button><button class='top' id='' onclick=f(35)>1</button>
+  <br>
+  <button class='top' id='' onclick=f(36)>1</button><button class='top' id='' onclick=f(37)>1</button><button class='top' id='' onclick=f(38)>1</button><button class='top' id='' onclick=f(39)>1</button><button class='top' id='' onclick=f(40)>1</button><button class='top' id='' onclick=f(41)>1</button><button class='top' id='' onclick=f(42)>1</button>
+  <br>
+  <button class='top' id='' onclick=f(43)>1</button><button class='top' id='' onclick=f(44)>1</button><button class='top' id='' onclick=f(45)>1</button><button class='top' id='' onclick=f(46)>1</button><button class='top' id='' onclick=f(47)>1</button><button class='top' id='' onclick=f(48)>1</button><button class='top' id='' onclick=f(49)>1</button>
+  <br>
+  <p id='turn'>Your turn!</p>
+  <p id='sc'>Red: 0 3-in-a-rows, Blue: 0 3-in-a-rows</p>
+  <p>Evaluation: <span id='eval' onclick=evalmode()>eval</span></p>
+  </body></html>
