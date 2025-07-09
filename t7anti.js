@@ -106,11 +106,11 @@ function display() {
   if (moves.length == 48) {
     document.getElementById('turn').innerHTML="Game over";
     if (evaluate3(state, 1)-evaluate3(state, -1) < 0) {
-      document.getElementById('eval').innerHTML="Red wins by "+(evaluate3(state, 1)-evaluate3(state, -1))+" 3-in-a-rows";
+      document.getElementById('eval').innerHTML="Red wins by "+(evaluate3(state, -1)-evaluate3(state, 1))+" 3-in-a-rows";
     } else if (evaluate3(state, 1)-evaluate3(state, -1) > 0) {
-      document.getElementById('eval').innerHTML="Blue wins by "+(evaluate3(state, -1)-evaluate3(state, 1))+" 3-in-a-rows";
+      document.getElementById('eval').innerHTML="Blue wins by "+(evaluate3(state, 1)-evaluate3(state, -1))+" 3-in-a-rows";
     } else {
-      document.getElementById('eval').innerHTML="Blue wins by draw rule";
+      document.getElementById('eval').innerHTML="Red wins by draw rule";
     }
   }
   }
@@ -160,9 +160,9 @@ function search() {
   document.getElementById('turn').innerHTML="Your move!";
   if (moves.length == 48) {
     document.getElementById('turn').innerHTML="Game over";
-    if (minevalnum > 0) {
+    if (minevalnum < 0) {
     document.getElementById('eval').innerHTML="Blue wins by "+(evaluate3(state, 1)-evaluate3(state, -1))+" 3-in-a-rows";
-    } else if (minevalnum < 0) {
+    } else if (minevalnum > 0) {
       document.getElementById('eval').innerHTML="Red wins by "+(evaluate3(state, -1)-evaluate3(state, 1))+" 3-in-a-rows";
     } else {
       document.getElementById('eval').innerHTML="Red wins by draw rule";
