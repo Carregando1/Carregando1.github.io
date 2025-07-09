@@ -105,9 +105,9 @@ function display() {
     document.getElementById('sc').innerHTML="Red: "+evaluate3(state, 1)+" 3-in-a-rows, Blue: "+evaluate3(state, -1)+" 3-in-a-rows";
   if (moves.length == 48) {
     document.getElementById('turn').innerHTML="Game over";
-    if (evaluate3(state, 1)-evaluate3(state, -1) > 0) {
+    if (evaluate3(state, 1)-evaluate3(state, -1) < 0) {
       document.getElementById('eval').innerHTML="Red wins by "+(evaluate3(state, 1)-evaluate3(state, -1))+" 3-in-a-rows";
-    } else if (evaluate3(state, 1)-evaluate3(state, -1) < 0) {
+    } else if (evaluate3(state, 1)-evaluate3(state, -1) > 0) {
       document.getElementById('eval').innerHTML="Blue wins by "+(evaluate3(state, -1)-evaluate3(state, 1))+" 3-in-a-rows";
     } else {
       document.getElementById('eval').innerHTML="Blue wins by draw rule";
