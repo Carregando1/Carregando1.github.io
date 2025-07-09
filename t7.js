@@ -54,6 +54,39 @@ function f(a) {
   display();
   if (botmode == 1) {
     search();
+  } else {
+    if (evalm) {
+    for (var i = 0; i < 49; i++) {
+      document.getElementsByClassName("top")[i].style.color="black";
+    }
+    for (var k = 0; k < 49; k++) {
+      minevalnum = 1000;
+      resetstate();
+      state2 = state;
+      if (state2[Math.floor(k/7)+2][k%7+2] == 0) {
+        for (var i = 0; i < 49; i++) {
+          evalnum = 0;
+          if (state2[Math.floor(i/7)+2][i%7+2] == 0) {
+            resetstate();
+            state2 = state;
+            state2[Math.floor(k/7)+2][k%7+2] = 1;
+            state2[Math.floor(i/7)+2][i%7+2] = -1;
+            evalnum = evaluate(state2);
+            if (minevalnum > evalnum) {
+              minevalnum = evalnum;
+            }
+          } else {
+          continue;
+          }
+        }
+        document.getElementsByClassName('top')[k].innerHTML=minevalnum;
+      } else {
+        document.getElementsByClassName('top')[k].innerHTML="C";
+        document.getElementsByClassName('top')[k].style.color="gray";
+        continue;
+      }
+    }
+  }
   }
 }
 function resetstate() {
@@ -175,178 +208,178 @@ function evaluate(pos) {
   for (var j = 0; j < 49; j++) {
     if (pos[Math.floor(j/7)+2][j%7+2] == -1) {
       if (pos[Math.floor(j/7)+2-1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2+1][j%7+2-1] == -1) {
-        res -= 10;
+        res -= 1;
       }
       if (pos[Math.floor(j/7)+2][j%7+2+1] == -1 && pos[Math.floor(j/7)+2][j%7+2-1] == -1) {
-        res -= 10;
+        res -= 1;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2-1][j%7+2-1] == -1) {
-        res -= 10;
+        res -= 1;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == -1 && pos[Math.floor(j/7)+2+1][j%7+2] == -1) {
-        res -= 10
+        res -= 1;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2][j%7+2+1] == -1 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == -1 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2] == -1 && pos[Math.floor(j/7)+2+2][j%7+2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == -1 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == -1 && pos[Math.floor(j/7)+2][j%7+2-2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == -1 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == -1 && pos[Math.floor(j/7)+2-2][j%7+2] == 0) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2-2] == -1) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2-2] == -1) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2-2] == -1) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == -1) {
-        res -= 4.5;
+        res -= 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2][j%7+2+1] == 0 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2] == 0 && pos[Math.floor(j/7)+2+2][j%7+2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2-2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-1][j%7+2+1] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2+1] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+1][j%7+2+1] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2+1][j%7+2] == 0) {
-        res -= 2;
+        res -= 0.25;
       }
     }
     if (pos[Math.floor(j/7)+2][j%7+2] == 1) {
       if (pos[Math.floor(j/7)+2-1][j%7+2+1] == 1 && pos[Math.floor(j/7)+2+1][j%7+2-1] == 1) {
-        res += 10;
+        res += 1;
       }
       if (pos[Math.floor(j/7)+2][j%7+2+1] == 1 && pos[Math.floor(j/7)+2][j%7+2-1] == 1) {
-        res += 10;
+        res += 1;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 1 && pos[Math.floor(j/7)+2-1][j%7+2-1] == 1) {
-        res += 10;
+        res += 1;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 1 && pos[Math.floor(j/7)+2+1][j%7+2] == 1) {
-        res += 10;
+        res += 1;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2+1] == 1 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2][j%7+2+1] == 1 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 1 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2] == 1 && pos[Math.floor(j/7)+2+2][j%7+2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 1 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 1 && pos[Math.floor(j/7)+2][j%7+2-2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 1 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 1 && pos[Math.floor(j/7)+2-2][j%7+2] == 0) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 1) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2-2] == 1) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 1) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == 1) {
-        res += 4.5;
+        res += 0.6;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2+2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2][j%7+2+1] == 0 && pos[Math.floor(j/7)+2][j%7+2+2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2+1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2+2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2] == 0 && pos[Math.floor(j/7)+2+2][j%7+2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+2][j%7+2-2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2-2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-2][j%7+2-2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2-2][j%7+2] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2+1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2-1][j%7+2+1] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2][j%7+2-1] == 0 && pos[Math.floor(j/7)+2][j%7+2+1] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2-1] == 0 && pos[Math.floor(j/7)+2+1][j%7+2+1] == 0) {
-        res += 2;
+        res += 0.25;
       }
       if (pos[Math.floor(j/7)+2-1][j%7+2] == 0 && pos[Math.floor(j/7)+2+1][j%7+2] == 0) {
-        res += 2;
+        res += 0.25;
       }
     } 
   }
-  return Math.round(res/2)/10;
+  return Math.round(res*10)/10;
 }
 function evaluate3(pos,num) {
   res = 0;
