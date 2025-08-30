@@ -1,0 +1,69 @@
+html {
+  font-family: sans-serif;
+}
+.g2,.g3 {
+  height: 50px;
+  border: 2px solid rgb(150,150,150);
+  float: left;
+  margin: 0px 25px 0px 25px;
+}
+.g1,.g4 {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgb(0,0,200);
+  float: left;
+  margin: 0px 25px 0px 25px;
+}
+.g2 {
+  width: 75px;
+}
+.g3 {
+  width: 100px;
+}
+.g4 {
+  width: 125px;
+}
+.g1div, .g2div, .g3div, .g4div {
+  height: 60px;
+  width: 425px;
+  text-align: center;
+  line-height: 50px;
+  color: white;
+  font-size: 32px;
+}
+.g2div {
+  padding: 0px 12.5px;
+}
+.g3div {
+  padding: 0px 50px;
+}
+.g4div {
+  padding: 0px 112.5px;
+}
+#e1, #e2, #e5 {
+  background-color: rgb(0,175,0);
+}
+#e7, #e9, #e10 {
+  background-color: rgb(200,200,0);
+}
+#e3,#e4,#e6,#e8 {
+  background-color: rgb(150,150,150);
+}
+#guess1, #guess2, #guess3, #guess4,#guess5, #guess6 {
+  float: left;
+  width: 425px;
+  height: 250px;
+  border: 1px solid rgb(150,150,150);
+  padding-top: 12.5px;
+}
+#main {
+  width: 1300px;
+  margin: auto;
+}
+#tutorial {
+  position: absolute;
+  top: 800px;
+}
+#title, #warning {
+  text-align: center;
+}
