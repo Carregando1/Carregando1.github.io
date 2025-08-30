@@ -4,15 +4,29 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Factordle V1</title>
-  <link href="factordle.css" rel="stylesheet" type="text/css" />
+  <title>Factordle</title>
+  <link href="p1.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body id='all' onload=onload()>
   <div id='header'>
   <p id='title'>Factordle by Carregando1</p>
   </div>
-  <p id='warning'></p>
+  <p id='warning'>&nbsp;</p>
+  <div id='keys'>
+    <button class='key' id='bs' onclick=d(-1)>Backspace</button>
+    <button class='key' onclick=d(1)>1</button>
+    <button class='key' onclick=d(2)>2</button>
+    <button class='key' onclick=d(3)>3</button>
+    <button class='key' onclick=d(4)>4</button>
+    <button class='key' onclick=d(5)>5</button>
+    <button class='key' onclick=d(6)>6</button>
+    <button class='key' onclick=d(7)>7</button>
+    <button class='key' onclick=d(8)>8</button>
+    <button class='key' onclick=d(9)>9</button>
+    <button class='key' onclick=d(0)>0</button>
+    <button class='key' id='ent' onclick=d(10)>Enter</button>
+  </div>
   <div id='main'>
     <div id='row1'>
     <div id='guess1'>
@@ -59,11 +73,11 @@
         <div class='g4' id='m30'></div>
       </div>
     </div>
-    </div><div id='row2'>
+      
     <div id='guess4'>
       <div class='g1div'>
         <div class='g1' id='m31'></div><div class='g1' id='m32'></div><div class='g1' id='m33'></div><div class='g1' id='m34'></div>
-      </div>
+        </div>
       <div class='g2div'>
         <div class='g2' id='m35'></div><div class='g2' id='m36'></div><div class='g2' id='m37'></div>
       </div>
@@ -74,6 +88,7 @@
         <div class='g4' id='m40'></div>
       </div>
     </div>
+    </div><div id='row2'>
     
     <div id='guess5'>
       <div class='g1div'>
@@ -104,11 +119,40 @@
         <div class='g4' id='m60'></div>
       </div>
     </div>
+      <div id='guess7'>
+        <div class='g1div'>
+          <div class='g1' id='m61'></div><div class='g1' id='m62'></div><div class='g1' id='m63'></div><div class='g1' id='m64'></div>
+        </div>
+        <div class='g2div'>
+          <div class='g2' id='m65'></div><div class='g2' id='m66'></div><div class='g2' id='m67'></div>
+        </div>
+        <div class='g3div'>
+          <div class='g3' id='m68'></div><div class='g3' id='m69'></div>
+        </div>
+        <div class='g4div'>
+          <div class='g4' id='m70'></div>
+        </div>
+      </div>
+
+      <div id='guess8'>
+        <div class='g1div'>
+          <div class='g1' id='m71'></div><div class='g1' id='m72'></div><div class='g1' id='m73'></div><div class='g1' id='m74'></div>
+        </div>
+        <div class='g2div'>
+          <div class='g2' id='m75'></div><div class='g2' id='m76'></div><div class='g2' id='m77'></div>
+        </div>
+        <div class='g3div'>
+          <div class='g3' id='m78'></div><div class='g3' id='m79'></div>
+        </div>
+        <div class='g4div'>
+          <div class='g4' id='m80'></div>
+        </div>
+      </div>
     </div>
   </div>
   <div id='tutorial'>
     <p id='ttitle'>How To Play Factordle</p>
-    <p id='tp1'>Factordle is a math-based number game where you need to guess a target number between 1000 and 9999 within 6 tries.</p>
+    <p id='tp1'>Factordle is a math-based number game where you need to guess a target number between 1000 and 9999 within 8 tries.</p>
     <p id='tp2'>Each guess gives you information on the factors of the target number. An example guess is shown below, where the boxes in a blue border indicate the guess, 1250.</p>
     <hr>
     <div id='example'>
@@ -134,7 +178,7 @@
   </div>
 
   
-  <script src="factordle.js"></script>
+  <script src="p1.js"></script>
 
 </body>
 
