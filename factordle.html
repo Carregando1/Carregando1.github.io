@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Factordle</title>
+  <link href="factordle.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body id='all' onload=onload()>
+  <div id='header'>
+  <p id='title'>Factordle by Carregando1</p>
+  </div>
+  <p id='warning'></p>
+  <div id='main'>
+    <div id='row1'>
+    <div id='guess1'>
+      <div class='g1div'>
+        <div class='g1' id='m1'></div><div class='g1' id='m2'></div><div class='g1' id='m3'></div><div class='g1' id='m4'></div>
+      </div>
+      <div class='g2div'>
+        <div class='g2' id='m5'></div><div class='g2' id='m6'></div><div class='g2' id='m7'></div>
+      </div>
+      <div class='g3div'>
+        <div class='g3' id='m8'></div><div class='g3' id='m9'></div>
+      </div>
+      <div class='g4div'>
+        <div class='g4' id='m10'></div>
+      </div>
+    </div>
+    
+    <div id='guess2'>
+      <div class='g1div'>
+        <div class='g1' id='m11'></div><div class='g1' id='m12'></div><div class='g1' id='m13'></div><div class='g1' id='m14'></div>
+      </div>
+      <div class='g2div'>
+        <div class='g2' id='m15'></div><div class='g2' id='m16'></div><div class='g2' id='m17'></div>
+      </div>
+      <div class='g3div'>
+        <div class='g3' id='m18'></div><div class='g3' id='m19'></div>
+      </div>
+      <div class='g4div'>
+        <div class='g4' id='m20'></div>
+      </div>
+    </div>
+    
+    <div id='guess3'>
+      <div class='g1div'>
+        <div class='g1' id='m21'></div><div class='g1' id='m22'></div><div class='g1' id='m23'></div><div class='g1' id='m24'></div>
+      </div>
+      <div class='g2div'>
+        <div class='g2' id='m25'></div><div class='g2' id='m26'></div><div class='g2' id='m27'></div>
+      </div>
+      <div class='g3div'>
+        <div class='g3' id='m28'></div><div class='g3' id='m29'></div>
+      </div>
+      <div class='g4div'>
+        <div class='g4' id='m30'></div>
+      </div>
+    </div>
+    </div><div id='row2'>
+    <div id='guess4'>
+      <div class='g1div'>
+        <div class='g1' id='m31'></div><div class='g1' id='m32'></div><div class='g1' id='m33'></div><div class='g1' id='m34'></div>
+      </div>
+      <div class='g2div'>
+        <div class='g2' id='m35'></div><div class='g2' id='m36'></div><div class='g2' id='m37'></div>
+      </div>
+      <div class='g3div'>
+        <div class='g3' id='m38'></div><div class='g3' id='m39'></div>
+      </div>
+      <div class='g4div'>
+        <div class='g4' id='m40'></div>
+      </div>
+    </div>
+    
+    <div id='guess5'>
+      <div class='g1div'>
+        <div class='g1' id='m41'></div><div class='g1' id='m42'></div><div class='g1' id='m43'></div><div class='g1' id='m44'></div>
+      </div>
+      <div class='g2div'>
+        <div class='g2' id='m45'></div><div class='g2' id='m46'></div><div class='g2' id='m47'></div>
+      </div>
+      <div class='g3div'>
+        <div class='g3' id='m48'></div><div class='g3' id='m49'></div>
+      </div>
+      <div class='g4div'>
+        <div class='g4' id='m50'></div>
+      </div>
+    </div>
+    
+    <div id='guess6'>
+      <div class='g1div'>
+        <div class='g1' id='m51'></div><div class='g1' id='m52'></div><div class='g1' id='m53'></div><div class='g1' id='m54'></div>
+      </div>
+      <div class='g2div'>
+        <div class='g2' id='m55'></div><div class='g2' id='m56'></div><div class='g2' id='m57'></div>
+      </div>
+      <div class='g3div'>
+        <div class='g3' id='m58'></div><div class='g3' id='m59'></div>
+      </div>
+      <div class='g4div'>
+        <div class='g4' id='m60'></div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div id='tutorial'>
+    <p id='ttitle'>How To Play Factordle</p>
+    <p id='tp1'>Factordle is a math-based number game where you need to guess a target number between 1000 and 9999 within 6 tries.</p>
+    <p id='tp2'>Each guess gives you information on the factors of the target number. An example guess is shown below, where the boxes in a blue border indicate the guess, 1250.</p>
+    <hr>
+    <div id='example'>
+      <div class='g1div'>
+        <div class='g1' id='e1'>1</div><div class='g1' id='e2'>2</div><div class='g1' id='e3'>5</div><div class='g1' id='e4'>0</div>
+      </div>
+      <div class='g2div'>
+        <div class='g2' id='e5'>12</div><div class='g2' id='e6'>25</div><div class='g2' id='e7'>50</div>
+      </div>
+      <div class='g3div'>
+        <div class='g3' id='e8'>125</div><div class='g3' id='e9'>250</div>
+      </div>
+      <div class='g4div'>
+        <div class='g4' id='e10'>1250</div>
+      </div>
+      <p>Both 2 and 12 are factors of the target number.</p> 
+      <p>At least 1 factor (other than 1) of 50, 250, and 1250 is a factor of the target number.</p>
+      <p>No factors (other than 1) of 5, 25, and 125 are a factor of the target number.</p>
+      <p>The number 1 will always be a factor, and the number 0 will never be a factor.</p>
+      <hr>
+      Once your guess matches the target number (when the bottom box is blue), you win.
+    </div>
+  </div>
+
+  
+  <script src="factordle.js"></script>
+
+</body>
+
+</html>
