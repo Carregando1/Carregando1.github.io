@@ -5,14 +5,14 @@ html {
   height: 50px;
   border: 2px solid rgb(150,150,150);
   float: left;
-  margin: 0px 25px 0px 25px;
+  margin: 0px 10px 0px 10px;
 }
 .g1,.g4 {
   width: 50px;
   height: 50px;
   border: 3px solid rgb(0,0,200);
   float: left;
-  margin: 0px 25px 0px 25px;
+  margin: 0px 10px 0px 10px;
 }
 .g2 {
   width: 75px;
@@ -25,20 +25,20 @@ html {
 }
 .g1div, .g2div, .g3div, .g4div {
   height: 60px;
-  width: 425px;
+  width: 312.5px;
   text-align: center;
   line-height: 50px;
   color: white;
   font-size: 32px;
 }
 .g2div {
-  padding: 0px 12.5px;
+  padding: 0px 2.5px;
 }
 .g3div {
-  padding: 0px 50px;
+  padding: 0px 25px;
 }
 .g4div {
-  padding: 0px 112.5px;
+  padding: 0px 75px;
 }
 #e1, #e2, #e5 {
   background-color: rgb(0,175,0);
@@ -49,11 +49,12 @@ html {
 #e3,#e4,#e6,#e8 {
   background-color: rgb(150,150,150);
 }
-#guess1, #guess2, #guess3, #guess4,#guess5, #guess6 {
+#guess1, #guess2, #guess3, #guess4,#guess5, #guess6, #guess7, #guess8 {
   float: left;
-  width: 425px;
+  width: 312.5px;
   height: 250px;
   border: 1px solid rgb(150,150,150);
+  padding-left: 5px;
   padding-top: 12.5px;
 }
 #main {
@@ -66,4 +67,27 @@ html {
 }
 #title, #warning {
   text-align: center;
+}
+#keys {
+  width: 1300px;
+  height: 75px;
+  margin: auto;
+  padding-left: 250.5px; 
+  top: 925px;
+}
+.key {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  border: none;
+  float: left;
+  font-size: 32px;
+  background-color: rgb(225,225,225);
+  margin: 0px 5px;
+}
+#bs {
+  width: 175px;
+}
+#ent {
+  width: 100px;
 }
