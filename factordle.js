@@ -256,20 +256,59 @@ var solutions3 = [100,102,104,105,106,108,110,111,112,114,115,116,117,118
              ,912,913,915,918,920,923,924,925,928,930,931,935,936,938
              ,940,943,944,945,946,948,949,950,952,954,957,960,961,962
              ,966,968,969,970,972,975,976,979,980,984,986,987,988,989
-             ,990,992,994,996,999]
-//3616 possible solutions
-var solution = solutions[(Math.floor(Date.now()/8640000)-203307)]
+             ,990,992,994,996,999];
+//3051 possible solutions, 3616 with solutions3
+var solution = solutions[(Math.floor(Date.now()/86400000-20331.25))%3051];
 //solutions[Math.floor(Math.random()*3051)] for randoms
 var guess = [];
 var guesses = 0;
 var complete = false;
-localStorage.setItem("seq", )
+var res;
+function convert(a) {
+  if (a == 3) {
+    return 'rgb(0,0,200)';
+  } else if (a == 2) {
+    return 'rgb(0,175,0)';
+  } else if (a == 1) {
+    return 'rgb(200,200,0)';
+  } else {
+    return 'rgb(150,150,150)';
+  }
+}
+if (localStorage.getItem("day") != (Math.floor(Date.now()/86400000-20331.25))) {
+  localStorage.setItem("day", (Math.floor(Date.now()/86400000-20331.25)));
+  localStorage.setItem("guesses", "");
+  localStorage.setItem("status", "");
+}
 document.getElementById("all").addEventListener("keyup", detect);
 function onload() {
   for (var i = 1; i <= 80; i++) {
     document.getElementById('m'+i).style.color='black';
   }
-  document.getElementById('title').innerHTML = "Factordle by Carregando1, Daily #"+(Math.floor(Date.now()/8640000)-203306);
+  for (var i = 0; i < localStorage.getItem("guesses").length/4; i++) {
+    guesses = i;
+    guess = [localStorage.getItem("guesses")[i*4],localStorage.getItem("guesses")[i*4+1],localStorage.getItem("guesses")[i*4+2],localStorage.getItem("guesses")[i*4+3]];
+    update(1);
+    update(2);
+    update(3);
+    update(4);
+    guess = [];
+  }
+  for (var i = 0; i < localStorage.getItem("status").length; i++) {
+    document.getElementById('m'+(i+1)).style.backgroundColor=convert(localStorage.getItem("status")[i]);
+    document.getElementById('m'+(i+1)).style.color='white';
+    if (localStorage.getItem("status")[i] == 3) {
+      complete = true;
+      document.getElementById('warning').innerHTML='You won in '+(guesses+1)+' guesses! Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.'
+    }
+  }
+  if (localStorage.getItem("guesses").length != 0){
+    guesses++;
+  }
+  document.getElementById('title').innerHTML = "Factordle by Carregando1, Daily #"+(Math.floor(Date.now()/86400000-20330.25));
+  if (guesses == 8) {
+    document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.";
+  }
 }
 function detect(e) {
   if (guesses < 8 && !(complete)) {
@@ -283,16 +322,16 @@ function detect(e) {
       update(-(guess.length + 1));
     }
   }
-  }
   if (e.key == "0" || e.key == "1" || e.key == "2" || e.key == "3" || e.key == "4" || e.key == "5" || e.key == "6" || e.key == "7" || e.key == "8" || e.key == "9") {
     if (guess.length <= 3) {
       guess.push(parseInt(e.key));
       update(guess.length);
     }
   }
+  }
 }
 function d(e) {
-  if (guesses < 9 && !(complete)) {
+  if (guesses < 8 && !(complete)) {
     document.getElementById('warning').innerHTML="&nbsp;";
   if (e == 10) {
     push(guess);
@@ -303,12 +342,12 @@ function d(e) {
       update(-(guess.length + 1));
     }
   }
-  }
   if (e == 0 || e == 1 || e == 2 || e == 3 || e == 4 || e == 5 || e == 6 || e == 7 || e == 8 || e == 9) {
     if (guess.length <= 3) {
       guess.push(e);
       update(guess.length);
     }
+  }
   }
 }
 function push(a) {
@@ -318,26 +357,29 @@ function push(a) {
   }
   for (i = 1; i < 11; i++) {
     document.getElementById('m'+(guesses*10+i)).innerHTML = parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML);
-    document.getElementById('m'+(guesses*10+i)).style.backgroundColor = euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML));
+    localStorage.setItem("status", localStorage.getItem("status") + euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[1]);
+    document.getElementById('m'+(guesses*10+i)).style.backgroundColor = euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[0];
     document.getElementById('m'+(guesses*10+i)).style.color = "white";
   }
   guess = [];
   guesses++;
+  localStorage.setItem("guesses", localStorage.getItem("guesses") + ((1000*a[0]+100*a[1]+10*a[2]+a[3])).toString());
   if (guesses == 8) {
-    document.getElementById('warning').innerHTML='You lost. The number was '+solution;
+    document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.";
   }
 }
+// localStorage.setItem('day', 3535);
 function euclid(a,b) {
   if (a == b) {
     complete = true;
-    document.getElementById('warning').innerHTML='You won in '+(guesses+1)+' guesses!'
-    return 'rgb(0,0,200)';
+    document.getElementById('warning').innerHTML='You won in '+(guesses+1)+' guesses!  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.'
+    return ['rgb(0,0,200)','3'];
   }
   if (a%b == 0 || b == 1) {
-    return 'rgb(0,175,0)';
+    return ['rgb(0,175,0)','2'];
   }
   if (b == 0) {
-    return 'rgb(150,150,150)';
+    return ['rgb(150,150,150)','0'];
   }
   while (a != 0 && b != 0) {
     if (a < b) {
@@ -347,9 +389,9 @@ function euclid(a,b) {
     }
   }
   if (a + b == 1) {
-    return 'rgb(150,150,150)';
+    return ['rgb(150,150,150)','0'];
   }
-  return 'rgb(200,200,0)';
+  return ['rgb(200,200,0)','1'];
 }
 function update(a) {
   if (a == 1) {
@@ -402,4 +444,38 @@ function update(a) {
     document.getElementById('m'+(guesses*10+10)).innerHTML = document.getElementById('m'+(guesses*10+10)).innerHTML.slice(0,-1);
   }
 }
-
+function convertstatus() {
+  var s = localStorage.getItem('status');
+  res = "Factordle #"+(parseInt(localStorage.getItem("day"))+1);
+  if (s.length == 80) {
+    if (s[79] != 3) {
+      res += " X/8\n";
+    } else {
+      res += " 8/8\n"
+    }
+  } else {
+    res += " "+s.length/10+"/8\n";
+  }
+  res += "https://carregando1.github.io/factordle.html\n\n";
+  for (i = 0; i < s.length / 10; i++) {
+    if (s[i*10+9] == 3) {
+      res += "🟦";
+    } else {
+      for (j = 0; j < 10; j++) {
+        if (s[i*10+j] == 2) {
+          res += "🟩";
+        } else if (s[i*10+j] == 1) {
+          res += "🟨";
+        } else if (s[i*10+j] == 0) {
+          res += "⬛";
+        }
+        if (j == 3 || j == 6 || j == 8) {
+          res += "   ";
+        }
+      }
+      res += "\n";
+    }
+  }
+  navigator.clipboard.writeText(res);
+  alert("Results copied to clipboard successfully!");
+}
