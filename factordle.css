@@ -1,5 +1,6 @@
 html {
   font-family: sans-serif;
+  font-size: 24px;
 }
 .g2,.g3 {
   height: 50px;
@@ -90,4 +91,8 @@ html {
 }
 #ent {
   width: 100px;
+}
+a {
+  color: rgb(0,150,250);
+  text-decoration: underline;
 }
