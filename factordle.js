@@ -258,15 +258,20 @@ var solutions3 = [100,102,104,105,106,108,110,111,112,114,115,116,117,118
              ,966,968,969,970,972,975,976,979,980,984,986,987,988,989
              ,990,992,994,996,999];
 //3051 possible solutions, 3616 with solutions3
-var solution = solutions[(Math.floor(Date.now()/86400000-20331.25))%3051];
+var solution = solutions[(Math.floor(Date.now()/86400000-20332.25))%3051];
 //solutions[Math.floor(Math.random()*3051)] for randoms
 var guess = [];
 var guesses = 0;
 var complete = false;
 var res;
+/*
+Reset code:
+localStorage.removeItem("solve1");
+localStorage.setItem("day", -1);
+*/
 function convert(a) {
   if (a == 3) {
-    return 'rgb(0,0,200)';
+    return 'rgb(0,100,250)';
   } else if (a == 2) {
     return 'rgb(0,175,0)';
   } else if (a == 1) {
@@ -275,10 +280,25 @@ function convert(a) {
     return 'rgb(150,150,150)';
   }
 }
-if (localStorage.getItem("day") != (Math.floor(Date.now()/86400000-20331.25))) {
-  localStorage.setItem("day", (Math.floor(Date.now()/86400000-20331.25)));
+if (localStorage.getItem("day") != (Math.floor(Date.now()/86400000-20332.25))) {
+  localStorage.setItem("day", (Math.floor(Date.now()/86400000-20332.25)));
   localStorage.setItem("guesses", "");
   localStorage.setItem("status", "");
+}
+if (localStorage.getItem("solve1")  == null) {
+  localStorage.setItem("solve1", 0);
+  localStorage.setItem("solve2", 0);
+  localStorage.setItem("solve3", 0);
+  localStorage.setItem("solve4", 0);
+  localStorage.setItem("solve5", 0);
+  localStorage.setItem("solve6", 0);
+  localStorage.setItem("solve7", 0);
+  localStorage.setItem("solve8", 0);
+  localStorage.setItem("solve9", 0);
+  localStorage.setItem("streak", 0);
+}
+if ((Math.floor(Date.now()/86400000-20332.25)) -localStorage.getItem("streakday") >= 2) {
+  localStorage.setItem("streak", 0);
 }
 document.getElementById("all").addEventListener("keyup", detect);
 function onload() {
@@ -305,7 +325,7 @@ function onload() {
   if (localStorage.getItem("guesses").length != 0){
     guesses++;
   }
-  document.getElementById('title').innerHTML = "Factordle by Carregando1, Daily #"+(Math.floor(Date.now()/86400000-20330.25));
+  document.getElementById('title').innerHTML = "Factordle #"+(Math.floor(Date.now()/86400000-20331.25))+" (<a onclick=tutorial()>How To Play</a> | <a onclick=stats()>View Your Statistics</a>)";
   if (guesses == 8) {
     document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.";
   }
@@ -355,25 +375,38 @@ function push(a) {
     document.getElementById('warning').innerHTML='Guess must be 4 digits';
     return;
   }
+  if ((1000*a[0]+100*a[1]+10*a[2]+a[3]) == solution) {
+    localStorage.setItem("status", localStorage.getItem("status") + "3333333333");
+    for (i = 1; i < 11; i++) {
+    document.getElementById('m'+(guesses*10+i)).style.backgroundColor = "rgb(0,100,250)";
+    document.getElementById('m'+(guesses*10+i)).style.color = "white";
+    }
+    complete = true;
+    document.getElementById('warning').innerHTML='You won in '+(guesses+1)+' guesses!  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.'
+    localStorage.setItem('solve'+((guesses+1)), parseInt(localStorage.getItem('solve'+((guesses+1)))) + 1);
+    localStorage.setItem("streakday", Math.floor(Date.now()/86400000-20332.25));
+    localStorage.setItem("streak", parseInt(localStorage.getItem("streak")) + 1);
+  } else {
   for (i = 1; i < 11; i++) {
     document.getElementById('m'+(guesses*10+i)).innerHTML = parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML);
     localStorage.setItem("status", localStorage.getItem("status") + euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[1]);
     document.getElementById('m'+(guesses*10+i)).style.backgroundColor = euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[0];
     document.getElementById('m'+(guesses*10+i)).style.color = "white";
   }
+  }
   guess = [];
   guesses++;
   localStorage.setItem("guesses", localStorage.getItem("guesses") + ((1000*a[0]+100*a[1]+10*a[2]+a[3])).toString());
   if (guesses == 8) {
     document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.";
+    localStorage.setItem('solve9', parseInt(localStorage.getItem('solve9')) + 1);
+    localStorage.setItem("streak", 0);
   }
 }
 // localStorage.setItem('day', 3535);
 function euclid(a,b) {
   if (a == b) {
-    complete = true;
-    document.getElementById('warning').innerHTML='You won in '+(guesses+1)+' guesses!  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.'
-    return ['rgb(0,0,200)','3'];
+    throw new Error("Impossible");
   }
   if (a%b == 0 || b == 1) {
     return ['rgb(0,175,0)','2'];
@@ -459,7 +492,7 @@ function convertstatus() {
   res += "https://carregando1.github.io/factordle.html\n\n";
   for (i = 0; i < s.length / 10; i++) {
     if (s[i*10+9] == 3) {
-      res += "🟦";
+      res += "🟦🟦🟦🟦   🟦🟦🟦   🟦🟦   🟦";
     } else {
       for (j = 0; j < 10; j++) {
         if (s[i*10+j] == 2) {
@@ -478,4 +511,23 @@ function convertstatus() {
   }
   navigator.clipboard.writeText(res);
   alert("Results copied to clipboard successfully!");
+}
+function tutorial() {
+  document.getElementById('tutorial').innerHTML="<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Factordle is a math-based Wordle-style game where you guess a target number between 1000 and 9999 within 8 tries.</p><p id='tp2'>Each guess gives you information on the factors of the target number. An example guess of 1250 is shown below.</p><hr><div id='example'><div class='g1div'><div class='g1' id='e1'>1</div><div class='g1' id='e2'>2</div><div class='g1' id='e3'>5</div><div class='g1' id='e4'>0</div></div><div class='g2div'><div class='g2' id='e5'>12</div><div class='g2' id='e6'>25</div><div class='g2' id='e7'>50</div></div><div class='g3div'><div class='g3' id='e8'>125</div><div class='g3' id='e9'>250</div></div><div class='g4div'><div class='g4' id='e10'>1250</div></div></div><p>Both 2 and 12 are factors of the target number.</p> <p>At least 1 factor of 50, 250, and 1250 other than 1 is also a factor of the target number.</p><p>No factors of 5, 25, and 125 other than 1 are a factor of the target number.</p><hr><p>Once your guess matches the target number, you win.</p><p>The daily Factordle resets every day at 12:00 AM MST.</p>"
+  document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+}
+function stats() {
+  var total = parseInt(localStorage.getItem('solve1')) + parseInt(localStorage.getItem('solve2')) + parseInt(localStorage.getItem('solve3')) + parseInt(localStorage.getItem('solve4')) + parseInt(localStorage.getItem('solve5')) + parseInt(localStorage.getItem('solve6')) + parseInt(localStorage.getItem('solve7')) + parseInt(localStorage.getItem('solve8')) + parseInt(localStorage.getItem('solve9'));
+  var temp = [((total-parseInt(localStorage.getItem('solve9')))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve1'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve2'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve3'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve4'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve5'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve6'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve7'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve8'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve9'))*100/total).toString().slice(0,3)];
+  for (var i = 0; i < 10; i++) {
+    if (temp[i] == 'NaN') {
+      temp[i] = "0";
+    }
+  }
+  document.getElementById('tutorial').innerHTML="<p id='ttitle'>Your Factordle Statistics (<a onclick=closetutorial()>Close Statistics Window</a>)</p><p id='tp1'>You have played <span class='px'>"+total+"</span> total Factordles, and won <span class='px'>"+temp[0]+"%</span> of them.</p><p>You currently have a <span class='px'>"+localStorage.getItem('streak')+"</span> day streak.</p><p>Breakdown of your solves by guesses used:</p><p>1/8: <span class='px'>"+localStorage.getItem('solve1')+"</span> ("+temp[1]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2/8: <span class='px'>"+localStorage.getItem('solve2')+"</span> ("+temp[2]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3/8: <span class='px'>"+localStorage.getItem('solve3')+"</span> ("+temp[3]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4/8: <span class='px'>"+localStorage.getItem('solve4')+"</span> ("+temp[4]+"%)</p><p>5/8: <span class='px'>"+localStorage.getItem('solve5')+"</span> ("+temp[5]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6/8: <span class='px'>"+localStorage.getItem('solve6')+"</span> ("+temp[6]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7/8: <span class='px'>"+localStorage.getItem('solve7')+"</span> ("+temp[7]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8/8: <span class='px'>"+localStorage.getItem('solve8')+"</span> ("+temp[8]+"%)</p><p>X/8: <span class='px'>"+localStorage.getItem('solve9')+"</span> ("+temp[9]+"%)</p>"
+  document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+}
+function closetutorial() {
+  document.getElementById('tutorial').innerHTML="";
+  document.getElementById('tutorial').style.border = "none";
 }
