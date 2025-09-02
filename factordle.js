@@ -269,6 +269,9 @@ function onload() {
     update(4);
     guess = [];
   }
+  if (guesses == 8) {
+    document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.";
+  }
   for (var i = 0; i < localStorage.getItem("status").length; i++) {
     document.getElementById('m'+(i+1)).style.backgroundColor=convert(localStorage.getItem("status")[i]);
     document.getElementById('m'+(i+1)).style.color='white';
@@ -281,9 +284,6 @@ function onload() {
     guesses++;
   }
   document.getElementById('title').innerHTML = "Factordle #"+(Math.floor(Date.now()/86400000-20331.25))+" (<a onclick=tutorial()>How To Play</a> | <a onclick=stats()>View Your Statistics</a>)";
-  if (guesses == 8) {
-    document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.";
-  }
 }
 function detect(e) {
   if (guesses < 8 && !(complete)) {
@@ -347,16 +347,16 @@ function push(a) {
     localStorage.setItem("status", localStorage.getItem("status") + euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[1]);
     document.getElementById('m'+(guesses*10+i)).style.backgroundColor = euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[0];
     document.getElementById('m'+(guesses*10+i)).style.color = "white";
+    if (guesses == 8) {
+      document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.";
+      localStorage.setItem('solve9', parseInt(localStorage.getItem('solve9')) + 1);
+      localStorage.setItem("streak", 0);
+    }
   }
   }
   guess = [];
   guesses++;
   localStorage.setItem("guesses", localStorage.getItem("guesses") + ((1000*a[0]+100*a[1]+10*a[2]+a[3])).toString());
-  if (guesses == 8) {
-    document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.";
-    localStorage.setItem('solve9', parseInt(localStorage.getItem('solve9')) + 1);
-    localStorage.setItem("streak", 0);
-  }
 }
 // localStorage.setItem('day', 3535);
 function euclid(a,b) {
