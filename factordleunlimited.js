@@ -287,7 +287,7 @@ function onload() {
     document.getElementById('m'+(i+1)).style.color='white';
     if (localStorage.getItem("statusun")[i] == 3) {
       complete = true;
-      document.getElementById('warning').innerHTML='You won in '+(guessesun+1)+' guessesun! Click <a onclick=reset()>here</a> to play again.'
+      document.getElementById('warning').innerHTML='You won in '+(guessesun+1)+' guesses! Click <a onclick=reset()>here</a> to play again.'
     }
   }
   if (localStorage.getItem("guessesun").length != 0){
@@ -358,7 +358,7 @@ function push(a) {
     document.getElementById('m'+(guessesun*10+i)).style.color = "white";
     }
     complete = true;
-    document.getElementById('warning').innerHTML='You won in '+(guessesun+1)+' guessesun!  Click <a onclick=reset()>here</a> to play again.'
+    document.getElementById('warning').innerHTML='You won in '+(guessesun+1)+' guesses!  Click <a onclick=reset()>here</a> to play again.'
     localStorage.setItem('solve'+((guessesun+1)+'un'), parseInt(localStorage.getItem('solve'+((guessesun+1)))) + 1);
   } else {
   for (i = 1; i < 11; i++) {
@@ -461,7 +461,7 @@ function stats() {
       temp[i] = "0";
     }
   }
-  document.getElementById('tutorial').innerHTML="<p id='ttitle'>Your Factordle Statistics (<a onclick=closetutorial()>Close Statistics Window</a>)</p><p id='tp1'>You have played <span class='px'>"+total+"</span> total Factordles, and won <span class='px'>"+temp[0]+"%</span> of them.</p><p>Breakdown of your solves by guessesun used:</p><p>1/8: <span class='px'>"+localStorage.getItem('solve1un')+"</span> ("+temp[1]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2/8: <span class='px'>"+localStorage.getItem('solve2un')+"</span> ("+temp[2]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3/8: <span class='px'>"+localStorage.getItem('solve3un')+"</span> ("+temp[3]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4/8: <span class='px'>"+localStorage.getItem('solve4un')+"</span> ("+temp[4]+"%)</p><p>5/8: <span class='px'>"+localStorage.getItem('solve5un')+"</span> ("+temp[5]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6/8: <span class='px'>"+localStorage.getItem('solve6un')+"</span> ("+temp[6]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7/8: <span class='px'>"+localStorage.getItem('solve7un')+"</span> ("+temp[7]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8/8: <span class='px'>"+localStorage.getItem('solve8un')+"</span> ("+temp[8]+"%)</p><p>X/8: <span class='px'>"+localStorage.getItem('solve9un')+"</span> ("+temp[9]+"%)</p>"
+  document.getElementById('tutorial').innerHTML="<p id='ttitle'>Your Factordle Statistics (<a onclick=closetutorial()>Close Statistics Window</a>)</p><p id='tp1'>You have played <span class='px'>"+total+"</span> total Factordles, and won <span class='px'>"+temp[0]+"%</span> of them.</p><p>Breakdown of your solves by guesses used:</p><p>1/8: <span class='px'>"+localStorage.getItem('solve1un')+"</span> ("+temp[1]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2/8: <span class='px'>"+localStorage.getItem('solve2un')+"</span> ("+temp[2]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3/8: <span class='px'>"+localStorage.getItem('solve3un')+"</span> ("+temp[3]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4/8: <span class='px'>"+localStorage.getItem('solve4un')+"</span> ("+temp[4]+"%)</p><p>5/8: <span class='px'>"+localStorage.getItem('solve5un')+"</span> ("+temp[5]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6/8: <span class='px'>"+localStorage.getItem('solve6un')+"</span> ("+temp[6]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7/8: <span class='px'>"+localStorage.getItem('solve7un')+"</span> ("+temp[7]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8/8: <span class='px'>"+localStorage.getItem('solve8un')+"</span> ("+temp[8]+"%)</p><p>X/8: <span class='px'>"+localStorage.getItem('solve9un')+"</span> ("+temp[9]+"%)</p>"
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
 }
 function closetutorial() {
