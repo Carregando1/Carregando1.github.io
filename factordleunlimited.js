@@ -219,24 +219,24 @@ var solutions = [1000,1001,1003,1005,1007,1008,1012,1014,1015
     ,9982,9984,9990,9996];
 var solution = solutions[Math.floor(Math.random()*3051)];
 var guess = [];
-var guesses = 0;
+var guessesun = 0;
 var complete = false;
 var res;
 function reset(hard = false) {
   if (hard) {
-    localStorage.removeItem("solve1");
+    localStorage.removeItem("solve1un");
   }
   localStorage.removeItem("solut");
   solution = solutions[Math.floor(Math.random()*3051)];
-  localStorage.setItem("guesses", "");
-  localStorage.setItem("status", "");
+  localStorage.setItem("guessesun", "");
+  localStorage.setItem("statusun", "");
   for (var i = 1; i <= 80; i++) {
     document.getElementById('m'+i).style.color='black';
     document.getElementById('m'+i).style.backgroundColor='white';
     document.getElementById('m'+i).innerHTML='';
   }
   document.getElementById('warning').innerHTML='&nbsp;';
-  guesses = 0;
+  guessesun = 0;
   complete = false;
   onload();
 }
@@ -251,16 +251,16 @@ function convert(a) {
     return 'rgb(150,150,150)';
   }
 }
-if (localStorage.getItem("solve1")  == null) {
-  localStorage.setItem("solve1", 0);
-  localStorage.setItem("solve2", 0);
-  localStorage.setItem("solve3", 0);
-  localStorage.setItem("solve4", 0);
-  localStorage.setItem("solve5", 0);
-  localStorage.setItem("solve6", 0);
-  localStorage.setItem("solve7", 0);
-  localStorage.setItem("solve8", 0);
-  localStorage.setItem("solve9", 0);
+if (localStorage.getItem("solve1un")  == null) {
+  localStorage.setItem("solve1un", 0);
+  localStorage.setItem("solve2un", 0);
+  localStorage.setItem("solve3un", 0);
+  localStorage.setItem("solve4un", 0);
+  localStorage.setItem("solve5un", 0);
+  localStorage.setItem("solve6un", 0);
+  localStorage.setItem("solve7un", 0);
+  localStorage.setItem("solve8un", 0);
+  localStorage.setItem("solve9un", 0);
 }
 document.getElementById("all").addEventListener("keyup", detect);
 function onload() {
@@ -271,33 +271,33 @@ function onload() {
   for (var i = 1; i <= 80; i++) {
     document.getElementById('m'+i).style.color='black';
   }
-  for (var i = 0; i < localStorage.getItem("guesses").length/4; i++) {
-    guesses = i;
-    guess = [localStorage.getItem("guesses")[i*4],localStorage.getItem("guesses")[i*4+1],localStorage.getItem("guesses")[i*4+2],localStorage.getItem("guesses")[i*4+3]];
+  for (var i = 0; i < localStorage.getItem("guessesun").length/4; i++) {
+    guessesun = i;
+    guess = [localStorage.getItem("guessesun")[i*4],localStorage.getItem("guessesun")[i*4+1],localStorage.getItem("guessesun")[i*4+2],localStorage.getItem("guessesun")[i*4+3]];
     update(1);
     update(2);
     update(3);
     update(4);
     guess = [];
   }
-  for (var i = 0; i < localStorage.getItem("status").length; i++) {
-    document.getElementById('m'+(i+1)).style.backgroundColor=convert(localStorage.getItem("status")[i]);
+  for (var i = 0; i < localStorage.getItem("statusun").length; i++) {
+    document.getElementById('m'+(i+1)).style.backgroundColor=convert(localStorage.getItem("statusun")[i]);
     document.getElementById('m'+(i+1)).style.color='white';
-    if (localStorage.getItem("status")[i] == 3) {
+    if (localStorage.getItem("statusun")[i] == 3) {
       complete = true;
-      document.getElementById('warning').innerHTML='You won in '+(guesses+1)+' guesses! Click <a onclick=reset()>here</a> to play again.'
+      document.getElementById('warning').innerHTML='You won in '+(guessesun+1)+' guessesun! Click <a onclick=reset()>here</a> to play again.'
     }
   }
-  if (localStorage.getItem("guesses").length != 0){
-    guesses++;
+  if (localStorage.getItem("guessesun").length != 0){
+    guessesun++;
   }
   document.getElementById('title').innerHTML = "Factordle Unlimited (<a onclick=tutorial()>How To Play</a> | <a onclick=stats()>View Your Statistics</a>)";
-  if (guesses == 8) {
+  if (guessesun == 8) {
     document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=reset()>here</a> to play again.";
   }
 }
 function detect(e) {
-  if (guesses < 8 && !(complete)) {
+  if (guessesun < 8 && !(complete)) {
     document.getElementById('warning').innerHTML='&nbsp;';
   if (e.key == "Enter") {
     push(guess);
@@ -310,7 +310,7 @@ function detect(e) {
   }
   if (e.key == "0" || e.key == "1" || e.key == "2" || e.key == "3" || e.key == "4" || e.key == "5" || e.key == "6" || e.key == "7" || e.key == "8" || e.key == "9") {
     if (guess.length == 0 && e.key == '0') {
-      document.getElementById('warning').innerHTML="Guesses must be within 1000 and 9999";
+      document.getElementById('warning').innerHTML="Guessesun must be within 1000 and 9999";
     } else {
     if (guess.length <= 3) {
       guess.push(parseInt(e.key));
@@ -321,7 +321,7 @@ function detect(e) {
   }
 }
 function d(e) {
-  if (guesses < 8 && !(complete)) {
+  if (guessesun < 8 && !(complete)) {
     document.getElementById('warning').innerHTML="&nbsp;";
   if (e == 10) {
     push(guess);
@@ -334,7 +334,7 @@ function d(e) {
   }
   if (e == 0 || e == 1 || e == 2 || e == 3 || e == 4 || e == 5 || e == 6 || e == 7 || e == 8 || e == 9) {
     if (guess.length == 0 && e == 0) {
-      document.getElementById('warning').innerHTML="Guesses must be within 1000 and 9999";
+      document.getElementById('warning').innerHTML="Guessesun must be within 1000 and 9999";
     } else {
     if (guess.length <= 3) {
       guess.push(e);
@@ -350,28 +350,28 @@ function push(a) {
     return;
   }
   if ((1000*a[0]+100*a[1]+10*a[2]+a[3]) == solution) {
-    localStorage.setItem("status", localStorage.getItem("status") + "3333333333");
+    localStorage.setItem("statusun", localStorage.getItem("statusun") + "3333333333");
     for (i = 1; i < 11; i++) {
-    document.getElementById('m'+(guesses*10+i)).style.backgroundColor = "rgb(0,100,250)";
-    document.getElementById('m'+(guesses*10+i)).style.color = "white";
+    document.getElementById('m'+(guessesun*10+i)).style.backgroundColor = "rgb(0,100,250)";
+    document.getElementById('m'+(guessesun*10+i)).style.color = "white";
     }
     complete = true;
-    document.getElementById('warning').innerHTML='You won in '+(guesses+1)+' guesses!  Click <a onclick=reset()>here</a> to play again.'
-    localStorage.setItem('solve'+((guesses+1)), parseInt(localStorage.getItem('solve'+((guesses+1)))) + 1);
+    document.getElementById('warning').innerHTML='You won in '+(guessesun+1)+' guessesun!  Click <a onclick=reset()>here</a> to play again.'
+    localStorage.setItem('solve'+((guessesun+1)+'un'), parseInt(localStorage.getItem('solve'+((guessesun+1)))) + 1);
   } else {
   for (i = 1; i < 11; i++) {
-    document.getElementById('m'+(guesses*10+i)).innerHTML = parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML);
-    localStorage.setItem("status", localStorage.getItem("status") + euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[1]);
-    document.getElementById('m'+(guesses*10+i)).style.backgroundColor = euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[0];
-    document.getElementById('m'+(guesses*10+i)).style.color = "white";
+    document.getElementById('m'+(guessesun*10+i)).innerHTML = parseInt(document.getElementById('m'+(guessesun*10+i)).innerHTML);
+    localStorage.setItem("statusun", localStorage.getItem("statusun") + euclid(solution, parseInt(document.getElementById('m'+(guessesun*10+i)).innerHTML))[1]);
+    document.getElementById('m'+(guessesun*10+i)).style.backgroundColor = euclid(solution, parseInt(document.getElementById('m'+(guessesun*10+i)).innerHTML))[0];
+    document.getElementById('m'+(guessesun*10+i)).style.color = "white";
   }
   }
   guess = [];
-  guesses++;
-  localStorage.setItem("guesses", localStorage.getItem("guesses") + ((1000*a[0]+100*a[1]+10*a[2]+a[3])).toString());
-  if (guesses == 8) {
+  guessesun++;
+  localStorage.setItem("guessesun", localStorage.getItem("guessesun") + ((1000*a[0]+100*a[1]+10*a[2]+a[3])).toString());
+  if (guessesun == 8) {
     document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=reset()>here</a> to play again.";
-    localStorage.setItem('solve9', parseInt(localStorage.getItem('solve9')) + 1);
+    localStorage.setItem('solve9un', parseInt(localStorage.getItem('solve9un')) + 1);
   }
 }
 function euclid(a,b) {
@@ -398,53 +398,53 @@ function euclid(a,b) {
 }
 function update(a) {
   if (a == 1) {
-    document.getElementById('m'+(guesses*10+1)).innerHTML += guess[0];
-    document.getElementById('m'+(guesses*10+5)).innerHTML += guess[0];
-    document.getElementById('m'+(guesses*10+8)).innerHTML += guess[0];
-    document.getElementById('m'+(guesses*10+10)).innerHTML += guess[0];
+    document.getElementById('m'+(guessesun*10+1)).innerHTML += guess[0];
+    document.getElementById('m'+(guessesun*10+5)).innerHTML += guess[0];
+    document.getElementById('m'+(guessesun*10+8)).innerHTML += guess[0];
+    document.getElementById('m'+(guessesun*10+10)).innerHTML += guess[0];
   } else if (a == 2) {
-    document.getElementById('m'+(guesses*10+2)).innerHTML += guess[1];
-    document.getElementById('m'+(guesses*10+5)).innerHTML += guess[1];
-    document.getElementById('m'+(guesses*10+6)).innerHTML += guess[1];
-    document.getElementById('m'+(guesses*10+8)).innerHTML += guess[1];
-    document.getElementById('m'+(guesses*10+9)).innerHTML += guess[1];
-    document.getElementById('m'+(guesses*10+10)).innerHTML += guess[1];
+    document.getElementById('m'+(guessesun*10+2)).innerHTML += guess[1];
+    document.getElementById('m'+(guessesun*10+5)).innerHTML += guess[1];
+    document.getElementById('m'+(guessesun*10+6)).innerHTML += guess[1];
+    document.getElementById('m'+(guessesun*10+8)).innerHTML += guess[1];
+    document.getElementById('m'+(guessesun*10+9)).innerHTML += guess[1];
+    document.getElementById('m'+(guessesun*10+10)).innerHTML += guess[1];
   } else if (a == 3) {
-    document.getElementById('m'+(guesses*10+3)).innerHTML += guess[2];
-    document.getElementById('m'+(guesses*10+6)).innerHTML += guess[2];
-    document.getElementById('m'+(guesses*10+7)).innerHTML += guess[2];
-    document.getElementById('m'+(guesses*10+8)).innerHTML += guess[2];
-    document.getElementById('m'+(guesses*10+9)).innerHTML += guess[2];
-    document.getElementById('m'+(guesses*10+10)).innerHTML += guess[2];
+    document.getElementById('m'+(guessesun*10+3)).innerHTML += guess[2];
+    document.getElementById('m'+(guessesun*10+6)).innerHTML += guess[2];
+    document.getElementById('m'+(guessesun*10+7)).innerHTML += guess[2];
+    document.getElementById('m'+(guessesun*10+8)).innerHTML += guess[2];
+    document.getElementById('m'+(guessesun*10+9)).innerHTML += guess[2];
+    document.getElementById('m'+(guessesun*10+10)).innerHTML += guess[2];
   } else if (a == 4) {
-    document.getElementById('m'+(guesses*10+4)).innerHTML += guess[3];
-    document.getElementById('m'+(guesses*10+7)).innerHTML += guess[3];
-    document.getElementById('m'+(guesses*10+9)).innerHTML += guess[3];
-    document.getElementById('m'+(guesses*10+10)).innerHTML += guess[3];
+    document.getElementById('m'+(guessesun*10+4)).innerHTML += guess[3];
+    document.getElementById('m'+(guessesun*10+7)).innerHTML += guess[3];
+    document.getElementById('m'+(guessesun*10+9)).innerHTML += guess[3];
+    document.getElementById('m'+(guessesun*10+10)).innerHTML += guess[3];
   } else if (a == -1) {
-    document.getElementById('m'+(guesses*10+1)).innerHTML = document.getElementById('m'+(guesses*10+1)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+5)).innerHTML = document.getElementById('m'+(guesses*10+5)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+8)).innerHTML = document.getElementById('m'+(guesses*10+8)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+10)).innerHTML = document.getElementById('m'+(guesses*10+10)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+1)).innerHTML = document.getElementById('m'+(guessesun*10+1)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+5)).innerHTML = document.getElementById('m'+(guessesun*10+5)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+8)).innerHTML = document.getElementById('m'+(guessesun*10+8)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+10)).innerHTML = document.getElementById('m'+(guessesun*10+10)).innerHTML.slice(0,-1);
   } else if (a == -2) {
-    document.getElementById('m'+(guesses*10+2)).innerHTML = document.getElementById('m'+(guesses*10+2)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+5)).innerHTML = document.getElementById('m'+(guesses*10+5)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+6)).innerHTML = document.getElementById('m'+(guesses*10+6)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+8)).innerHTML = document.getElementById('m'+(guesses*10+8)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+9)).innerHTML = document.getElementById('m'+(guesses*10+9)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+10)).innerHTML = document.getElementById('m'+(guesses*10+10)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+2)).innerHTML = document.getElementById('m'+(guessesun*10+2)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+5)).innerHTML = document.getElementById('m'+(guessesun*10+5)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+6)).innerHTML = document.getElementById('m'+(guessesun*10+6)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+8)).innerHTML = document.getElementById('m'+(guessesun*10+8)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+9)).innerHTML = document.getElementById('m'+(guessesun*10+9)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+10)).innerHTML = document.getElementById('m'+(guessesun*10+10)).innerHTML.slice(0,-1);
   } else if (a == -3) {
-    document.getElementById('m'+(guesses*10+3)).innerHTML = document.getElementById('m'+(guesses*10+3)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+6)).innerHTML = document.getElementById('m'+(guesses*10+6)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+7)).innerHTML = document.getElementById('m'+(guesses*10+7)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+8)).innerHTML = document.getElementById('m'+(guesses*10+8)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+9)).innerHTML = document.getElementById('m'+(guesses*10+9)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+10)).innerHTML = document.getElementById('m'+(guesses*10+10)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+3)).innerHTML = document.getElementById('m'+(guessesun*10+3)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+6)).innerHTML = document.getElementById('m'+(guessesun*10+6)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+7)).innerHTML = document.getElementById('m'+(guessesun*10+7)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+8)).innerHTML = document.getElementById('m'+(guessesun*10+8)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+9)).innerHTML = document.getElementById('m'+(guessesun*10+9)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+10)).innerHTML = document.getElementById('m'+(guessesun*10+10)).innerHTML.slice(0,-1);
   } else if (a == -4) {
-    document.getElementById('m'+(guesses*10+4)).innerHTML = document.getElementById('m'+(guesses*10+4)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+7)).innerHTML = document.getElementById('m'+(guesses*10+7)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+9)).innerHTML = document.getElementById('m'+(guesses*10+9)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guesses*10+10)).innerHTML = document.getElementById('m'+(guesses*10+10)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+4)).innerHTML = document.getElementById('m'+(guessesun*10+4)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+7)).innerHTML = document.getElementById('m'+(guessesun*10+7)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+9)).innerHTML = document.getElementById('m'+(guessesun*10+9)).innerHTML.slice(0,-1);
+    document.getElementById('m'+(guessesun*10+10)).innerHTML = document.getElementById('m'+(guessesun*10+10)).innerHTML.slice(0,-1);
   }
 }
 function tutorial() {
@@ -452,14 +452,14 @@ function tutorial() {
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
 }
 function stats() {
-  var total = parseInt(localStorage.getItem('solve1')) + parseInt(localStorage.getItem('solve2')) + parseInt(localStorage.getItem('solve3')) + parseInt(localStorage.getItem('solve4')) + parseInt(localStorage.getItem('solve5')) + parseInt(localStorage.getItem('solve6')) + parseInt(localStorage.getItem('solve7')) + parseInt(localStorage.getItem('solve8')) + parseInt(localStorage.getItem('solve9'));
-  var temp = [((total-parseInt(localStorage.getItem('solve9')))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve1'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve2'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve3'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve4'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve5'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve6'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve7'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve8'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve9'))*100/total).toString().slice(0,3)];
+  var total = parseInt(localStorage.getItem('solve1un')) + parseInt(localStorage.getItem('solve2un')) + parseInt(localStorage.getItem('solve3un')) + parseInt(localStorage.getItem('solve4un')) + parseInt(localStorage.getItem('solve5un')) + parseInt(localStorage.getItem('solve6un')) + parseInt(localStorage.getItem('solve7un')) + parseInt(localStorage.getItem('solve8un')) + parseInt(localStorage.getItem('solve9un'));
+  var temp = [((total-parseInt(localStorage.getItem('solve9un')))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve1un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve2un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve3un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve4un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve5un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve6un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve7un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve8un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve9un'))*100/total).toString().slice(0,3)];
   for (var i = 0; i < 10; i++) {
     if (temp[i] == 'NaN') {
       temp[i] = "0";
     }
   }
-  document.getElementById('tutorial').innerHTML="<p id='ttitle'>Your Factordle Statistics (<a onclick=closetutorial()>Close Statistics Window</a>)</p><p id='tp1'>You have played <span class='px'>"+total+"</span> total Factordles, and won <span class='px'>"+temp[0]+"%</span> of them.</p><p>Breakdown of your solves by guesses used:</p><p>1/8: <span class='px'>"+localStorage.getItem('solve1')+"</span> ("+temp[1]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2/8: <span class='px'>"+localStorage.getItem('solve2')+"</span> ("+temp[2]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3/8: <span class='px'>"+localStorage.getItem('solve3')+"</span> ("+temp[3]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4/8: <span class='px'>"+localStorage.getItem('solve4')+"</span> ("+temp[4]+"%)</p><p>5/8: <span class='px'>"+localStorage.getItem('solve5')+"</span> ("+temp[5]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6/8: <span class='px'>"+localStorage.getItem('solve6')+"</span> ("+temp[6]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7/8: <span class='px'>"+localStorage.getItem('solve7')+"</span> ("+temp[7]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8/8: <span class='px'>"+localStorage.getItem('solve8')+"</span> ("+temp[8]+"%)</p><p>X/8: <span class='px'>"+localStorage.getItem('solve9')+"</span> ("+temp[9]+"%)</p>"
+  document.getElementById('tutorial').innerHTML="<p id='ttitle'>Your Factordle Statistics (<a onclick=closetutorial()>Close Statistics Window</a>)</p><p id='tp1'>You have played <span class='px'>"+total+"</span> total Factordles, and won <span class='px'>"+temp[0]+"%</span> of them.</p><p>Breakdown of your solves by guessesun used:</p><p>1/8: <span class='px'>"+localStorage.getItem('solve1un')+"</span> ("+temp[1]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2/8: <span class='px'>"+localStorage.getItem('solve2un')+"</span> ("+temp[2]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3/8: <span class='px'>"+localStorage.getItem('solve3un')+"</span> ("+temp[3]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4/8: <span class='px'>"+localStorage.getItem('solve4un')+"</span> ("+temp[4]+"%)</p><p>5/8: <span class='px'>"+localStorage.getItem('solve5un')+"</span> ("+temp[5]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6/8: <span class='px'>"+localStorage.getItem('solve6un')+"</span> ("+temp[6]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7/8: <span class='px'>"+localStorage.getItem('solve7un')+"</span> ("+temp[7]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8/8: <span class='px'>"+localStorage.getItem('solve8un')+"</span> ("+temp[8]+"%)</p><p>X/8: <span class='px'>"+localStorage.getItem('solve9un')+"</span> ("+temp[9]+"%)</p>"
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
 }
 function closetutorial() {
