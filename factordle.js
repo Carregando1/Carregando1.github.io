@@ -269,7 +269,7 @@ function onload() {
     update(4);
     guess = [];
   }
-  if (guesses == 8) {
+  if (guesses == 7) {
     document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.";
   }
   for (var i = 0; i < localStorage.getItem("status").length; i++) {
@@ -355,7 +355,7 @@ function push(a) {
     localStorage.setItem("status", localStorage.getItem("status") + euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[1]);
     document.getElementById('m'+(guesses*10+i)).style.backgroundColor = euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[0];
     document.getElementById('m'+(guesses*10+i)).style.color = "white";
-    if (guesses == 8) {
+    if (guesses == 7) {
       document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.";
       localStorage.setItem('solve9', parseInt(localStorage.getItem('solve9')) + 1);
       localStorage.setItem("streak", 0);
