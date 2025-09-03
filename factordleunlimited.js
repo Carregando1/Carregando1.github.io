@@ -227,8 +227,17 @@ function reset(hard = false) {
     localStorage.removeItem("solve1");
   }
   localStorage.removeItem("solut");
+  solution = solutions[Math.floor(Math.random()*3051)];
   localStorage.setItem("guesses", "");
   localStorage.setItem("status", "");
+  for (var i = 1; i <= 80; i++) {
+    document.getElementById('m'+i).style.color='black';
+    document.getElementById('m'+i).style.backgroundColor='white';
+    document.getElementById('m'+i).innerHTML='';
+  }
+  document.getElementById('warning').innerHTML='&nbsp;';
+  guesses = 0;
+  complete = false;
   onload();
 }
 function convert(a) {
@@ -300,9 +309,13 @@ function detect(e) {
     }
   }
   if (e.key == "0" || e.key == "1" || e.key == "2" || e.key == "3" || e.key == "4" || e.key == "5" || e.key == "6" || e.key == "7" || e.key == "8" || e.key == "9") {
+    if (guess.length == 0 && e.key == '0') {
+      document.getElementById('warning').innerHTML="Guesses must be within 1000 and 9999";
+    } else {
     if (guess.length <= 3) {
       guess.push(parseInt(e.key));
       update(guess.length);
+    }
     }
   }
   }
@@ -320,9 +333,13 @@ function d(e) {
     }
   }
   if (e == 0 || e == 1 || e == 2 || e == 3 || e == 4 || e == 5 || e == 6 || e == 7 || e == 8 || e == 9) {
+    if (guess.length == 0 && e == 0) {
+      document.getElementById('warning').innerHTML="Guesses must be within 1000 and 9999";
+    } else {
     if (guess.length <= 3) {
       guess.push(e);
       update(guess.length);
+    }
     }
   }
   }
