@@ -318,9 +318,13 @@ function d(e) {
     }
   }
   if (e == 0 || e == 1 || e == 2 || e == 3 || e == 4 || e == 5 || e == 6 || e == 7 || e == 8 || e == 9) {
+    if (guess.length == 0 && e == 0) {
+      document.getElementById('warning').innerHTML="Guesses must be within 1000 and 9999";
+    } else {
     if (guess.length <= 3) {
       guess.push(e);
       update(guess.length);
+    }
     }
   }
   }
