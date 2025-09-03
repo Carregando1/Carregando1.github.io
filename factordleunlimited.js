@@ -261,6 +261,8 @@ if (localStorage.getItem("solve1un")  == null) {
   localStorage.setItem("solve7un", 0);
   localStorage.setItem("solve8un", 0);
   localStorage.setItem("solve9un", 0);
+  localStorage.setItem("guesses", "");
+  localStorage.setItem("status", "");
 }
 document.getElementById("all").addEventListener("keyup", detect);
 function onload() {
