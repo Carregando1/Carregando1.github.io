@@ -504,7 +504,7 @@ var animreceived = [];
 var step = 0;
 var animguesses = 0;
 
-document.getElementById("all").addEventListener("animationend", anim());
+document.getElementById("all").addEventListener("animationend", anim);
 function anim(a, b) {
   console.log('anim triggered');
   console.log(step);
