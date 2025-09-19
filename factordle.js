@@ -277,6 +277,9 @@ function onload() {
       document.getElementById('warning').innerHTML='You won in '+(guesses+1)+' guesses! Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.'
     }
   }
+  for (var i = 0; i < 80; i++) {
+    document.getElementById('m'+(i+1)).innerHTML = parseInt(document.getElementById('m'+(i+1)).innerHTML);
+  }
   if (localStorage.getItem("guesses").length != 0){
     guesses++;
   }
