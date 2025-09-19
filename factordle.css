@@ -110,3 +110,128 @@ a {
 .px {
   font-size: 32px;
 }
+
+
+/* Animation Classes */
+
+
+@keyframes flip0 {
+  0% {
+    background-color: white;
+    transform: (1,1);
+    color: black;
+  }
+  49.99% {
+    transform: scale(1,0);
+    background-color: white;
+    color: black;
+  }
+  50.01% {
+    transform: scale(1,0);
+    background-color: rgb(150,150,150);
+    color: white;
+  }
+  100% {
+    background-color: rgb(150,150,150);
+    transform: (1,1);
+    color: white;
+  }
+}
+@keyframes flip1 {
+  0% {
+    background-color: white;
+    transform: (1,1);
+    color: black;
+  }
+  49.99% {
+    transform: scale(1,0);
+    background-color: white;
+    color: black;
+  }
+  50.01% {
+    transform: scale(1,0);
+    background-color: rgb(200,200,0);
+    color: white;
+  }
+  100% {
+    background-color: rgb(200,200,0);
+    transform: (1,1);
+    color: white;
+  }
+}
+@keyframes flip2 {
+  0% {
+    background-color: white;
+    transform: (1,1);
+    color: black;
+  }
+  49.99% {
+    transform: scale(1,0);
+    background-color: white;
+    color: black;
+  }
+  50.01% {
+    transform: scale(1,0);
+    background-color: rgb(0,175,0);
+    color: white;
+  }
+  100% {
+    background-color: rgb(0,175,0);
+    transform: (1,1);
+    color: white;
+  }
+}
+@keyframes flip3 {
+  0% {
+    background-color: white;
+    transform: (1,1);
+    color: black;
+  }
+  49.99% {
+    transform: scale(1,0);
+    background-color: white;
+    color: black;
+  }
+  50.01% {
+    transform: scale(1,0);
+    background-color: rgb(0,100,250);
+    color: white;
+  }
+  100% {
+    background-color: rgb(0,100,250);
+    transform: (1,1);
+    color: white;
+  }
+}
+.flip0 {
+  animation-duration: 0.3s;
+  animation-name: flip0;
+  animation-timing-function: linear;
+  background-color: rgb(150,150,150);
+  transform: (1,1);
+  color: white;
+}
+.flip1 {
+  animation-duration: 0.3s;
+  animation-name: flip1;
+  animation-timing-function: linear;
+  background-color: rgb(200,200,0);
+  transform: (1,1);
+  color: white;
+}
+.flip2 {
+  animation-duration: 0.3s;
+  animation-name: flip2;
+  animation-timing-function: linear;
+  background-color: rgb(0,175,0);
+  transform: (1,1);
+  color: white;
+}
+.flip3 {
+  animation-duration: 0.3s;
+  animation-name: flip3;
+  animation-timing-function: linear;
+  background-color: rgb(0,100,250);
+  transform: (1,1);
+  color: white;
+}
