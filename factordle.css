@@ -1,6 +1,7 @@
 html {
   font-family: sans-serif;
   font-size: 24px;
+  color: black;
 }
 #m5, #m6, #m7, #m8, #m9, #m15, #m16, #m17, #m18, #m19, #m25, #m26, #m27, #m28, #m29, #m35, #m36, #m37, #m38, #m39, #m45, #m46, #m47, #m48, #m49, #m55, #m56, #m57, #m58, #m59, #m65, #m66, #m67, #m68, #m69, #m75, #m76, #m77, #m78, #m79 {
   height: 50px;
@@ -29,7 +30,7 @@ html {
   width: 312.5px;
   text-align: center;
   line-height: 50px;
-  color: white;
+  color: black;
   font-size: 32px;
 }
 .g2div {
