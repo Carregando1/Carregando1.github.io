@@ -506,8 +506,8 @@ var animguesses = 0;
 
 document.getElementById("all").addEventListener("animationend", anim());
 function anim(a, b) {
-  console.log(animreceived);
-  console.log(animguesses*10);
+  console.log('anim triggered');
+  console.log(step);
   if (!(a)) {
     step++;
   } else {
@@ -515,6 +515,8 @@ function anim(a, b) {
     animreceived = b;
     animguesses = a;
   }
+  console.log(animreceived);
+  console.log(animguesses*10);
   if (step == 1) {
     document.getElementById('m'+(animguesses*10+1)).classList.add("flip"+animreceived[0]);
     document.getElementById('m'+(animguesses*10+2)).classList.add("flip"+animreceived[1]);
