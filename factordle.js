@@ -333,16 +333,19 @@ function d(e) {
   }
   }
 }
+var animpush = [];
 function push(a) {
+  animpush = [];
   if (a.length != 4) {
     document.getElementById('warning').innerHTML='Guess must be 4 digits';
     return;
   }
   if ((1000*a[0]+100*a[1]+10*a[2]+a[3]) == solution) {
     localStorage.setItem("status", localStorage.getItem("status") + "3333333333");
+    anim(guesses, [3,3,3,3,3,3,3,3,3,3]);
     for (i = 1; i < 11; i++) {
-    document.getElementById('m'+(guesses*10+i)).style.backgroundColor = "rgb(0,100,250)";
-    document.getElementById('m'+(guesses*10+i)).style.color = "white";
+      document.getElementById('m'+(guesses*10+i)).style.backgroundColor = "rgb(0,100,250)";
+      document.getElementById('m'+(guesses*10+i)).style.color = "white";
     }
     complete = true;
     document.getElementById('warning').innerHTML='You won in '+(guesses+1)+' guesses!  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.'
@@ -350,17 +353,19 @@ function push(a) {
     localStorage.setItem("streakday", Math.floor(Date.now()/86400000-20332.25));
     localStorage.setItem("streak", parseInt(localStorage.getItem("streak")) + 1);
   } else {
-  for (i = 1; i < 11; i++) {
-    document.getElementById('m'+(guesses*10+i)).innerHTML = parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML);
-    localStorage.setItem("status", localStorage.getItem("status") + euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[1]);
-    document.getElementById('m'+(guesses*10+i)).style.backgroundColor = euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[0];
-    document.getElementById('m'+(guesses*10+i)).style.color = "white";
-    if (guesses == 7) {
-      document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.";
-      localStorage.setItem('solve9', parseInt(localStorage.getItem('solve9')) + 1);
-      localStorage.setItem("streak", 0);
+    for (i = 1; i < 11; i++) {
+      document.getElementById('m'+(guesses*10+i)).innerHTML = parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML);
+      localStorage.setItem("status", localStorage.getItem("status") + euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[1]);
+      animpush.push(euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[1]);
+      document.getElementById('m'+(guesses*10+i)).style.backgroundColor = euclid(solution, parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML))[0];
+      document.getElementById('m'+(guesses*10+i)).style.color = "white";
+      if (guesses == 7) {
+        document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.";
+        localStorage.setItem('solve9', parseInt(localStorage.getItem('solve9')) + 1);
+        localStorage.setItem("streak", 0);
+      }
     }
-  }
+    anim(guesses, animpush);
   }
   guess = [];
   guesses++;
@@ -497,4 +502,33 @@ function closetutorial() {
 function resetstats() {
   localStorage.removeItem("solve1");
   localStorage.setItem("day", -2);
+}
+
+//JS Animation Controls
+
+document.getElementById("all").addEventListener("animationend", anim);
+animreceived = [];
+step = 0;
+function anim(a, b) {
+  if (animreceived == []) {
+    step++;
+  } else {
+    step = 1;
+    animreceived = b;
+  }
+  if (step == 1) {
+    document.getElementById('m'+guesses*10+1).classList.add("flip"+animreceived[0]);
+    document.getElementById('m'+guesses*10+2).classList.add("flip"+animreceived[1]);
+    document.getElementById('m'+guesses*10+3).classList.add("flip"+animreceived[2]);
+    document.getElementById('m'+guesses*10+4).classList.add("flip"+animreceived[3]);
+  } else if (step == 5) {
+    document.getElementById('m'+guesses*10+5).classList.add("flip"+animreceived[4]);
+    document.getElementById('m'+guesses*10+6).classList.add("flip"+animreceived[5]);
+    document.getElementById('m'+guesses*10+7).classList.add("flip"+animreceived[6]);
+  } else if (step == 8) {
+    document.getElementById('m'+guesses*10+8).classList.add("flip"+animreceived[7]);
+    document.getElementById('m'+guesses*10+9).classList.add("flip"+animreceived[8]);
+  } else if (step == 10) {
+    document.getElementById('m'+guesses*10+10).classList.add("flip"+animreceived[9]);
+  }
 }
