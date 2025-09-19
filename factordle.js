@@ -347,6 +347,9 @@ function push(a) {
     localStorage.setItem('solve'+((guesses+1)), parseInt(localStorage.getItem('solve'+((guesses+1)))) + 1);
     localStorage.setItem("streakday", Math.floor(Date.now()/86400000-20332.25));
     localStorage.setItem("streak", parseInt(localStorage.getItem("streak")) + 1);
+    for (i = 1; i < 11; i++) {
+      document.getElementById('m'+(guesses*10+i)).innerHTML = parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML);
+    }
   } else {
     for (i = 1; i < 11; i++) {
       document.getElementById('m'+(guesses*10+i)).innerHTML = parseInt(document.getElementById('m'+(guesses*10+i)).innerHTML);
