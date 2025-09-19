@@ -504,17 +504,17 @@ var animreceived = [];
 var step = 0;
 var animguesses = 0;
 
-document.getElementById("all").addEventListener("animationend", anim(-1, 67));
+document.getElementById("all").addEventListener("animationend", anim());
 function anim(a, b) {
-  if (a == -1) {
+  console.log(animreceived);
+  console.log(animguesses*10);
+  if (!(a)) {
     step++;
   } else {
     step = 1;
     animreceived = b;
     animguesses = a;
   }
-  console.log(animreceived);
-  console.log(animguesses*10);
   if (step == 1) {
     document.getElementById('m'+(animguesses*10+1)).classList.add("flip"+animreceived[0]);
     document.getElementById('m'+(animguesses*10+2)).classList.add("flip"+animreceived[1]);
