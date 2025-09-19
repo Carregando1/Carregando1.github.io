@@ -272,14 +272,13 @@ function onload() {
   for (var i = 0; i < localStorage.getItem("status").length; i++) {
     document.getElementById('m'+(i+1)).style.backgroundColor=convert(localStorage.getItem("status")[i]);
     document.getElementById('m'+(i+1)).style.color='white';
+    document.getElementById('m'+(i+1)).innerHTML = parseInt(document.getElementById('m'+(i+1)).innerHTML);
     if (localStorage.getItem("status")[i] == 3) {
       complete = true;
       document.getElementById('warning').innerHTML='You won in '+(guesses+1)+' guesses! Click <a onclick=convertstatus()>here</a> to copy your results to clipboard.'
     }
   }
-  for (var i = 0; i < 80; i++) {
-    document.getElementById('m'+(i+1)).innerHTML = parseInt(document.getElementById('m'+(i+1)).innerHTML);
-  }
+
   if (localStorage.getItem("guesses").length != 0){
     guesses++;
   }
