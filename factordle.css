@@ -209,7 +209,7 @@ a {
   animation-timing-function: linear;
   background-color: rgb(150,150,150);
   transform: (1,1);
-  color: white;
+  color: white !important;
 }
 .flip1 {
   animation-duration: 0.3s;
@@ -217,7 +217,7 @@ a {
   animation-timing-function: linear;
   background-color: rgb(200,200,0);
   transform: (1,1);
-  color: white;
+  color: white !important;
 }
 .flip2 {
   animation-duration: 0.3s;
@@ -225,7 +225,7 @@ a {
   animation-timing-function: linear;
   background-color: rgb(0,175,0);
   transform: (1,1);
-  color: white;
+  color: white !important;
 }
 .flip3 {
   animation-duration: 0.3s;
@@ -233,5 +233,5 @@ a {
   animation-timing-function: linear;
   background-color: rgb(0,100,250);
   transform: (1,1);
-  color: white;
+  color: white !important;
 }
