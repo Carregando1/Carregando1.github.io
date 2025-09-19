@@ -500,12 +500,12 @@ function resetstats() {
 
 //JS Animation Controls
 
-document.getElementById("all").addEventListener("animationend", anim);
+document.getElementById("all").addEventListener("animationend", anim(-1, 67));
 animreceived = [];
 step = 0;
 animguesses = 0;
 function anim(a, b) {
-  if (animreceived == []) {
+  if (a == -1) {
     step++;
   } else {
     step = 1;
