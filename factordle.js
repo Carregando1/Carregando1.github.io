@@ -257,9 +257,6 @@ if ((Math.floor(Date.now()/86400000-20332.25)) -localStorage.getItem("streakday"
 }
 document.getElementById("all").addEventListener("keyup", detect);
 function onload() {
-  for (var i = 1; i <= 80; i++) {
-    document.getElementById('m'+i).style.color='black';
-  }
   for (var i = 0; i < localStorage.getItem("guesses").length/4; i++) {
     guesses = i;
     guess = [localStorage.getItem("guesses")[i*4],localStorage.getItem("guesses")[i*4+1],localStorage.getItem("guesses")[i*4+2],localStorage.getItem("guesses")[i*4+3]];
@@ -506,17 +503,13 @@ var animguesses = 0;
 
 document.getElementById("all").addEventListener("animationend", anim);
 function anim(a, b) {
-  console.log('anim triggered');
-  console.log(step);
-  if (!(a)) {
-    step++;
+  if (b === undefined) {
+    step = step + 1;
   } else {
     step = 1;
     animreceived = b;
     animguesses = a;
   }
-  console.log(animreceived);
-  console.log(animguesses*10);
   if (step == 1) {
     document.getElementById('m'+(animguesses*10+1)).classList.add("flip"+animreceived[0]);
     document.getElementById('m'+(animguesses*10+2)).classList.add("flip"+animreceived[1]);
@@ -533,3 +526,4 @@ function anim(a, b) {
     document.getElementById('m'+(animguesses*10+10)).classList.add("flip"+animreceived[9]);
   }
 }
+
