@@ -529,6 +529,27 @@ function anim(a, b) {
     document.getElementById('m'+(animguesses*10+9)).classList.add("flip"+animreceived[8]);
   } else if (step == 10) {
     document.getElementById('m'+(animguesses*10+10)).classList.add("flip"+animreceived[9]);
+  } else if (step == 11 && animreceived[0] == 3) {
+    document.getElementById('m'+(animguesses*10+1)).classList.remove("flip"+animreceived[0]);
+    document.getElementById('m'+(animguesses*10+2)).classList.remove("flip"+animreceived[1]);
+    document.getElementById('m'+(animguesses*10+3)).classList.remove("flip"+animreceived[2]);
+    document.getElementById('m'+(animguesses*10+4)).classList.remove("flip"+animreceived[3]);
+    document.getElementById('m'+(animguesses*10+5)).classList.remove("flip"+animreceived[4]);
+    document.getElementById('m'+(animguesses*10+6)).classList.remove("flip"+animreceived[5]);
+    document.getElementById('m'+(animguesses*10+7)).classList.remove("flip"+animreceived[6]);
+    document.getElementById('m'+(animguesses*10+8)).classList.remove("flip"+animreceived[7]);
+    document.getElementById('m'+(animguesses*10+9)).classList.remove("flip"+animreceived[8]);
+    document.getElementById('m'+(animguesses*10+10)).classList.remove("flip"+animreceived[9]);
+    document.getElementById('m'+(animguesses*10+1)).classList.add("solve");
+    document.getElementById('m'+(animguesses*10+2)).classList.add("solve");
+    document.getElementById('m'+(animguesses*10+3)).classList.add("solve");
+    document.getElementById('m'+(animguesses*10+4)).classList.add("solve");
+    document.getElementById('m'+(animguesses*10+5)).classList.add("solve1");
+    document.getElementById('m'+(animguesses*10+6)).classList.add("solve1");
+    document.getElementById('m'+(animguesses*10+7)).classList.add("solve1");
+    document.getElementById('m'+(animguesses*10+8)).classList.add("solve2");
+    document.getElementById('m'+(animguesses*10+9)).classList.add("solve2");
+    document.getElementById('m'+(animguesses*10+10)).classList.add("solve3");
   }
 }
 
