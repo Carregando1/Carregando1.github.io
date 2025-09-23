@@ -203,6 +203,25 @@ a {
     color: white;
   }
 }
+@keyframes solve {
+  0% {
+    background-color: rgb(0, 100, 250);
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  50% {
+    background-color: rgb(0, 100, 250);
+    margin-top: -20px;
+    margin-bottom: 20px;
+  }
+
+  100% {
+    background-color: rgb(0, 100, 250);
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}
 .flip0 {
   animation-duration: 0.3s;
   animation-name: flip0;
@@ -235,3 +254,40 @@ a {
   transform: (1,1);
   color: white;
 }
+
+.solve {
+  animation-duration: 0.5s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve1 {
+  animation-duration: 0.5s;
+  animation-delay: 0.1s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve2 {
+  animation-duration: 0.5s;
+  animation-delay: 0.2s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve3 {
+  animation-duration: 0.5s;
+  animation-delay: 0.3s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+
