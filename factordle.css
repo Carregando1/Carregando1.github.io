@@ -254,18 +254,8 @@ a {
   transform: (1,1);
   color: white;
 }
-
-.solve {
-  animation-duration: 0.5s;
-  animation-name: solve;
-  animation-timing-function: ease-in-out-quad;
-  background-color: rgb(0, 100, 250);
-  transform: (1, 1);
-  color: white;
-}
 .solve1 {
   animation-duration: 0.5s;
-  animation-delay: 0.1s;
   animation-name: solve;
   animation-timing-function: ease-in-out-quad;
   background-color: rgb(0, 100, 250);
@@ -274,7 +264,7 @@ a {
 }
 .solve2 {
   animation-duration: 0.5s;
-  animation-delay: 0.2s;
+  animation-delay: 0.05s;
   animation-name: solve;
   animation-timing-function: ease-in-out-quad;
   background-color: rgb(0, 100, 250);
@@ -283,6 +273,42 @@ a {
 }
 .solve3 {
   animation-duration: 0.5s;
+  animation-delay: 0.1s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve4 {
+  animation-duration: 0.5s;
+  animation-delay: 0.15s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve5 {
+  animation-duration: 0.5s;
+  animation-delay: 0.2s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve6 {
+  animation-duration: 0.5s;
+  animation-delay: 0.25s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve7 {
+  animation-duration: 0.5s;
   animation-delay: 0.3s;
   animation-name: solve;
   animation-timing-function: ease-in-out-quad;
@@ -290,4 +316,51 @@ a {
   transform: (1, 1);
   color: white;
 }
-
+.solve8 {
+  animation-duration: 0.5s;
+  animation-delay: 0.35s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve9 {
+  animation-duration: 0.5s;
+  animation-delay: 0.4s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve10 {
+  animation-duration: 0.5s;
+  animation-delay: 0.45s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+#stats1, #stats2, #stats3, #stats4, #stats5, #stats6, #stats7, #stats8, #stats9 {
+  height: 37px;
+  text-align: right;
+  color: white;
+  background-color: rgb(150,150,150);
+  float: left;
+}
+.stats {
+  height: 37px;
+  float: left;
+  width: 37px;
+}
+#statsdiv {
+  width: 600px;
+  margin: auto;
+}
+.statsdivs {
+  width: 590px;
+  display: block;
+  height: 50px;
+}
