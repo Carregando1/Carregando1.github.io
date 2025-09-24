@@ -344,18 +344,18 @@ a {
   color: white;
 }
 #stats1, #stats2, #stats3, #stats4, #stats5, #stats6, #stats7, #stats8, #stats9 {
-  height: 37px;
+  height: auto;
   text-align: right;
   color: white;
   background-color: rgb(150,150,150);
   float: left;
-  margin: 6.5px 0px 6.5px 0px;
+  margin-top: 6.5px !important;
 }
 .stats {
-  height: 37px;
+  height: auto;
   float: left;
   width: 37px;
-  margin: 6.5px 0px 6.5px 0px;
+  margin-top: 6.5px !important;
 }
 #statsdiv {
   width: 600px;
@@ -364,5 +364,5 @@ a {
 .statsdivs {
   width: 590px;
   display: block;
-  height: 50px;
+  height: 40px;
 }
