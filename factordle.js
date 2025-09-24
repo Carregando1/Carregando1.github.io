@@ -488,8 +488,24 @@ function stats() {
       temp[i] = "0";
     }
   }
-  document.getElementById('tutorial').innerHTML="<p id='ttitle'>Your Factordle Statistics (<a onclick=closetutorial()>Close Statistics Window</a>)</p><p id='tp1'>You have played <span class='px'>"+total+"</span> total Factordles, and won <span class='px'>"+temp[0]+"%</span> of them.</p><p>You currently have a <span class='px'>"+localStorage.getItem('streak')+"</span> day streak.</p><p>Breakdown of your solves by guesses used:</p><p>1/8: <span class='px'>"+localStorage.getItem('solve1')+"</span> ("+temp[1]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2/8: <span class='px'>"+localStorage.getItem('solve2')+"</span> ("+temp[2]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3/8: <span class='px'>"+localStorage.getItem('solve3')+"</span> ("+temp[3]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4/8: <span class='px'>"+localStorage.getItem('solve4')+"</span> ("+temp[4]+"%)</p><p>5/8: <span class='px'>"+localStorage.getItem('solve5')+"</span> ("+temp[5]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6/8: <span class='px'>"+localStorage.getItem('solve6')+"</span> ("+temp[6]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7/8: <span class='px'>"+localStorage.getItem('solve7')+"</span> ("+temp[7]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8/8: <span class='px'>"+localStorage.getItem('solve8')+"</span> ("+temp[8]+"%)</p><p>X/8: <span class='px'>"+localStorage.getItem('solve9')+"</span> ("+temp[9]+"%)</p>"
+  maximum = Math.max(localStorage.getItem('solve1'), localStorage.getItem('solve2'), localStorage.getItem('solve3'), localStorage.getItem('solve4'), localStorage.getItem('solve5'), localStorage.getItem('solve6'), localStorage.getItem('solve7'), localStorage.getItem('solve8'), localStorage.getItem('solve9'))
+  if (maximum == 0) {
+    maximum = 1;
+  }
+  document.getElementById('tutorial').innerHTML="<p id='ttitle'>Your Factordle Statistics (<a onclick=closetutorial()>Close Statistics Window</a>)</p><p id='tp1'>You have played <span class='px'>"+total+"</span> total Factordles, and won <span class='px'>"+temp[0]+"%</span> of them.</p><p>You currently have a <span class='px'>"+localStorage.getItem('streak')+"</span> day streak.</p><p>Breakdown of your solves by guesses used:</p><div id=statsdiv><div class='statsdivs'><div class='stats'>1</div><div id='stats1'>"+localStorage.getItem('solve1')+"&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>2</div><div id='stats2'>"+localStorage.getItem('solve2')+"&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>3</div><div id='stats3'>"+localStorage.getItem('solve3')+"&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>4</div><div id='stats4'>"+localStorage.getItem('solve4')+"&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>5</div><div id='stats5'>"+localStorage.getItem('solve5')+"&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>6</div><div id='stats6'>"+localStorage.getItem('solve6')+"&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>7</div><div id='stats7'>"+localStorage.getItem('solve7')+"&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>8</div><div id='stats8'>"+localStorage.getItem('solve8')+"&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>X</div><div id='stats9'>"+localStorage.getItem('solve9')+"&nbsp;&nbsp;</div></div></div>"
+  document.getElementById('stats1').style.width = (localStorage.getItem('solve1')*500/maximum+35)+"px";
+  document.getElementById('stats2').style.width = (localStorage.getItem('solve2')*500/maximum+35)+"px";
+  document.getElementById('stats3').style.width = (localStorage.getItem('solve3')*500/maximum+35)+"px";
+  document.getElementById('stats4').style.width = (localStorage.getItem('solve4')*500/maximum+35)+"px";
+  document.getElementById('stats5').style.width = (localStorage.getItem('solve5')*500/maximum+35)+"px";
+  document.getElementById('stats6').style.width = (localStorage.getItem('solve6')*500/maximum+35)+"px";
+  document.getElementById('stats7').style.width = (localStorage.getItem('solve7')*500/maximum+35)+"px";
+  document.getElementById('stats8').style.width = (localStorage.getItem('solve8')*500/maximum+35)+"px";
+  document.getElementById('stats9').style.width = (localStorage.getItem('solve9')*500/maximum+35)+"px";
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+  if (complete) {  
+    document.getElementById('stats'+guesses).style.backgroundColor = "rgb(0, 100, 250)";
+  }
 }
 function closetutorial() {
   document.getElementById('tutorial').innerHTML="";
@@ -540,16 +556,16 @@ function anim(a, b) {
     document.getElementById('m'+(animguesses*10+8)).classList.remove("flip"+animreceived[7]);
     document.getElementById('m'+(animguesses*10+9)).classList.remove("flip"+animreceived[8]);
     document.getElementById('m'+(animguesses*10+10)).classList.remove("flip"+animreceived[9]);
-    document.getElementById('m'+(animguesses*10+1)).classList.add("solve");
-    document.getElementById('m'+(animguesses*10+2)).classList.add("solve");
-    document.getElementById('m'+(animguesses*10+3)).classList.add("solve");
-    document.getElementById('m'+(animguesses*10+4)).classList.add("solve");
-    document.getElementById('m'+(animguesses*10+5)).classList.add("solve1");
-    document.getElementById('m'+(animguesses*10+6)).classList.add("solve1");
-    document.getElementById('m'+(animguesses*10+7)).classList.add("solve1");
-    document.getElementById('m'+(animguesses*10+8)).classList.add("solve2");
-    document.getElementById('m'+(animguesses*10+9)).classList.add("solve2");
-    document.getElementById('m'+(animguesses*10+10)).classList.add("solve3");
+    document.getElementById('m'+(animguesses*10+1)).classList.add("solve1");
+    document.getElementById('m'+(animguesses*10+2)).classList.add("solve2");
+    document.getElementById('m'+(animguesses*10+3)).classList.add("solve3");
+    document.getElementById('m'+(animguesses*10+4)).classList.add("solve4");
+    document.getElementById('m'+(animguesses*10+5)).classList.add("solve5");
+    document.getElementById('m'+(animguesses*10+6)).classList.add("solve6");
+    document.getElementById('m'+(animguesses*10+7)).classList.add("solve7");
+    document.getElementById('m'+(animguesses*10+8)).classList.add("solve8");
+    document.getElementById('m'+(animguesses*10+9)).classList.add("solve9");
+    document.getElementById('m'+(animguesses*10+10)).classList.add("solve10");
   }
 }
 
