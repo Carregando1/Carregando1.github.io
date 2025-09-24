@@ -349,11 +349,13 @@ a {
   color: white;
   background-color: rgb(150,150,150);
   float: left;
+  margin: auto;
 }
 .stats {
   height: 37px;
   float: left;
   width: 37px;
+  margin: auto;
 }
 #statsdiv {
   width: 600px;
