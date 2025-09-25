@@ -366,3 +366,67 @@ a {
   display: block;
   height: 40px;
 }
+@keyframes popanim {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes popanim2 {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.popanim {
+  animation-duration: 2.5s;
+  animation-name: popanim;
+  animation-timing-function: ease-in-out;
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 10px 10px 10px 10px;
+  top: 75px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 67;
+  text-align: center;
+  color: white;
+  background-color: rgb(125,125,125);
+}
+.popanim2 {
+  animation-duration: 1s;
+  animation-name: popanim2;
+  animation-timing-function: ease-in-out;
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 10px 10px 10px 10px;
+  top: 75px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 67;
+  text-align: center;
+  color: white;
+  background-color: rgb(125,125,125);
+}
