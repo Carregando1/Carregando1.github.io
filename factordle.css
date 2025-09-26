@@ -44,12 +44,15 @@ html {
 }
 #e1, #e2, #e5 {
   background-color: rgb(0,175,0);
+  color: white;
 }
 #e7, #e9, #e10 {
   background-color: rgb(200,200,0);
+  color: white;
 }
 #e3,#e4,#e6,#e8 {
   background-color: rgb(150,150,150);
+  color: white;
 }
 #guess1, #guess2, #guess3, #guess4,#guess5, #guess6, #guess7, #guess8 {
   float: left;
