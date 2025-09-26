@@ -451,7 +451,7 @@ function convertstatus() {
     }
   }
   navigator.clipboard.writeText(res);
-  alert("Results copied to clipboard successfully!");
+  popanim2("Results copied to clipboard successfully!");
 }
 function tutorial() {
   document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the target number within 8 tries. The target number is guaranteed to be a four-digit number with largest prime factor at most 97.</p><p id='tp2'>After you input your four-digit guess, each of the numbers in the 10 boxes will give you information on the factors of the target number. An example guess of 1250 is shown below, where the target number is 1164.</p><hr><div id='example'><div class='g1div'><div id='e1'>1</div><div id='e2'>2</div><div id='e3'>5</div><div id='e4'>0</div></div><div class='g2div'><div id='e5'>12</div><div id='e6'>25</div><div id='e7'>50</div></div><div class='g3div'><div id='e8'>125</div><div id='e9'>250</div></div><div class='g4div'><div id='e10'>1250</div></div></div><p>The <span id='green'>green</span> boxes mean that the number inside the box is a factor of the target number. For example, 2 is a factor of 1164.</p> <p>The <span id='yellow'>yellow</span> boxes mean that the number inside the box shares a common factor with the target number. For example, 50 and 1164 share the common factor 2.</p><p>The <span id='gray'>gray</span> boxes mean that the number inside the box has no common factor with the target number. For example, 125 and 1164 have no common factors.</p><hr><p>Once your guess matches the target number, all the boxes will turn blue, meaning that you have won.</p><p>The daily Factordle resets every day at 12:00 AM MST.</p>"
@@ -482,6 +482,7 @@ function stats() {
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
   if (complete) {
     document.getElementById('stats' + guesses).style.backgroundColor = "rgb(0, 100, 250)";
+    document.getElementById('tutorial').innerHTML += "<div id='copystats' onclick=convertstatus()>Share Results!</div>";
   }
 }
 function closetutorial() {
