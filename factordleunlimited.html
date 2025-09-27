@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -5,159 +6,174 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Factordle Unlimited by Carregando1</title>
-  <link href="factordle.css" rel="stylesheet" type="text/css" />
+  <link href="style.css" rel="stylesheet" type="text/css" />
   <meta name="keywords" content="Factordle" />
-  <meta name="description" content="Factordle but unlimited" />
+  <meta name="description" content="Factordle Unlimited" />
 </head>
 
 <body id='all' onload=onload()>
   <div id='header'>
-  <p id='title'</p>
-  </div>
-  <p id='warning'>&nbsp;</p>
-  <div id='keys'>
-    <button class='key' id='bs' onclick=d(-1)>Backspace</button>
-    <button class='key' onclick=d(1)>1</button>
-    <button class='key' onclick=d(2)>2</button>
-    <button class='key' onclick=d(3)>3</button>
-    <button class='key' onclick=d(4)>4</button>
-    <button class='key' onclick=d(5)>5</button>
-    <button class='key' onclick=d(6)>6</button>
-    <button class='key' onclick=d(7)>7</button>
-    <button class='key' onclick=d(8)>8</button>
-    <button class='key' onclick=d(9)>9</button>
-    <button class='key' onclick=d(0)>0</button>
-    <button class='key' id='ent' onclick=d(10)>Enter</button>
+  <p id='title'></p>
   </div>
   <div id='main'>
     <div id='row1'>
     <div id='guess1'>
       <div class='g1div'>
-        <div id='m1'></div><div id='m2'></div><div id='m3'></div><div id='m4'></div>
+        <div class='g1' id='m1'></div><div class='g1' id='m2'></div><div class='g1' id='m3'></div><div class='g1' id='m4'></div>
       </div>
       <div class='g2div'>
-        <div id='m5'></div><div id='m6'></div><div id='m7'></div>
+        <div class='g2' id='m5'></div><div class='g2' id='m6'></div><div class='g2' id='m7'></div>
       </div>
       <div class='g3div'>
-        <div id='m8'></div><div id='m9'></div>
+        <div class='g3' id='m8'></div><div class='g3' id='m9'></div>
       </div>
       <div class='g4div'>
-        <div id='m10'></div>
+        <div class='g4' id='m10'></div>
       </div>
     </div>
-    
+
     <div id='guess2'>
       <div class='g1div'>
-        <div id='m11'></div><div id='m12'></div><div id='m13'></div><div id='m14'></div>
+        <div class='g1' id='m11'></div><div class='g1' id='m12'></div><div class='g1' id='m13'></div><div class='g1' id='m14'></div>
       </div>
       <div class='g2div'>
-        <div id='m15'></div><div id='m16'></div><div id='m17'></div>
+        <div class='g2' id='m15'></div><div class='g2' id='m16'></div><div class='g2' id='m17'></div>
       </div>
       <div class='g3div'>
-        <div id='m18'></div><div id='m19'></div>
+        <div class='g3' id='m18'></div><div class='g3' id='m19'></div>
       </div>
       <div class='g4div'>
-        <div id='m20'></div>
+        <div class='g4' id='m20'></div>
       </div>
     </div>
-    
+
     <div id='guess3'>
       <div class='g1div'>
-        <div id='m21'></div><div id='m22'></div><div id='m23'></div><div id='m24'></div>
+        <div class='g1' id='m21'></div><div class='g1' id='m22'></div><div class='g1' id='m23'></div><div class='g1' id='m24'></div>
       </div>
       <div class='g2div'>
-        <div id='m25'></div><div id='m26'></div><div id='m27'></div>
+        <div class='g2' id='m25'></div><div class='g2' id='m26'></div><div class='g2' id='m27'></div>
       </div>
       <div class='g3div'>
-        <div id='m28'></div><div id='m29'></div>
+        <div class='g3' id='m28'></div><div class='g3' id='m29'></div>
       </div>
       <div class='g4div'>
-        <div id='m30'></div>
+        <div class='g4' id='m30'></div>
       </div>
     </div>
-      
+
     <div id='guess4'>
       <div class='g1div'>
-        <div id='m31'></div><div id='m32'></div><div id='m33'></div><div id='m34'></div>
+        <div class='g1' id='m31'></div><div class='g1' id='m32'></div><div class='g1' id='m33'></div><div class='g1' id='m34'></div>
         </div>
       <div class='g2div'>
-        <div id='m35'></div><div id='m36'></div><div id='m37'></div>
+        <div class='g2' id='m35'></div><div class='g2' id='m36'></div><div class='g2' id='m37'></div>
       </div>
       <div class='g3div'>
-        <div id='m38'></div><div id='m39'></div>
+        <div class='g3' id='m38'></div><div class='g3' id='m39'></div>
       </div>
       <div class='g4div'>
-        <div id='m40'></div>
+        <div class='g4' id='m40'></div>
       </div>
     </div>
     </div><div id='row2'>
-    
+
     <div id='guess5'>
       <div class='g1div'>
-        <div id='m41'></div><div id='m42'></div><div id='m43'></div><div id='m44'></div>
+        <div class='g1' id='m41'></div><div class='g1' id='m42'></div><div class='g1' id='m43'></div><div class='g1' id='m44'></div>
       </div>
       <div class='g2div'>
-        <div id='m45'></div><div id='m46'></div><div id='m47'></div>
+        <div class='g2' id='m45'></div><div class='g2' id='m46'></div><div class='g2' id='m47'></div>
       </div>
       <div class='g3div'>
-        <div id='m48'></div><div id='m49'></div>
+        <div class='g3' id='m48'></div><div class='g3' id='m49'></div>
       </div>
       <div class='g4div'>
-        <div id='m50'></div>
+        <div class='g4' id='m50'></div>
       </div>
     </div>
-    
+
     <div id='guess6'>
       <div class='g1div'>
-        <div id='m51'></div><div id='m52'></div><div id='m53'></div><div id='m54'></div>
+        <div class='g1' id='m51'></div><div class='g1' id='m52'></div><div class='g1' id='m53'></div><div class='g1' id='m54'></div>
       </div>
       <div class='g2div'>
-        <div id='m55'></div><div id='m56'></div><div id='m57'></div>
+        <div class='g2' id='m55'></div><div class='g2' id='m56'></div><div class='g2' id='m57'></div>
       </div>
       <div class='g3div'>
-        <div id='m58'></div><div id='m59'></div>
+        <div class='g3' id='m58'></div><div class='g3' id='m59'></div>
       </div>
       <div class='g4div'>
-        <div id='m60'></div>
+        <div class='g4' id='m60'></div>
       </div>
     </div>
       <div id='guess7'>
         <div class='g1div'>
-          <div id='m61'></div><div id='m62'></div><div id='m63'></div><div id='m64'></div>
+          <div class='g1' id='m61'></div><div class='g1' id='m62'></div><div class='g1' id='m63'></div><div class='g1' id='m64'></div>
         </div>
         <div class='g2div'>
-          <div id='m65'></div><div id='m66'></div><div id='m67'></div>
+          <div class='g2' id='m65'></div><div class='g2' id='m66'></div><div class='g2' id='m67'></div>
         </div>
         <div class='g3div'>
-          <div id='m68'></div><div id='m69'></div>
+          <div class='g3' id='m68'></div><div class='g3' id='m69'></div>
         </div>
         <div class='g4div'>
-          <div id='m70'></div>
+          <div class='g4' id='m70'></div>
         </div>
       </div>
 
       <div id='guess8'>
         <div class='g1div'>
-          <div id='m71'></div><div id='m72'></div><div id='m73'></div><div id='m74'></div>
+          <div class='g1' id='m71'></div><div class='g1' id='m72'></div><div class='g1' id='m73'></div><div class='g1' id='m74'></div>
         </div>
         <div class='g2div'>
-          <div id='m75'></div><div id='m76'></div><div id='m77'></div>
+          <div class='g2' id='m75'></div><div class='g2' id='m76'></div><div class='g2' id='m77'></div>
         </div>
         <div class='g3div'>
-          <div id='m78'></div><div id='m79'></div>
+          <div class='g3' id='m78'></div><div class='g3' id='m79'></div>
         </div>
         <div class='g4div'>
-          <div id='m80'></div>
+          <div class='g4' id='m80'></div>
         </div>
       </div>
     </div>
   </div>
   <div id='tutorial'>
-    
+
+  </div>
+  <div id='pop'>
+
+  </div>
+  <div id='keys'>
+    <div class='k' id='k1' onclick=k(1)>2</div>
+    <div class='k' id='k2' onclick=k(2)>3</div>
+    <div class='k' id='k3' onclick=k(3)>5</div>
+    <div class='k' id='k4' onclick=k(4)>7</div>
+    <div class='k' id='k5' onclick=k(5)>11</div>
+    <div class='k' id='k6' onclick=k(6)>13</div>
+    <div class='k' id='k7' onclick=k(7)>17</div>
+    <div class='k' id='k8' onclick=k(8)>19</div>
+    <div class='k' id='k9' onclick=k(9)>23</div>
+    <div class='k' id='k10' onclick=k(10)>29</div>
+    <div class='k' id='k11' onclick=k(11)>31</div>
+    <div class='k' id='k12' onclick=k(12)>37</div>
+    <div class='k' id='k13' onclick=k(13)>41</div>
+    <div class='k' id='k14' onclick=k(14)>43</div>
+    <div class='k' id='k15' onclick=k(15)>47</div>
+    <div class='k' id='k16' onclick=k(16)>53</div>
+    <div class='k' id='k17' onclick=k(17)>59</div>
+    <div class='k' id='k18' onclick=k(18)>61</div>
+    <div class='k' id='k19' onclick=k(19)>67</div>
+    <div class='k' id='k20' onclick=k(20)>71</div>
+    <div class='k' id='k21' onclick=k(21)>73</div>
+    <div class='k' id='k22' onclick=k(22)>79</div>
+    <div class='k' id='k23' onclick=k(23)>83</div>
+    <div class='k' id='k24' onclick=k(24)>89</div>
+    <div class='k' id='k25' onclick=k(25)>97</div>
   </div>
 
-  
-  <script src="factordleunlimited.js"></script>
+
+  <script src="unlimited.js"></script>
 
 </body>
 
