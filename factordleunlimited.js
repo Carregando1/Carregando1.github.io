@@ -267,6 +267,7 @@ if (localStorage.getItem("uset0") == null) {
 if (localStorage.getItem("ustatus") == null) {
   localStorage.setItem("ustatus", "");
   localStorage.setItem("usetb", "Backspace");
+  solution = solutions[Math.floor(Math.random()*3051)];
   localStorage.setItem("usolution", solution);
 }
 document.getElementById("all").addEventListener("keyup", detect);
