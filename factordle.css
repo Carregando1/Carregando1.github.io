@@ -3,29 +3,127 @@ html {
   font-size: 24px;
   color: black;
 }
-#m5, #m6, #m7, #m8, #m9, #m15, #m16, #m17, #m18, #m19, #m25, #m26, #m27, #m28, #m29, #m35, #m36, #m37, #m38, #m39, #m45, #m46, #m47, #m48, #m49, #m55, #m56, #m57, #m58, #m59, #m65, #m66, #m67, #m68, #m69, #m75, #m76, #m77, #m78, #m79, #e5, #e6, #e7, #e8, #e9 {
-  height: 50px;
-  border: 2px solid rgb(150,150,150);
-  float: left;
-  margin: 0px 10px 0px 10px;
-}
-#m1, #m2, #m3, #m4, #m10, #m11, #m12, #m13, #m14, #m20, #m21, #m22, #m23, #m24, #m30, #m31, #m32, #m33, #m34, #m40, #m41, #m42, #m43, #m44, #m50, #m51, #m52, #m53, #m54, #m60, #m61, #m62, #m63, #m64, #m70, #m71, #m72, #m73, #m74, #m80, #e1, #e2, #e3, #e4, #e10 {
+
+#m1,
+#m2,
+#m3,
+#m4,
+#m10,
+#m11,
+#m12,
+#m13,
+#m14,
+#m20,
+#m21,
+#m22,
+#m23,
+#m24,
+#m30,
+#m31,
+#m32,
+#m33,
+#m34,
+#m40,
+#m41,
+#m42,
+#m43,
+#m44,
+#m50,
+#m51,
+#m52,
+#m53,
+#m54,
+#m60,
+#m61,
+#m62,
+#m63,
+#m64,
+#m70,
+#m71,
+#m72,
+#m73,
+#m74,
+#m80, #e1, #e2, #e3, #e4, #e10 {
   width: 50px;
   height: 50px;
-  border: 3px solid rgb(0,100,250);
+  border: 2px solid rgb(150, 150, 150);
   float: left;
   margin: 0px 10px 0px 10px;
 }
-#m5, #m6, #m7, #m15, #m16, #m17, #m25, #m26, #m27, #m35, #m36, #m37, #m45, #m46, #m47, #m55, #m56, #m57, #m65, #m66, #m67, #m75, #m76, #m77, #e5, #e6, #e7 {
+
+#m5, #e5, #e6, #e7,
+#m6,
+#m7,
+#m15,
+#m16,
+#m17,
+#m25,
+#m26,
+#m27,
+#m35,
+#m36,
+#m37,
+#m45,
+#m46,
+#m47,
+#m55,
+#m56,
+#m57,
+#m65,
+#m66,
+#m67,
+#m75,
+#m76,
+#m77 {
   width: 75px;
+  height: 50px;
+  border: 2px solid rgb(150, 150, 150);
+  float: left;
+  margin: 0px 10px 0px 10px;
 }
-#m8, #m9, #m18, #m19, #m28, #m29, #m38, #m39, #m48, #m49, #m58, #m59, #m68, #m69, #m78, #m79, #e8, #e9 {
+
+#m8,
+#m9,
+#m18,
+#m19,
+#m28,
+#m29,
+#m38,
+#m39,
+#m48,
+#m49,
+#m58,
+#m59,
+#m68,
+#m69,
+#m78,
+#m79, #e8, #e9 {
   width: 100px;
+  height: 50px;
+  border: 2px solid rgb(150, 150, 150);
+  float: left;
+  margin: 0px 10px 0px 10px;
 }
-#m10, #m20, #m30, #m40, #m50, #m60, #m70, #m80, #e10 {
+
+#m10,
+#m20,
+#m30,
+#m40,
+#m50,
+#m60,
+#m70,
+#m80, #e10 {
   width: 125px;
+  height: 50px;
+  border: 2px solid rgb(150, 150, 150);
+  float: left;
+  margin: 0px 10px 0px 10px;
 }
-.g1div, .g2div, .g3div, .g4div {
+
+.g1div,
+.g2div,
+.g3div,
+.g4div {
   height: 60px;
   width: 312.5px;
   text-align: center;
@@ -33,63 +131,86 @@ html {
   color: black;
   font-size: 32px;
 }
+
 .g2div {
   padding: 0px 2.5px;
 }
+
 .g3div {
   padding: 0px 25px;
 }
+
 .g4div {
   padding: 0px 75px;
 }
-#e1, #e2, #e5 {
-  background-color: rgb(0,175,0);
+
+#e2 {
+  background-color: rgb(0, 175, 0);
   color: white;
 }
-#e7, #e9, #e10 {
-  background-color: rgb(200,200,0);
+
+#e7 {
+  background-color: rgb(200, 200, 0);
   color: white;
 }
-#e3,#e4,#e6,#e8 {
-  background-color: rgb(150,150,150);
+
+#e8 {
+  background-color: rgb(150, 150, 150);
   color: white;
 }
-#guess1, #guess2, #guess3, #guess4,#guess5, #guess6, #guess7, #guess8 {
+
+#guess1,
+#guess2,
+#guess3,
+#guess4,
+#guess5,
+#guess6,
+#guess7,
+#guess8 {
   float: left;
   width: 312.5px;
   height: 250px;
-  border: 1px solid rgb(150,150,150);
+  border: 1px solid rgb(150, 150, 150);
   padding-left: 5px;
   padding-top: 12.5px;
 }
+
 #main {
   width: 1300px;
   margin: auto;
 }
+
 #tutorial {
   position: absolute;
+  width: 1300px;
   top: 0px;
   left: 50%;
   transform: translate(-50%, 0%);
-  width: 1300px;
   background-color: white;
   z-index: 67;
   text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
 }
+
 #example {
   width: 312.5px;
   margin: auto;
 }
-#title, #warning {
+
+#title,
+#warning {
   text-align: center;
 }
+
 #keys {
   width: 1300px;
   height: 75px;
   margin: auto;
-  padding-left: 250.5px; 
+  padding-left: 250.5px;
   top: 925px;
 }
+
 .key {
   width: 50px;
   height: 50px;
@@ -97,19 +218,23 @@ html {
   border: none;
   float: left;
   font-size: 32px;
-  background-color: rgb(225,225,225);
+  background-color: rgb(225, 225, 225);
   margin: 0px 5px;
 }
+
 #bs {
   width: 175px;
 }
+
 #ent {
   width: 100px;
 }
+
 a {
-  color: rgb(0,150,250);
+  color: rgb(0, 150, 250);
   text-decoration: underline;
 }
+
 .px {
   font-size: 32px;
 }
@@ -121,88 +246,103 @@ a {
 @keyframes flip0 {
   0% {
     background-color: white;
-    transform: (1,1);
+    transform: (1, 1);
     color: black;
   }
+
   49.99% {
-    transform: scale(1,0);
+    transform: scale(1, 0);
     background-color: white;
     color: black;
   }
+
   50.01% {
-    transform: scale(1,0);
-    background-color: rgb(150,150,150);
+    transform: scale(1, 0);
+    background-color: rgb(150, 150, 150);
     color: white;
   }
+
   100% {
-    background-color: rgb(150,150,150);
-    transform: (1,1);
+    background-color: rgb(150, 150, 150);
+    transform: (1, 1);
     color: white;
   }
 }
+
 @keyframes flip1 {
   0% {
     background-color: white;
-    transform: (1,1);
+    transform: (1, 1);
     color: black;
   }
+
   49.99% {
-    transform: scale(1,0);
+    transform: scale(1, 0);
     background-color: white;
     color: black;
   }
+
   50.01% {
-    transform: scale(1,0);
-    background-color: rgb(200,200,0);
+    transform: scale(1, 0);
+    background-color: rgb(200, 200, 0);
     color: white;
   }
+
   100% {
-    background-color: rgb(200,200,0);
-    transform: (1,1);
+    background-color: rgb(200, 200, 0);
+    transform: (1, 1);
     color: white;
   }
 }
+
 @keyframes flip2 {
   0% {
     background-color: white;
-    transform: (1,1);
+    transform: (1, 1);
     color: black;
   }
+
   49.99% {
-    transform: scale(1,0);
+    transform: scale(1, 0);
     background-color: white;
     color: black;
   }
+
   50.01% {
-    transform: scale(1,0);
-    background-color: rgb(0,175,0);
+    transform: scale(1, 0);
+    background-color: rgb(0, 175, 0);
     color: white;
   }
+
   100% {
-    background-color: rgb(0,175,0);
-    transform: (1,1);
+    background-color: rgb(0, 175, 0);
+    transform: (1, 1);
     color: white;
   }
 }
+
 @keyframes flip3 {
   0% {
     background-color: white;
-    transform: (1,1);
+    transform: (1, 1);
     color: black;
   }
+
   49.99% {
-    transform: scale(1,0);
+    transform: scale(1, 0);
     background-color: white;
     color: black;
   }
+
   50.01% {
-    transform: scale(1,0);
-    background-color: rgb(0,100,250);
+    transform: scale(1, 0);
+    background-color: rgb(0, 100, 250);
     color: white;
   }
+
   100% {
-    background-color: rgb(0,100,250);
-    transform: (1,1);
+    background-color: rgb(0, 100, 250);
+    transform: (1, 1);
     color: white;
   }
 }
@@ -225,36 +365,40 @@ a {
     margin-bottom: 0px;
   }
 }
+
 .flip0 {
   animation-duration: 0.3s;
   animation-name: flip0;
   animation-timing-function: linear;
-  background-color: rgb(150,150,150);
-  transform: (1,1);
+  background-color: rgb(150, 150, 150);
+  transform: (1, 1);
   color: white;
 }
+
 .flip1 {
   animation-duration: 0.3s;
   animation-name: flip1;
   animation-timing-function: linear;
-  background-color: rgb(200,200,0);
-  transform: (1,1);
+  background-color: rgb(200, 200, 0);
+  transform: (1, 1);
   color: white;
 }
+
 .flip2 {
   animation-duration: 0.3s;
   animation-name: flip2;
   animation-timing-function: linear;
-  background-color: rgb(0,175,0);
-  transform: (1,1);
+  background-color: rgb(0, 175, 0);
+  transform: (1, 1);
   color: white;
 }
+
 .flip3 {
   animation-duration: 0.3s;
   animation-name: flip3;
   animation-timing-function: linear;
-  background-color: rgb(0,100,250);
-  transform: (1,1);
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
   color: white;
 }
 .solve1 {
@@ -352,7 +496,7 @@ a {
   color: white;
   background-color: rgb(150,150,150);
   float: left;
-  margin-top: 6.5px !important;
+  margin-top: 6.5px;
 }
 .stats {
   height: auto;
@@ -363,11 +507,12 @@ a {
 #statsdiv {
   width: 600px;
   margin: auto;
+  padding-bottom: 10px;
 }
 .statsdivs {
   width: 590px;
   display: block;
-  height: 40px;
+  height: 42px;
 }
 @keyframes popanim {
   0% {
@@ -412,7 +557,7 @@ a {
   top: 75px;
   left: 50%;
   transform: translate(-50%, 0%);
-  z-index: 67;
+  z-index: 69;
   text-align: center;
   color: white;
   background-color: rgb(125,125,125);
@@ -428,7 +573,7 @@ a {
   top: 75px;
   left: 50%;
   transform: translate(-50%, 0%);
-  z-index: 67;
+  z-index: 69;
   text-align: center;
   color: white;
   background-color: rgb(125,125,125);
@@ -448,4 +593,36 @@ a {
 }
 #copystats:hover {
   background-color: rgb(0,75,188);
+}
+.k {
+  float: left;
+  height: 44px;
+  width: 44px;
+  border: 3px solid rgb(150,150,150);
+  color: black;
+  background-color: white;
+  text-align: center;
+  line-height: 44px;
+}
+#keys {
+  width: 1250px;
+  height: 60px;
+  position: absolute;
+  top: 625px;
+  padding-right: 0px;
+  padding-left: 0px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+#c0 {
+  color: rgb(150,150,150);
+}
+#c1 {
+  color: rgb(200,200,0);
+}
+#c2 {
+  color: rgb(0,175,0);
+}
+#c3 {
+  color: rgb(0,100,250);
 }
