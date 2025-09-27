@@ -217,29 +217,21 @@ var solutions = [1000,1001,1003,1005,1007,1008,1012,1014,1015
     ,9877,9879,9880,9882,9889,9890,9894,9900,9911,9912,9916,9918,9920,9922
     ,9928,9933,9936,9940,9945,9947,9954,9960,9963,9964,9968,9971,9975,9976
     ,9982,9984,9990,9996];
-var solution = solutions[Math.floor(Math.random()*3051)];
 var guess = [];
-var guessesun = 0;
+var guesses = 0;
 var complete = false;
 var res;
-function reset(hard = false) {
-  if (hard) {
-    localStorage.removeItem("solve1un");
-  }
-  localStorage.removeItem("solut");
-  solution = solutions[Math.floor(Math.random()*3051)];
-  localStorage.setItem("guessesun", "");
-  localStorage.setItem("statusun", "");
-  for (var i = 1; i <= 80; i++) {
-    document.getElementById('m'+i).style.color='black';
-    document.getElementById('m'+i).style.backgroundColor='white';
-    document.getElementById('m'+i).innerHTML='';
-  }
-  document.getElementById('warning').innerHTML='&nbsp;';
-  guessesun = 0;
-  complete = false;
-  onload();
+var solution;
+var kconst = 0;
+var sconst = 0;
+if (((window.innerWidth > 0) ? window.innerWidth : screen.width) < 1300) {
+  document.getElementById('all').innerHTML='Resize your screen to be wider than 1300px, then reload.'
 }
+addEventListener("resize", () => {
+  if (((window.innerWidth > 0) ? window.innerWidth : screen.width) < 1300) {
+    document.getElementById('all').innerHTML='Resize your screen to be wider than 1300px, then reload.'
+  }
+})
 function convert(a) {
   if (a == 3) {
     return 'rgb(0,100,250)';
@@ -251,220 +243,467 @@ function convert(a) {
     return 'rgb(150,150,150)';
   }
 }
-if (localStorage.getItem("solve1un")  == null) {
-  localStorage.setItem("solve1un", 0);
-  localStorage.setItem("solve2un", 0);
-  localStorage.setItem("solve3un", 0);
-  localStorage.setItem("solve4un", 0);
-  localStorage.setItem("solve5un", 0);
-  localStorage.setItem("solve6un", 0);
-  localStorage.setItem("solve7un", 0);
-  localStorage.setItem("solve8un", 0);
-  localStorage.setItem("solve9un", 0);
-  localStorage.setItem("guessesun", "");
-  localStorage.setItem("statusun", "");
+if (localStorage.getItem("usolve1") == null) {
+  localStorage.setItem("usolve1", 0);
+  localStorage.setItem("usolve2", 0);
+  localStorage.setItem("usolve3", 0);
+  localStorage.setItem("usolve4", 0);
+  localStorage.setItem("usolve5", 0);
+  localStorage.setItem("usolve6", 0);
+  localStorage.setItem("usolve7", 0);
+  localStorage.setItem("usolve8", 0);
+  localStorage.setItem("usolve9", 0);
+}
+if (localStorage.getItem("uks") == null) {
+  localStorage.setItem("uks", "9999999999999999999999999");
+}
+if (localStorage.getItem("uset0") == null) {
+  localStorage.setItem("uset0", "0");
+  localStorage.setItem("uset1", "1");
+  localStorage.setItem("uset2", "2");
+  localStorage.setItem("uset3", "3");
+  localStorage.setItem("usetb", "Backspace");
 }
 document.getElementById("all").addEventListener("keyup", detect);
 function onload() {
-  if (localStorage.getItem("solut") == null) {
-    localStorage.setItem("solut", solution);
+  if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 1] == 3 || localStorage.getItem("ustatus").length == 80) {
+    complete = true;
   }
-  solution = localStorage.getItem("solut")
-  for (var i = 1; i <= 80; i++) {
-    document.getElementById('m'+i).style.color='black';
+  if (complete || localStorage.getItem("ustatus") == 0) {
+    complete = false;
+    localStorage.setItem("ustatus", "");
+    localStorage.setItem("uguesses", "");
+    solution = solutions[Math.floor(Math.random()*3051)];
+    localStorage.setItem("usolution", solution);
+    localStorage.setItem("uks", "9999999999999999999999999");
+  } else {
+    solution = localStorage.getItem("usolution");
   }
-  for (var i = 0; i < localStorage.getItem("guessesun").length/4; i++) {
-    guessesun = i;
-    guess = [localStorage.getItem("guessesun")[i*4],localStorage.getItem("guessesun")[i*4+1],localStorage.getItem("guessesun")[i*4+2],localStorage.getItem("guessesun")[i*4+3]];
+  for (var i = 1; i <= 25; i++) {
+    if (localStorage.getItem("uks")[i-1] == "0") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(150,150,150)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(150,150,150)";
+      document.getElementById('k'+i).style.color = "white";
+    } else if (localStorage.getItem("uks")[i-1] == "1") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(200,200,0)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(200,200,0)";
+      document.getElementById('k'+i).style.color = "white";
+    } else if (localStorage.getItem("uks")[i-1] == "2") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(0,175,0)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(0,175,0)";
+       document.getElementById('k'+i).style.color = "white";
+    } else if (localStorage.getItem("uks")[i-1] == "3") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(0,100,250)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(0,100,250)";
+      document.getElementById('k'+i).style.color = "white";
+    }  
+  }
+  for (var i = 0; i < localStorage.getItem("uguesses").length / 4; i++) {
+    guesses = i;
+    guess = [localStorage.getItem("uguesses")[i * 4], localStorage.getItem("uguesses")[i * 4 + 1], localStorage.getItem("uguesses")[i * 4 + 2], localStorage.getItem("uguesses")[i * 4 + 3]];
     update(1);
     update(2);
     update(3);
     update(4);
     guess = [];
   }
-  for (var i = 0; i < localStorage.getItem("statusun").length; i++) {
-    document.getElementById('m'+(i+1)).style.backgroundColor=convert(localStorage.getItem("statusun")[i]);
-    document.getElementById('m'+(i+1)).style.color='white';
-    if (localStorage.getItem("statusun")[i] == 3) {
-      complete = true;
-      document.getElementById('warning').innerHTML='You won in '+(guessesun+1)+' guesses! Click <a onclick=reset()>here</a> to play again.'
+  for (var i = 0; i < localStorage.getItem("ustatus").length; i++) {
+    document.getElementById('m' + (i + 1)).style.backgroundColor = convert(localStorage.getItem("ustatus")[i]);
+    document.getElementById('m' + (i + 1)).style.color = 'white';
+  }
+  if (localStorage.getItem("uguesses").length != 0) {
+    guesses++;
+  }
+  if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 1] == 3 || guesses == 8) {
+    complete = true;
+    if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 1] != 3) {
+      guesses = 9;
     }
+    stats();
+  } else {
+    closetutorial();
   }
-  if (localStorage.getItem("guessesun").length != 0){
-    guessesun++;
-  }
-  document.getElementById('title').innerHTML = "Factordle Unlimited (<a onclick=tutorial()>How To Play</a> | <a onclick=stats()>View Your Statistics</a>)";
-  if (guessesun == 8) {
-    document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=reset()>here</a> to play again.";
-  }
+  document.getElementById('title').innerHTML = "Factordle Unlimited (<a onclick=tutorial()>How To Play</a> | <a onclick=stats()>View Your Statistics</a> | <a onclick=settings()>Change Settings</a>)";
 }
 function detect(e) {
-  if (guessesun < 8 && !(complete)) {
-    document.getElementById('warning').innerHTML='&nbsp;';
-  if (e.key == "Enter") {
-    push(guess);
-  }
-  if (e.key == "Backspace") {
-    if (guess.length > 0) { 
-      guess.pop();
-      update(-(guess.length + 1));
+  if (!(complete) && step == 0) {
+    if (e.key == "Enter" && kconst == 0 && sconst == 0) {
+      document.getElementById('pop').classList.remove("popanim2");
+      document.getElementById('pop').innerHTML = '';
+      push(guess);
     }
-  }
-  if (e.key == "0" || e.key == "1" || e.key == "2" || e.key == "3" || e.key == "4" || e.key == "5" || e.key == "6" || e.key == "7" || e.key == "8" || e.key == "9") {
-    if (guess.length == 0 && e.key == '0') {
-      document.getElementById('warning').innerHTML="Guessesun must be within 1000 and 9999";
-    } else {
-    if (guess.length <= 3) {
-      guess.push(parseInt(e.key));
-      update(guess.length);
+    if (e.key == "Backspace" && kconst == 0 && sconst == 0) {
+      document.getElementById('pop').classList.remove("popanim2");
+      document.getElementById('pop').innerHTML = '';
+      if (guess.length > 0) {
+        guess.pop();
+        update(-(guess.length + 1));
+      }
     }
+    if ((e.key == "0" || e.key == "1" || e.key == "2" || e.key == "3" || e.key == "4" || e.key == "5" || e.key == "6" || e.key == "7" || e.key == "8" || e.key == "9") && kconst == 0 && sconst == 0) {
+      document.getElementById('pop').classList.remove("popanim2");
+      document.getElementById('pop').innerHTML = '';
+      if (guess.length == 0 && e.key == '0') {
+        popanim2("Guesses must be between 1000 and 9999");
+      } else {
+        if (guess.length <= 3) {
+          guess.push(parseInt(e.key));
+          update(guess.length);
+        }
+      }
     }
-  }
+    if (e.key == localStorage.getItem('uset0') && kconst != 0 && !(complete) && sconst == 0) {
+      document.getElementById('k'+kconst).style.backgroundColor = "rgb(150,150,150)";
+      document.getElementById('k'+kconst).style.color = "white";
+      document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
+      localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "0" + localStorage.getItem("uks").substring(kconst));
+      kconst = 0;
+    }
+    if (e.key == localStorage.getItem('uset1') && kconst != 0 && !(complete) && sconst == 0) {
+      document.getElementById('k'+kconst).style.backgroundColor = "rgb(200,200,0)";
+      document.getElementById('k'+kconst).style.color = "white";
+      document.getElementById('k'+kconst).style.border = "3px solid rgb(200,200,0)";
+      localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "1" + localStorage.getItem("uks").substring(kconst));
+      kconst = 0;
+    }
+    if (e.key == localStorage.getItem('uset2') && kconst != 0 && !(complete) && sconst == 0) {
+      document.getElementById('k'+kconst).style.backgroundColor = "rgb(0,175,0)";
+      document.getElementById('k'+kconst).style.color = "white";
+      document.getElementById('k'+kconst).style.border = "3px solid rgb(0,175,0)";
+      localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "2" + localStorage.getItem("uks").substring(kconst));
+      kconst = 0;
+    }
+    if (e.key == localStorage.getItem('uset3') && kconst != 0 && !(complete) && sconst == 0) {
+      document.getElementById('k'+kconst).style.backgroundColor = "rgb(0,100,250)";
+      document.getElementById('k'+kconst).style.color = "white";
+      document.getElementById('k'+kconst).style.border = "3px solid rgb(0,100,250)";
+      localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "3" + localStorage.getItem("uks").substring(kconst));
+      kconst = 0;
+    }
+    if (e.key == localStorage.getItem('usetb') && kconst != 0 && !(complete) && sconst == 0) {
+      document.getElementById('k'+kconst).style.backgroundColor = "white";
+      document.getElementById('k'+kconst).style.color = "black";
+      document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
+      localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "9" + localStorage.getItem("uks").substring(kconst));
+      kconst = 0;
+    }
+    if (sconst != 0) {
+      if (e.key == localStorage.getItem('uset0') && sconst != 1) {
+        popanim2("Key "+e.key+" is already used by Gray keybind");
+        settings();
+        sconst = 0;
+        return;
+      }
+      if (e.key == localStorage.getItem('uset1') && sconst != 2) {
+        popanim2("Key "+e.key+" is already used by Yellow keybind");
+        settings();
+        sconst = 0;
+        return;
+      }
+      if (e.key == localStorage.getItem('uset2') && sconst != 3) {
+        popanim2("Key "+e.key+" is already used by Green keybind");
+        settings();
+        sconst = 0;
+        return;
+      }
+      if (e.key == localStorage.getItem('uset3') && sconst != 4) {
+        popanim2("Key "+e.key+" is already used by Blue keybind");
+        settings();
+        sconst = 0;
+        return;
+      }
+      if (e.key == localStorage.getItem('usetb') && sconst != 5) {
+        popanim2("Key "+e.key+" is already used by Undo Coloring keybind");
+        settings();
+        sconst = 0;
+        return;
+      }
+      if (sconst != 5) {
+        localStorage.setItem('uset'+(sconst-1), e.key);
+      } else {
+        localStorage.setItem('usetb', e.key);
+      }
+      sconst = 0;
+      settings();
+    }
   }
 }
-function d(e) {
-  if (guessesun < 8 && !(complete)) {
-    document.getElementById('warning').innerHTML="&nbsp;";
-  if (e == 10) {
-    push(guess);
-  }
-  if (e == -1) {
-    if (guess.length > 0) { 
-      guess.pop();
-      update(-(guess.length + 1));
-    }
-  }
-  if (e == 0 || e == 1 || e == 2 || e == 3 || e == 4 || e == 5 || e == 6 || e == 7 || e == 8 || e == 9) {
-    if (guess.length == 0 && e == 0) {
-      document.getElementById('warning').innerHTML="Guessesun must be within 1000 and 9999";
-    } else {
-    if (guess.length <= 3) {
-      guess.push(e);
-      update(guess.length);
-    }
-    }
-  }
-  }
-}
+var animpush = [];
 function push(a) {
+  animpush = [];
   if (a.length != 4) {
-    document.getElementById('warning').innerHTML='Guess must be 4 digits';
+    popanim2('Guess must be 4 digits');
     return;
   }
-  if ((1000*a[0]+100*a[1]+10*a[2]+a[3]) == solution) {
-    localStorage.setItem("statusun", localStorage.getItem("statusun") + "3333333333");
+  if ((1000 * a[0] + 100 * a[1] + 10 * a[2] + a[3]) == solution) {
     for (i = 1; i < 11; i++) {
-    document.getElementById('m'+(guessesun*10+i)).style.backgroundColor = "rgb(0,100,250)";
-    document.getElementById('m'+(guessesun*10+i)).style.color = "white";
+      document.getElementById('m' + (guesses * 10 + i)).innerHTML = parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML);
     }
+    localStorage.setItem("ustatus", localStorage.getItem("ustatus") + "3333333333");
+    anim(guesses, [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]);
     complete = true;
-    document.getElementById('warning').innerHTML='You won in '+(guessesun+1)+' guesses!  Click <a onclick=reset()>here</a> to play again.'
-    localStorage.setItem('solve'+((guessesun+1)+'un'), parseInt(localStorage.getItem('solve'+((guessesun+1)))) + 1);
+    localStorage.setItem('usolve' + ((guesses + 1)), parseInt(localStorage.getItem('usolve' + ((guesses + 1)))) + 1);
   } else {
-  for (i = 1; i < 11; i++) {
-    document.getElementById('m'+(guessesun*10+i)).innerHTML = parseInt(document.getElementById('m'+(guessesun*10+i)).innerHTML);
-    localStorage.setItem("statusun", localStorage.getItem("statusun") + euclid(solution, parseInt(document.getElementById('m'+(guessesun*10+i)).innerHTML))[1]);
-    document.getElementById('m'+(guessesun*10+i)).style.backgroundColor = euclid(solution, parseInt(document.getElementById('m'+(guessesun*10+i)).innerHTML))[0];
-    document.getElementById('m'+(guessesun*10+i)).style.color = "white";
-  }
+    for (i = 1; i < 11; i++) {
+      document.getElementById('m' + (guesses * 10 + i)).innerHTML = parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML);
+      localStorage.setItem("ustatus", localStorage.getItem("ustatus") + euclid(solution, parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML))[1]);
+      animpush.push(euclid(solution, parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML))[1]);
+    }
+    if (guesses == 7) {
+      localStorage.setItem('usolve9', parseInt(localStorage.getItem('usolve9')) + 1);
+      complete = true;
+    }
+    anim(guesses, animpush);
   }
   guess = [];
-  guessesun++;
-  localStorage.setItem("guessesun", localStorage.getItem("guessesun") + ((1000*a[0]+100*a[1]+10*a[2]+a[3])).toString());
-  if (guessesun == 8) {
-    document.getElementById('warning').innerHTML='You lost. The number was '+solution+".  Click <a onclick=reset()>here</a> to play again.";
-    localStorage.setItem('solve9un', parseInt(localStorage.getItem('solve9un')) + 1);
-  }
+  guesses++;
+  localStorage.setItem("uguesses", localStorage.getItem("uguesses") + ((1000 * a[0] + 100 * a[1] + 10 * a[2] + a[3])).toString());
 }
-function euclid(a,b) {
+function euclid(a, b) {
   if (a == b) {
     throw new Error("Impossible");
   }
-  if (a%b == 0 || b == 1) {
-    return ['rgb(0,175,0)','2'];
+  if (a % b == 0 || b == 1) {
+    return ['rgb(0,175,0)', '2'];
   }
   if (b == 0) {
-    return ['rgb(150,150,150)','0'];
+    return ['rgb(150,150,150)', '0'];
   }
   while (a != 0 && b != 0) {
     if (a < b) {
-      b = Math.max(a,b)%Math.min(a,b);
+      b = Math.max(a, b) % Math.min(a, b);
     } else {
-      a = Math.max(a,b)%Math.min(a,b);
+      a = Math.max(a, b) % Math.min(a, b);
     }
   }
   if (a + b == 1) {
-    return ['rgb(150,150,150)','0'];
+    return ['rgb(150,150,150)', '0'];
   }
-  return ['rgb(200,200,0)','1'];
+  return ['rgb(200,200,0)', '1'];
 }
 function update(a) {
   if (a == 1) {
-    document.getElementById('m'+(guessesun*10+1)).innerHTML += guess[0];
-    document.getElementById('m'+(guessesun*10+5)).innerHTML += guess[0];
-    document.getElementById('m'+(guessesun*10+8)).innerHTML += guess[0];
-    document.getElementById('m'+(guessesun*10+10)).innerHTML += guess[0];
+    document.getElementById('m' + (guesses * 10 + 1)).innerHTML += guess[0];
+    document.getElementById('m' + (guesses * 10 + 5)).innerHTML += guess[0];
+    document.getElementById('m' + (guesses * 10 + 8)).innerHTML += guess[0];
+    document.getElementById('m' + (guesses * 10 + 10)).innerHTML += guess[0];
   } else if (a == 2) {
-    document.getElementById('m'+(guessesun*10+2)).innerHTML += guess[1];
-    document.getElementById('m'+(guessesun*10+5)).innerHTML += guess[1];
-    document.getElementById('m'+(guessesun*10+6)).innerHTML += guess[1];
-    document.getElementById('m'+(guessesun*10+8)).innerHTML += guess[1];
-    document.getElementById('m'+(guessesun*10+9)).innerHTML += guess[1];
-    document.getElementById('m'+(guessesun*10+10)).innerHTML += guess[1];
+    document.getElementById('m' + (guesses * 10 + 2)).innerHTML += guess[1];
+    document.getElementById('m' + (guesses * 10 + 5)).innerHTML += guess[1];
+    document.getElementById('m' + (guesses * 10 + 6)).innerHTML += guess[1];
+    document.getElementById('m' + (guesses * 10 + 8)).innerHTML += guess[1];
+    document.getElementById('m' + (guesses * 10 + 9)).innerHTML += guess[1];
+    document.getElementById('m' + (guesses * 10 + 10)).innerHTML += guess[1];
   } else if (a == 3) {
-    document.getElementById('m'+(guessesun*10+3)).innerHTML += guess[2];
-    document.getElementById('m'+(guessesun*10+6)).innerHTML += guess[2];
-    document.getElementById('m'+(guessesun*10+7)).innerHTML += guess[2];
-    document.getElementById('m'+(guessesun*10+8)).innerHTML += guess[2];
-    document.getElementById('m'+(guessesun*10+9)).innerHTML += guess[2];
-    document.getElementById('m'+(guessesun*10+10)).innerHTML += guess[2];
+    document.getElementById('m' + (guesses * 10 + 3)).innerHTML += guess[2];
+    document.getElementById('m' + (guesses * 10 + 6)).innerHTML += guess[2];
+    document.getElementById('m' + (guesses * 10 + 7)).innerHTML += guess[2];
+    document.getElementById('m' + (guesses * 10 + 8)).innerHTML += guess[2];
+    document.getElementById('m' + (guesses * 10 + 9)).innerHTML += guess[2];
+    document.getElementById('m' + (guesses * 10 + 10)).innerHTML += guess[2];
   } else if (a == 4) {
-    document.getElementById('m'+(guessesun*10+4)).innerHTML += guess[3];
-    document.getElementById('m'+(guessesun*10+7)).innerHTML += guess[3];
-    document.getElementById('m'+(guessesun*10+9)).innerHTML += guess[3];
-    document.getElementById('m'+(guessesun*10+10)).innerHTML += guess[3];
+    document.getElementById('m' + (guesses * 10 + 4)).innerHTML += guess[3];
+    document.getElementById('m' + (guesses * 10 + 7)).innerHTML += guess[3];
+    document.getElementById('m' + (guesses * 10 + 9)).innerHTML += guess[3];
+    document.getElementById('m' + (guesses * 10 + 10)).innerHTML += guess[3];
   } else if (a == -1) {
-    document.getElementById('m'+(guessesun*10+1)).innerHTML = document.getElementById('m'+(guessesun*10+1)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+5)).innerHTML = document.getElementById('m'+(guessesun*10+5)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+8)).innerHTML = document.getElementById('m'+(guessesun*10+8)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+10)).innerHTML = document.getElementById('m'+(guessesun*10+10)).innerHTML.slice(0,-1);
+    document.getElementById('m' + (guesses * 10 + 1)).innerHTML = document.getElementById('m' + (guesses * 10 + 1)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 5)).innerHTML = document.getElementById('m' + (guesses * 10 + 5)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 8)).innerHTML = document.getElementById('m' + (guesses * 10 + 8)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 10)).innerHTML = document.getElementById('m' + (guesses * 10 + 10)).innerHTML.slice(0, -1);
   } else if (a == -2) {
-    document.getElementById('m'+(guessesun*10+2)).innerHTML = document.getElementById('m'+(guessesun*10+2)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+5)).innerHTML = document.getElementById('m'+(guessesun*10+5)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+6)).innerHTML = document.getElementById('m'+(guessesun*10+6)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+8)).innerHTML = document.getElementById('m'+(guessesun*10+8)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+9)).innerHTML = document.getElementById('m'+(guessesun*10+9)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+10)).innerHTML = document.getElementById('m'+(guessesun*10+10)).innerHTML.slice(0,-1);
+    document.getElementById('m' + (guesses * 10 + 2)).innerHTML = document.getElementById('m' + (guesses * 10 + 2)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 5)).innerHTML = document.getElementById('m' + (guesses * 10 + 5)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 6)).innerHTML = document.getElementById('m' + (guesses * 10 + 6)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 8)).innerHTML = document.getElementById('m' + (guesses * 10 + 8)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 9)).innerHTML = document.getElementById('m' + (guesses * 10 + 9)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 10)).innerHTML = document.getElementById('m' + (guesses * 10 + 10)).innerHTML.slice(0, -1);
   } else if (a == -3) {
-    document.getElementById('m'+(guessesun*10+3)).innerHTML = document.getElementById('m'+(guessesun*10+3)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+6)).innerHTML = document.getElementById('m'+(guessesun*10+6)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+7)).innerHTML = document.getElementById('m'+(guessesun*10+7)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+8)).innerHTML = document.getElementById('m'+(guessesun*10+8)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+9)).innerHTML = document.getElementById('m'+(guessesun*10+9)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+10)).innerHTML = document.getElementById('m'+(guessesun*10+10)).innerHTML.slice(0,-1);
+    document.getElementById('m' + (guesses * 10 + 3)).innerHTML = document.getElementById('m' + (guesses * 10 + 3)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 6)).innerHTML = document.getElementById('m' + (guesses * 10 + 6)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 7)).innerHTML = document.getElementById('m' + (guesses * 10 + 7)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 8)).innerHTML = document.getElementById('m' + (guesses * 10 + 8)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 9)).innerHTML = document.getElementById('m' + (guesses * 10 + 9)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 10)).innerHTML = document.getElementById('m' + (guesses * 10 + 10)).innerHTML.slice(0, -1);
   } else if (a == -4) {
-    document.getElementById('m'+(guessesun*10+4)).innerHTML = document.getElementById('m'+(guessesun*10+4)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+7)).innerHTML = document.getElementById('m'+(guessesun*10+7)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+9)).innerHTML = document.getElementById('m'+(guessesun*10+9)).innerHTML.slice(0,-1);
-    document.getElementById('m'+(guessesun*10+10)).innerHTML = document.getElementById('m'+(guessesun*10+10)).innerHTML.slice(0,-1);
+    document.getElementById('m' + (guesses * 10 + 4)).innerHTML = document.getElementById('m' + (guesses * 10 + 4)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 7)).innerHTML = document.getElementById('m' + (guesses * 10 + 7)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 9)).innerHTML = document.getElementById('m' + (guesses * 10 + 9)).innerHTML.slice(0, -1);
+    document.getElementById('m' + (guesses * 10 + 10)).innerHTML = document.getElementById('m' + (guesses * 10 + 10)).innerHTML.slice(0, -1);
   }
 }
 function tutorial() {
-  document.getElementById('tutorial').innerHTML="<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Factordle is a math-based Wordle-style game where you guess a target number between 1000 and 9999 within 8 tries. The target number is guaranteed to not contain any prime factors greater than 100.</p><p id='tp2'>After you input your four-digit guess, each of the numbers in the 10 boxes will give you information on the factors of the target number. An example guess of 1250 is shown below, where the target number is 1164.</p><hr><div id='example'><div class='g1div'><div class='g1' id='e1'>1</div><div class='g1' id='e2'>2</div><div class='g1' id='e3'>5</div><div class='g1' id='e4'>0</div></div><div class='g2div'><div class='g2' id='e5'>12</div><div class='g2' id='e6'>25</div><div class='g2' id='e7'>50</div></div><div class='g3div'><div class='g3' id='e8'>125</div><div class='g3' id='e9'>250</div></div><div class='g4div'><div class='g4' id='e10'>1250</div></div></div><p>The <span id='green'>green</span> boxes mean that the number inside the box is a factor of the target number. For example, 2 is a factor of 1164.</p> <p>The <span id='yellow'>yellow</span> boxes mean that the number inside the box shares a common factor with the target number. For example, 50 and 1164 share the common factor 2.</p><p>The <span id='gray'>gray</span> boxes mean that the number inside the box has no common factor with the target number. For example, 125 and 1164 have no common factors.</p><hr><p>Once your guess matches the target number, all the boxes will turn blue, meaning that you have won.</p>"
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number will never have any prime factors larger than 100.</p><p id='tp2'>When you input a guess, each of the numbers in the 10 boxes give you information on the factors of the target number. The top 4 boxes are always the digits of your guess. An example guess (1250) is shown below.</p><hr><div id='example'><div class='g1div'><div id='e1'>1</div><div id='e2'>2</div><div id='e3'>5</div><div id='e4'>0</div></div><div class='g2div'><div id='e5'>12</div><div id='e6'>25</div><div id='e7'>50</div></div><div class='g3div'><div id='e8'>125</div><div id='e9'>250</div></div><div class='g4div'><div id='e10'>1250</div></div></div><p>2 is a factor of the target number.</p> <p>50 and the target number share a common factor.</p><p>125 and the target number have no common factors. <i>(Tutorial continued below)</i></p><hr><p>Once your guess matches the target number, you win, and all the boxes will turn blue.</p><hr><p>You can use the 25 boxes with primes below all the guess boxes to record which factors are in or not in the target number.</p><p>Click on a box then press 0, 1, 2, 3, or Backspace to make the box turn gray, yellow, green, blue, and white, respectively.<p></p>These keybinds can be changed in Settings.</p><hr><p>The daily Factordle resets every day at 12:00 AM MST.</p>"
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
 }
 function stats() {
-  var total = parseInt(localStorage.getItem('solve1un')) + parseInt(localStorage.getItem('solve2un')) + parseInt(localStorage.getItem('solve3un')) + parseInt(localStorage.getItem('solve4un')) + parseInt(localStorage.getItem('solve5un')) + parseInt(localStorage.getItem('solve6un')) + parseInt(localStorage.getItem('solve7un')) + parseInt(localStorage.getItem('solve8un')) + parseInt(localStorage.getItem('solve9un'));
-  var temp = [((total-parseInt(localStorage.getItem('solve9un')))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve1un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve2un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve3un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve4un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve5un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve6un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve7un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve8un'))*100/total).toString().slice(0,3), (parseInt(localStorage.getItem('solve9un'))*100/total).toString().slice(0,3)];
+  var total = parseInt(localStorage.getItem('usolve1')) + parseInt(localStorage.getItem('usolve2')) + parseInt(localStorage.getItem('usolve3')) + parseInt(localStorage.getItem('usolve4')) + parseInt(localStorage.getItem('usolve5')) + parseInt(localStorage.getItem('usolve6')) + parseInt(localStorage.getItem('usolve7')) + parseInt(localStorage.getItem('usolve8')) + parseInt(localStorage.getItem('usolve9'));
+  var temp = [((total - parseInt(localStorage.getItem('usolve9'))) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('usolve1')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('usolve2')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('usolve3')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('usolve4')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('usolve5')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('usolve6')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('usolve7')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('usolve8')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('usolve9')) * 100 / total).toString().slice(0, 4)];
   for (var i = 0; i < 10; i++) {
     if (temp[i] == 'NaN') {
       temp[i] = "0";
     }
   }
-  document.getElementById('tutorial').innerHTML="<p id='ttitle'>Your Factordle Statistics (<a onclick=closetutorial()>Close Statistics Window</a>)</p><p id='tp1'>You have played <span class='px'>"+total+"</span> total Factordles, and won <span class='px'>"+temp[0]+"%</span> of them.</p><p>Breakdown of your solves by guesses used:</p><p>1/8: <span class='px'>"+localStorage.getItem('solve1un')+"</span> ("+temp[1]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2/8: <span class='px'>"+localStorage.getItem('solve2un')+"</span> ("+temp[2]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3/8: <span class='px'>"+localStorage.getItem('solve3un')+"</span> ("+temp[3]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4/8: <span class='px'>"+localStorage.getItem('solve4un')+"</span> ("+temp[4]+"%)</p><p>5/8: <span class='px'>"+localStorage.getItem('solve5un')+"</span> ("+temp[5]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6/8: <span class='px'>"+localStorage.getItem('solve6un')+"</span> ("+temp[6]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7/8: <span class='px'>"+localStorage.getItem('solve7un')+"</span> ("+temp[7]+"%)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8/8: <span class='px'>"+localStorage.getItem('solve8un')+"</span> ("+temp[8]+"%)</p><p>X/8: <span class='px'>"+localStorage.getItem('solve9un')+"</span> ("+temp[9]+"%)</p>"
+  maximum = Math.max(localStorage.getItem('usolve1'), localStorage.getItem('usolve2'), localStorage.getItem('usolve3'), localStorage.getItem('usolve4'), localStorage.getItem('usolve5'), localStorage.getItem('usolve6'), localStorage.getItem('usolve7'), localStorage.getItem('usolve8'), localStorage.getItem('usolve9'))
+  if (maximum == 0) {
+    maximum = 1;
+  }
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Your Factordle Statistics (<a onclick=closetutorial()>Close Statistics Window</a>)</p><p id='tp1'>You have played <span class='px'>" + total + "</span> total Factordles, and won <span class='px'>" + temp[0] + "%</span> of them.</p><div id=statsdiv><div class='statsdivs'><div class='stats'>1</div><div id='stats1'>" + localStorage.getItem('usolve1') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>2</div><div id='stats2'>" + localStorage.getItem('usolve2') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>3</div><div id='stats3'>" + localStorage.getItem('usolve3') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>4</div><div id='stats4'>" + localStorage.getItem('usolve4') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>5</div><div id='stats5'>" + localStorage.getItem('usolve5') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>6</div><div id='stats6'>" + localStorage.getItem('usolve6') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>7</div><div id='stats7'>" + localStorage.getItem('usolve7') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>8</div><div id='stats8'>" + localStorage.getItem('usolve8') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>X</div><div id='stats9'>" + localStorage.getItem('usolve9') + "&nbsp;&nbsp;</div></div></div>"
+  document.getElementById('stats1').style.width = (localStorage.getItem('usolve1') * 500 / maximum + 35) + "px";
+  document.getElementById('stats2').style.width = (localStorage.getItem('usolve2') * 500 / maximum + 35) + "px";
+  document.getElementById('stats3').style.width = (localStorage.getItem('usolve3') * 500 / maximum + 35) + "px";
+  document.getElementById('stats4').style.width = (localStorage.getItem('usolve4') * 500 / maximum + 35) + "px";
+  document.getElementById('stats5').style.width = (localStorage.getItem('usolve5') * 500 / maximum + 35) + "px";
+  document.getElementById('stats6').style.width = (localStorage.getItem('usolve6') * 500 / maximum + 35) + "px";
+  document.getElementById('stats7').style.width = (localStorage.getItem('usolve7') * 500 / maximum + 35) + "px";
+  document.getElementById('stats8').style.width = (localStorage.getItem('usolve8') * 500 / maximum + 35) + "px";
+  document.getElementById('stats9').style.width = (localStorage.getItem('usolve9') * 500 / maximum + 35) + "px";
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+  if (complete) {
+    document.getElementById('stats' + guesses).style.backgroundColor = "rgb(0, 100, 250)";
+    document.getElementById('tutorial').innerHTML += "<div id='copystats' onclick=window.location.reload()>Play Again!</div>";
+  }
 }
 function closetutorial() {
-  document.getElementById('tutorial').innerHTML="";
+  document.getElementById('tutorial').innerHTML = "";
   document.getElementById('tutorial').style.border = "none";
+  sconst = 0;
 }
+function resetstats() {
+  localStorage.removeItem("usolve1");
+  localStorage.setItem("uks", "9999999999999999999999999");
+}
+
+//JS Animation Controls
+
+var animreceived = [];
+var step = 0;
+var animguesses = 0;
+var stringy = false;
+
+document.getElementById("all").addEventListener("animationend", anim);
+function anim(a, b) {
+  if (b === undefined) {
+    step = step + 1;
+  } else {
+    step = 1;
+    animreceived = b;
+    animguesses = a;
+  }
+  if (step == 1) {
+    document.getElementById('m' + (animguesses * 10 + 1)).classList.add("flip" + animreceived[0]);
+    document.getElementById('m' + (animguesses * 10 + 2)).classList.add("flip" + animreceived[1]);
+    document.getElementById('m' + (animguesses * 10 + 3)).classList.add("flip" + animreceived[2]);
+    document.getElementById('m' + (animguesses * 10 + 4)).classList.add("flip" + animreceived[3]);
+  } else if (step == 5) {
+    document.getElementById('m' + (animguesses * 10 + 5)).classList.add("flip" + animreceived[4]);
+    document.getElementById('m' + (animguesses * 10 + 6)).classList.add("flip" + animreceived[5]);
+    document.getElementById('m' + (animguesses * 10 + 7)).classList.add("flip" + animreceived[6]);
+  } else if (step == 8) {
+    document.getElementById('m' + (animguesses * 10 + 8)).classList.add("flip" + animreceived[7]);
+    document.getElementById('m' + (animguesses * 10 + 9)).classList.add("flip" + animreceived[8]);
+  } else if (step == 10) {
+    document.getElementById('m' + (animguesses * 10 + 10)).classList.add("flip" + animreceived[9]);
+  } else if (step == 11 && animreceived[0] == 3) {
+    document.getElementById('m' + (animguesses * 10 + 1)).classList.remove("flip" + animreceived[0]);
+    document.getElementById('m' + (animguesses * 10 + 2)).classList.remove("flip" + animreceived[1]);
+    document.getElementById('m' + (animguesses * 10 + 3)).classList.remove("flip" + animreceived[2]);
+    document.getElementById('m' + (animguesses * 10 + 4)).classList.remove("flip" + animreceived[3]);
+    document.getElementById('m' + (animguesses * 10 + 5)).classList.remove("flip" + animreceived[4]);
+    document.getElementById('m' + (animguesses * 10 + 6)).classList.remove("flip" + animreceived[5]);
+    document.getElementById('m' + (animguesses * 10 + 7)).classList.remove("flip" + animreceived[6]);
+    document.getElementById('m' + (animguesses * 10 + 8)).classList.remove("flip" + animreceived[7]);
+    document.getElementById('m' + (animguesses * 10 + 9)).classList.remove("flip" + animreceived[8]);
+    document.getElementById('m' + (animguesses * 10 + 10)).classList.remove("flip" + animreceived[9]);
+    document.getElementById('m' + (animguesses * 10 + 1)).classList.add("solve1");
+    document.getElementById('m' + (animguesses * 10 + 2)).classList.add("solve2");
+    document.getElementById('m' + (animguesses * 10 + 3)).classList.add("solve3");
+    document.getElementById('m' + (animguesses * 10 + 4)).classList.add("solve4");
+    document.getElementById('m' + (animguesses * 10 + 5)).classList.add("solve5");
+    document.getElementById('m' + (animguesses * 10 + 6)).classList.add("solve6");
+    document.getElementById('m' + (animguesses * 10 + 7)).classList.add("solve7");
+    document.getElementById('m' + (animguesses * 10 + 8)).classList.add("solve8");
+    document.getElementById('m' + (animguesses * 10 + 9)).classList.add("solve9");
+    document.getElementById('m' + (animguesses * 10 + 10)).classList.add("solve10");
+    localStorage.setItem("uks", "3333333333333333333333333");
+    for (var i = 1; i <= 25; i++) {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(0,100,250)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(0,100,250)";
+      document.getElementById('k'+i).style.color = "white";
+    }
+    popanim(stringify(guesses));
+  } else if (step == 11 && guesses >= 8) {
+    stringy = true;
+    popanim('The number was ' + solution);
+    guesses = 9;
+  } else if (step == 11) {
+    step = 0;
+  }
+  if (a.animationName == 'popanim' || a.animationName == 'popanim2') {
+    step = 0;
+    document.getElementById('pop').classList.remove("popanim");
+    document.getElementById('pop').classList.remove("popanim2");
+    document.getElementById('pop').innerHTML = '';
+    if (stringy) {
+      stats();
+    }
+    stringy = false;
+  }
+}
+function popanim(a) {
+  document.getElementById('pop').classList.remove("popanim");
+  document.getElementById('pop').innerHTML = '';
+  document.getElementById('pop').innerHTML = a;
+  document.getElementById('pop').classList.add("popanim");
+}
+function popanim2(a) {
+  document.getElementById('pop').classList.remove("popanim2");
+  document.getElementById('pop').innerHTML = '';
+  document.getElementById('pop').innerHTML = a;
+  document.getElementById('pop').classList.add("popanim2");
+}
+function stringify(a) {
+  stringy = true;
+  switch (a) {
+    case 1: return "Flawless";
+    case 2: return "Extraordinary";
+    case 3: return "Impressive";
+    case 4: return "Excellent";
+    case 5: return "Skillful";
+    case 6: return "Splendid";
+    case 7: return "Great";
+    case 8: return "Phew";
+    default: return "Error 1: You have reached an unexpected state";
+  }
+}
+function k(a) {
+  if (!(complete) && sconst == 0) {
+    if (kconst != 0) {
+      if (localStorage.getItem("uks")[kconst-1] == "1") {
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(200,200,0)";
+      } else if (localStorage.getItem("uks")[kconst-1] == "2") {
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(0,175,0)";
+      } else if (localStorage.getItem("uks")[kconst-1] == "3") {
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(0,100,250)";
+      } else {
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
+      }
+    }
+    kconst = a;
+    document.getElementById('k'+kconst).style.border = "3px solid rgb(200,0,0)";
+  }
+}
+function settings() {
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><p>Keybinds for Notes</p><p>Current keybind for <span id='c0'>Gray</span> color: <span id=set0>"+localStorage.getItem('uset0')+"</span> (<a onclick='set(1)'>Click to Change</a>)</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('uset1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('uset2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('uset3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for Undo Coloring: <span id=setb>"+localStorage.getItem('usetb')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p>"
+  document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+}
+function set(a) {
+  if (sconst == 0) {
+    sconst = a;
+    if (sconst != 5) {
+      document.getElementById('set'+(sconst-1)).innerHTML="[Press Key]";
+    } else {
+    document.getElementById('setb').innerHTML="[Press Key]";
+    }
+  }
+} 
