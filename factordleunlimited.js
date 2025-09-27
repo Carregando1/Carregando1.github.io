@@ -253,6 +253,8 @@ if (localStorage.getItem("usolve1") == null) {
   localStorage.setItem("usolve7", 0);
   localStorage.setItem("usolve8", 0);
   localStorage.setItem("usolve9", 0);
+  localStorage.setItem("ustatus", 0);
+  localStorage.setItem("uguesses", 0);
 }
 if (localStorage.getItem("uks") == null) {
   localStorage.setItem("uks", "9999999999999999999999999");
