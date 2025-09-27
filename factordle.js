@@ -253,8 +253,8 @@ if (localStorage.getItem("solve1") == null) {
   localStorage.setItem("solve8", 0);
   localStorage.setItem("solve9", 0);
   localStorage.setItem("streak", 0);
-  localStorage.setItem("status", 0);
-  localStorage.setItem("guesses", 0);
+  localStorage.setItem("status", "");
+  localStorage.setItem("guesses", "");
 }
 if (localStorage.getItem("ks") == null) {
   localStorage.setItem("ks", "9999999999999999999999999");
