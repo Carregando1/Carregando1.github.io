@@ -377,7 +377,7 @@ function detect(e) {
       localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "9" + localStorage.getItem("ks").substring(kconst));
       kconst = 0;
     }
-  
+  }
   if (sconst != 0) {
       if (e.key == localStorage.getItem('set0') && sconst != 1) {
         popanim2("Key "+e.key+" is already used by Gray keybind");
@@ -417,7 +417,6 @@ function detect(e) {
       sconst = 0;
       settings();
     }
-  }
 }
 var animpush = [];
 function push(a) {
