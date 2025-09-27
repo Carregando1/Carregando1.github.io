@@ -241,6 +241,7 @@ if (localStorage.getItem("day") != (Math.floor(Date.now() / 86400000 - 20332.25)
   localStorage.setItem("day", (Math.floor(Date.now() / 86400000 - 20332.25)));
   localStorage.setItem("guesses", "");
   localStorage.setItem("status", "");
+  localStorage.setItem("ks", "9999999999999999999999999");
 }
 if (localStorage.getItem("solve1") == null) {
   localStorage.setItem("solve1", 0);
