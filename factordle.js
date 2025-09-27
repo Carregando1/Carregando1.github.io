@@ -224,6 +224,8 @@ var guess = [];
 var guesses = 0;
 var complete = false;
 var res;
+var kconst = 0;
+var sconst = 0;
 function convert(a) {
   if (a == 3) {
     return 'rgb(0,100,250)';
@@ -251,6 +253,16 @@ if (localStorage.getItem("solve1") == null) {
   localStorage.setItem("solve8", 0);
   localStorage.setItem("solve9", 0);
   localStorage.setItem("streak", 0);
+}
+if (localStorage.getItem("ks") == null) {
+  localStorage.setItem("ks", "9999999999999999999999999");
+}
+if (localStorage.getItem("set0") == null) {
+  localStorage.setItem("set0", "0");
+  localStorage.setItem("set1", "1");
+  localStorage.setItem("set2", "2");
+  localStorage.setItem("set3", "3");
+  localStorage.setItem("setb", "Backspace");
 }
 if ((Math.floor(Date.now() / 86400000 - 20332.25)) - localStorage.getItem("streakday") >= 2) {
   localStorage.setItem("streak", 0);
@@ -280,16 +292,35 @@ function onload() {
     }
     stats();
   }
-  document.getElementById('title').innerHTML = "Factordle #" + (Math.floor(Date.now() / 86400000 - 20331.25)) + " (<a onclick=tutorial()>How To Play</a> | <a onclick=stats()>View Your Statistics</a>)";
+  for (var i = 1; i <= 25; i++) {
+    if (localStorage.getItem("ks")[i-1] == "0") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(150,150,150)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(150,150,150)";
+      document.getElementById('k'+i).style.color = "white";
+    } else if (localStorage.getItem("ks")[i-1] == "1") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(200,200,0)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(200,200,0)";
+      document.getElementById('k'+i).style.color = "white";
+    } else if (localStorage.getItem("ks")[i-1] == "2") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(0,175,0)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(0,175,0)";
+       document.getElementById('k'+i).style.color = "white";
+    } else if (localStorage.getItem("ks")[i-1] == "3") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(0,100,250)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(0,100,250)";
+      document.getElementById('k'+i).style.color = "white";
+    }  
+  }
+  document.getElementById('title').innerHTML = "Factordle #" + (Math.floor(Date.now() / 86400000 - 20331.25)) + " (<a onclick=tutorial()>How To Play</a> | <a onclick=stats()>View Your Statistics</a> | <a onclick=settings()>Change Settings</a>)";
 }
 function detect(e) {
   if (!(complete) && step == 0) {
-    if (e.key == "Enter") {
+    if (e.key == "Enter" && kconst == 0 && sconst == 0) {
       document.getElementById('pop').classList.remove("popanim2");
       document.getElementById('pop').innerHTML = '';
       push(guess);
     }
-    if (e.key == "Backspace") {
+    if (e.key == "Backspace" && kconst == 0 && sconst == 0) {
       document.getElementById('pop').classList.remove("popanim2");
       document.getElementById('pop').innerHTML = '';
       if (guess.length > 0) {
@@ -297,7 +328,7 @@ function detect(e) {
         update(-(guess.length + 1));
       }
     }
-    if (e.key == "0" || e.key == "1" || e.key == "2" || e.key == "3" || e.key == "4" || e.key == "5" || e.key == "6" || e.key == "7" || e.key == "8" || e.key == "9") {
+    if ((e.key == "0" || e.key == "1" || e.key == "2" || e.key == "3" || e.key == "4" || e.key == "5" || e.key == "6" || e.key == "7" || e.key == "8" || e.key == "9") && kconst == 0 && sconst == 0) {
       document.getElementById('pop').classList.remove("popanim2");
       document.getElementById('pop').innerHTML = '';
       if (guess.length == 0 && e.key == '0') {
@@ -309,6 +340,80 @@ function detect(e) {
         }
       }
     }
+    if (e.key == "0" && kconst != 0 && !(complete)) {
+      document.getElementById('k'+kconst).style.backgroundColor = "rgb(150,150,150)";
+      document.getElementById('k'+kconst).style.color = "white";
+      document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
+      localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "0" + localStorage.getItem("ks").substring(kconst));
+      kconst = 0;
+    }
+    if (e.key == "1" && kconst != 0 && !(complete)) {
+      document.getElementById('k'+kconst).style.backgroundColor = "rgb(200,200,0)";
+      document.getElementById('k'+kconst).style.color = "white";
+      document.getElementById('k'+kconst).style.border = "3px solid rgb(200,200,0)";
+      localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "1" + localStorage.getItem("ks").substring(kconst));
+      kconst = 0;
+    }
+    if (e.key == "2" && kconst != 0 && !(complete)) {
+      document.getElementById('k'+kconst).style.backgroundColor = "rgb(0,175,0)";
+      document.getElementById('k'+kconst).style.color = "white";
+      document.getElementById('k'+kconst).style.border = "3px solid rgb(0,175,0)";
+      localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "2" + localStorage.getItem("ks").substring(kconst));
+      kconst = 0;
+    }
+    if (e.key == "3" && kconst != 0 && !(complete)) {
+      document.getElementById('k'+kconst).style.backgroundColor = "rgb(0,100,250)";
+      document.getElementById('k'+kconst).style.color = "white";
+      document.getElementById('k'+kconst).style.border = "3px solid rgb(0,100,250)";
+      localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "3" + localStorage.getItem("ks").substring(kconst));
+      kconst = 0;
+    }
+    if (e.key == "Backspace" && kconst != 0 && !(complete)) {
+      document.getElementById('k'+kconst).style.backgroundColor = "white";
+      document.getElementById('k'+kconst).style.color = "black";
+      document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
+      localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "9" + localStorage.getItem("ks").substring(kconst));
+      kconst = 0;
+    }
+    if (sconst != 0) {
+      if (e.key == localStorage.getItem('set0') && sconst != 1) {
+        popanim2("Key "+e.key+" is already used by Gray keybind");
+        settings();
+        sconst = 0;
+        return;
+      }
+      if (e.key == localStorage.getItem('set1') && sconst != 2) {
+        popanim2("Key "+e.key+" is already used by Yellow keybind");
+        settings();
+        sconst = 0;
+        return;
+      }
+      if (e.key == localStorage.getItem('set2') && sconst != 3) {
+        popanim2("Key "+e.key+" is already used by Green keybind");
+        settings();
+        sconst = 0;
+        return;
+      }
+      if (e.key == localStorage.getItem('set3') && sconst != 4) {
+        popanim2("Key "+e.key+" is already used by Blue keybind");
+        settings();
+        sconst = 0;
+        return;
+      }
+      if (e.key == localStorage.getItem('setb') && sconst != 5) {
+        popanim2("Key "+e.key+" is already used by Undo Coloring keybind");
+        settings();
+        sconst = 0;
+        return;
+      }
+      if (sconst != 5) {
+        localStorage.setItem('set'+(sconst-1), e.key);
+      } else {
+        localStorage.setItem('setb', e.key);
+      }
+      sconst = 0;
+      settings();
+    }
   }
 }
 var animpush = [];
@@ -319,6 +424,9 @@ function push(a) {
     return;
   }
   if ((1000 * a[0] + 100 * a[1] + 10 * a[2] + a[3]) == solution) {
+    for (i = 1; i < 11; i++) {
+      document.getElementById('m' + (guesses * 10 + i)).innerHTML = parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML);
+    }
     localStorage.setItem("status", localStorage.getItem("status") + "3333333333");
     anim(guesses, [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]);
     complete = true;
@@ -336,8 +444,6 @@ function push(a) {
       localStorage.setItem("streak", 0);
       complete = true;
     }
-    console.log(guesses);
-    console.log(animpush);
     anim(guesses, animpush);
   }
   guess = [];
@@ -454,7 +560,7 @@ function convertstatus() {
   popanim2("Results copied to clipboard successfully!");
 }
 function tutorial() {
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the target number within 8 tries. The target number is guaranteed to be a four-digit number with largest prime factor at most 97.</p><p id='tp2'>After you input your four-digit guess, each of the numbers in the 10 boxes will give you information on the factors of the target number. An example guess of 1250 is shown below, where the target number is 1164.</p><hr><div id='example'><div class='g1div'><div id='e1'>1</div><div id='e2'>2</div><div id='e3'>5</div><div id='e4'>0</div></div><div class='g2div'><div id='e5'>12</div><div id='e6'>25</div><div id='e7'>50</div></div><div class='g3div'><div id='e8'>125</div><div id='e9'>250</div></div><div class='g4div'><div id='e10'>1250</div></div></div><p>The <span id='green'>green</span> boxes mean that the number inside the box is a factor of the target number. For example, 2 is a factor of 1164.</p> <p>The <span id='yellow'>yellow</span> boxes mean that the number inside the box shares a common factor with the target number. For example, 50 and 1164 share the common factor 2.</p><p>The <span id='gray'>gray</span> boxes mean that the number inside the box has no common factor with the target number. For example, 125 and 1164 have no common factors.</p><hr><p>Once your guess matches the target number, all the boxes will turn blue, meaning that you have won.</p><p>The daily Factordle resets every day at 12:00 AM MST.</p>"
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number will never have any prime factors larger than 100.</p><p id='tp2'>When you input a guess, each of the numbers in the 10 boxes give you information on the factors of the target number. The top 4 boxes are always the digits of your guess. An example guess (1250) is shown below.</p><hr><div id='example'><div class='g1div'><div id='e1'>1</div><div id='e2'>2</div><div id='e3'>5</div><div id='e4'>0</div></div><div class='g2div'><div id='e5'>12</div><div id='e6'>25</div><div id='e7'>50</div></div><div class='g3div'><div id='e8'>125</div><div id='e9'>250</div></div><div class='g4div'><div id='e10'>1250</div></div></div><p>2 is a factor of the target number.</p> <p>50 and the target number share a common factor.</p><p>125 and the target number have no common factors. <i>(Tutorial continued below)</i></p><hr><p>Once your guess matches the target number, you win, and all the boxes will turn blue.</p><hr><p>You can use the 25 boxes with primes below all the guess boxes to record which factors are in or not in the target number.</p><p>Click on a box then press 0, 1, 2, 3, or Backspace to make the box turn gray, yellow, green, blue, and white, respectively.<p></p>These keybinds can be changed in Settings.</p><hr><p>The daily Factordle resets every day at 12:00 AM MST.</p>"
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
 }
 function stats() {
@@ -488,10 +594,12 @@ function stats() {
 function closetutorial() {
   document.getElementById('tutorial').innerHTML = "";
   document.getElementById('tutorial').style.border = "none";
+  sconst = 0;
 }
 function resetstats() {
   localStorage.removeItem("solve1");
   localStorage.setItem("day", -2);
+  localStorage.setItem("ks", "9999999999999999999999999");
 }
 
 //JS Animation Controls
@@ -547,6 +655,12 @@ function anim(a, b) {
     document.getElementById('m' + (animguesses * 10 + 8)).classList.add("solve8");
     document.getElementById('m' + (animguesses * 10 + 9)).classList.add("solve9");
     document.getElementById('m' + (animguesses * 10 + 10)).classList.add("solve10");
+    localStorage.setItem("ks", "3333333333333333333333333");
+    for (var i = 1; i <= 25; i++) {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(0,100,250)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(0,100,250)";
+      document.getElementById('k'+i).style.color = "white";
+    }
     popanim(stringify(guesses));
   } else if (step == 11 && guesses >= 8) {
     stringy = true;
@@ -592,3 +706,34 @@ function stringify(a) {
     default: return "Error 1: You have reached an unexpected state";
   }
 }
+function k(a) {
+  if (!(complete) && sconst == 0) {
+    if (kconst != 0) {
+      if (localStorage.getItem("ks")[kconst-1] == "1") {
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(200,200,0)";
+      } else if (localStorage.getItem("ks")[kconst-1] == "2") {
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(0,175,0)";
+      } else if (localStorage.getItem("ks")[kconst-1] == "3") {
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(0,100,250)";
+      } else {
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
+      }
+    }
+    kconst = a;
+    document.getElementById('k'+kconst).style.border = "3px solid rgb(200,0,0)";
+  }
+}
+function settings() {
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><p>Keybinds for Notes</p><p>Current keybind for <span id='c0'>Gray</span> color: <span id=set0>"+localStorage.getItem('set0')+"</span> (<a onclick='set(1)'>Click to Change</a>)</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('set1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('set2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('set3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for Undo Coloring: <span id=setb>"+localStorage.getItem('setb')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p>"
+  document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+}
+function set(a) {
+  if (sconst == 0) {
+    sconst = a;
+    if (sconst != 5) {
+      document.getElementById('set'+(sconst-1)).innerHTML="[Press Key]";
+    } else {
+    document.getElementById('setb').innerHTML="[Press Key]";
+    }
+  }
+} 
