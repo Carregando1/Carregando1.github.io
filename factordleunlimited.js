@@ -253,8 +253,6 @@ if (localStorage.getItem("usolve1") == null) {
   localStorage.setItem("usolve7", 0);
   localStorage.setItem("usolve8", 0);
   localStorage.setItem("usolve9", 0);
-  localStorage.setItem("ustatus", 0);
-  localStorage.setItem("uguesses", 0);
 }
 if (localStorage.getItem("uks") == null) {
   localStorage.setItem("uks", "9999999999999999999999999");
@@ -264,14 +262,17 @@ if (localStorage.getItem("uset0") == null) {
   localStorage.setItem("uset1", "1");
   localStorage.setItem("uset2", "2");
   localStorage.setItem("uset3", "3");
+  localStorage.setItem("ustatus", "");
+  localStorage.setItem("uguesses", "");
   localStorage.setItem("usetb", "Backspace");
+  localStorage.setItem("usolution", solution);
 }
 document.getElementById("all").addEventListener("keyup", detect);
 function onload() {
   if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 1] == 3 || localStorage.getItem("ustatus").length == 80) {
     complete = true;
   }
-  if (complete || localStorage.getItem("ustatus") == 0) {
+  if (complete) {
     complete = false;
     localStorage.setItem("ustatus", "");
     localStorage.setItem("uguesses", "");
