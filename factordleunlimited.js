@@ -262,8 +262,10 @@ if (localStorage.getItem("uset0") == null) {
   localStorage.setItem("uset1", "1");
   localStorage.setItem("uset2", "2");
   localStorage.setItem("uset3", "3");
-  localStorage.setItem("ustatus", "");
   localStorage.setItem("uguesses", "");
+}
+if (localStorage.getItem("ustatus") == null) {
+  localStorage.setItem("ustatus", "");
   localStorage.setItem("usetb", "Backspace");
   localStorage.setItem("usolution", solution);
 }
