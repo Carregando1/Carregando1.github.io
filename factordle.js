@@ -416,6 +416,7 @@ function detect(e) {
       }
       sconst = 0;
       settings();
+    }
   }
 }
 var animpush = [];
