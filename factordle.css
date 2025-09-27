@@ -4,46 +4,7 @@ html {
   color: black;
 }
 
-#m1,
-#m2,
-#m3,
-#m4,
-#m10,
-#m11,
-#m12,
-#m13,
-#m14,
-#m20,
-#m21,
-#m22,
-#m23,
-#m24,
-#m30,
-#m31,
-#m32,
-#m33,
-#m34,
-#m40,
-#m41,
-#m42,
-#m43,
-#m44,
-#m50,
-#m51,
-#m52,
-#m53,
-#m54,
-#m60,
-#m61,
-#m62,
-#m63,
-#m64,
-#m70,
-#m71,
-#m72,
-#m73,
-#m74,
-#m80, #e1, #e2, #e3, #e4, #e10 {
+#m1,#m2,#m3,#m4,#m10,#m11,#m12,#m13,#m14,#m20,#m21,#m22,#m23,#m24,#m30,#m31,#m32,#m33,#m34,#m40,#m41,#m42,#m43,#m44,#m50,#m51,#m52,#m53,#m54,#m60,#m61,#m62,#m63,#m64,#m70,#m71,#m72,#m73,#m74,#m80, #e1, #e2, #e3, #e4, #e10 {
   width: 50px;
   height: 50px;
   border: 2px solid rgb(150, 150, 150);
@@ -51,30 +12,7 @@ html {
   margin: 0px 10px 0px 10px;
 }
 
-#m5, #e5, #e6, #e7,
-#m6,
-#m7,
-#m15,
-#m16,
-#m17,
-#m25,
-#m26,
-#m27,
-#m35,
-#m36,
-#m37,
-#m45,
-#m46,
-#m47,
-#m55,
-#m56,
-#m57,
-#m65,
-#m66,
-#m67,
-#m75,
-#m76,
-#m77 {
+#m5, #e5, #e6, #e7,#m6,#m7,#m15,#m16,#m17,#m25,#m26,#m27,#m35,#m36,#m37,#m45,#m46,#m47,#m55,#m56,#m57,#m65,#m66,#m67,#m75,#m76,#m77 {
   width: 75px;
   height: 50px;
   border: 2px solid rgb(150, 150, 150);
@@ -82,37 +20,14 @@ html {
   margin: 0px 10px 0px 10px;
 }
 
-#m8,
-#m9,
-#m18,
-#m19,
-#m28,
-#m29,
-#m38,
-#m39,
-#m48,
-#m49,
-#m58,
-#m59,
-#m68,
-#m69,
-#m78,
-#m79, #e8, #e9 {
+#m8,#m9,#m18,#m19,#m28,#m29,#m38,#m39,#m48,#m49,#m58,#m59,#m68,#m69,#m78,#m79, #e8, #e9 {
   width: 100px;
   height: 50px;
   border: 2px solid rgb(150, 150, 150);
   float: left;
   margin: 0px 10px 0px 10px;
 }
-
-#m10,
-#m20,
-#m30,
-#m40,
-#m50,
-#m60,
-#m70,
-#m80, #e10 {
+#m10,#m20,#m30,#m40,#m50,#m60,#m70,#m80, #e10 {
   width: 125px;
   height: 50px;
   border: 2px solid rgb(150, 150, 150);
@@ -120,10 +35,7 @@ html {
   margin: 0px 10px 0px 10px;
 }
 
-.g1div,
-.g2div,
-.g3div,
-.g4div {
+.g1div,.g2div,.g3div,.g4div {
   height: 60px;
   width: 312.5px;
   text-align: center;
@@ -159,14 +71,7 @@ html {
   color: white;
 }
 
-#guess1,
-#guess2,
-#guess3,
-#guess4,
-#guess5,
-#guess6,
-#guess7,
-#guess8 {
+#guess1,#guess2,#guess3,#guess4,#guess5,#guess6,#guess7,#guess8 {
   float: left;
   width: 312.5px;
   height: 250px;
@@ -198,8 +103,7 @@ html {
   margin: auto;
 }
 
-#title,
-#warning {
+#title,#warning {
   text-align: center;
 }
 
