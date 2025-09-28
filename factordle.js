@@ -343,35 +343,35 @@ function detect(e) {
         }
       }
     }
-    if (e.key == "0" && kconst != 0 && !(complete)) {
+    if (e.key == localStorage.getItem("set0") && kconst != 0 && !(complete)) {
       document.getElementById('k'+kconst).style.backgroundColor = "rgb(150,150,150)";
       document.getElementById('k'+kconst).style.color = "white";
       document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
       localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "0" + localStorage.getItem("ks").substring(kconst));
       kconst = 0;
     }
-    if (e.key == "1" && kconst != 0 && !(complete)) {
+    if (e.key == localStorage.getItem("set1") && kconst != 0 && !(complete)) {
       document.getElementById('k'+kconst).style.backgroundColor = "rgb(200,200,0)";
       document.getElementById('k'+kconst).style.color = "white";
       document.getElementById('k'+kconst).style.border = "3px solid rgb(200,200,0)";
       localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "1" + localStorage.getItem("ks").substring(kconst));
       kconst = 0;
     }
-    if (e.key == "2" && kconst != 0 && !(complete)) {
+    if (e.key == localStorage.getItem("set2") && kconst != 0 && !(complete)) {
       document.getElementById('k'+kconst).style.backgroundColor = "rgb(0,175,0)";
       document.getElementById('k'+kconst).style.color = "white";
       document.getElementById('k'+kconst).style.border = "3px solid rgb(0,175,0)";
       localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "2" + localStorage.getItem("ks").substring(kconst));
       kconst = 0;
     }
-    if (e.key == "3" && kconst != 0 && !(complete)) {
+    if (e.key == localStorage.getItem("set3") && kconst != 0 && !(complete)) {
       document.getElementById('k'+kconst).style.backgroundColor = "rgb(0,100,250)";
       document.getElementById('k'+kconst).style.color = "white";
       document.getElementById('k'+kconst).style.border = "3px solid rgb(0,100,250)";
       localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "3" + localStorage.getItem("ks").substring(kconst));
       kconst = 0;
     }
-    if (e.key == "Backspace" && kconst != 0 && !(complete)) {
+    if (e.key == localStorage.getItem("setb") && kconst != 0 && !(complete)) {
       document.getElementById('k'+kconst).style.backgroundColor = "white";
       document.getElementById('k'+kconst).style.color = "black";
       document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
