@@ -288,7 +288,7 @@ if (localStorage.getItem("ustatus") == null) {
 }
 document.getElementById("all").addEventListener("keyup", detect);
 function onload() {
-  if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 1] == 3 || localStorage.getItem("ustatus").length == 80) {
+  if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 2] == 3 || localStorage.getItem("ustatus").length == 80) {
     complete = true;
   }
   if (complete) {
