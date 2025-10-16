@@ -250,6 +250,31 @@ a {
     color: white;
   }
 }
+@keyframes flip6 {
+  0% {
+    background-color: white;
+    transform: (1, 1);
+    color: black;
+  }
+
+  49.99% {
+    transform: scale(1, 0);
+    background-color: white;
+    color: black;
+  }
+
+  50.01% {
+    transform: scale(1, 0);
+    background-color: rgb(0, 0, 0);
+    color: white;
+  }
+
+  100% {
+    background-color: rgb(0, 0, 0);
+    transform: (1, 1);
+    color: white;
+  }
+}
 @keyframes solve {
   0% {
     background-color: rgb(0, 100, 250);
@@ -269,7 +294,25 @@ a {
     margin-bottom: 0px;
   }
 }
+@keyframes solve11 {
+  0% {
+    background-color: rgb(0, 0, 0);
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 
+  50% {
+    background-color: rgb(0, 0, 0);
+    margin-top: -20px;
+    margin-bottom: 20px;
+  }
+
+  100% {
+    background-color: rgb(0, 0, 0);
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}
 .flip0 {
   animation-duration: 0.3s;
   animation-name: flip0;
@@ -302,6 +345,14 @@ a {
   animation-name: flip3;
   animation-timing-function: linear;
   background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.flip6 {
+  animation-duration: 0.3s;
+  animation-name: flip6;
+  animation-timing-function: linear;
+  background-color: rgb(0, 0, 0);
   transform: (1, 1);
   color: white;
 }
@@ -391,6 +442,15 @@ a {
   animation-name: solve;
   animation-timing-function: ease-in-out-quad;
   background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve11 {
+  animation-duration: 0.5s;
+  animation-delay: 0.45s;
+  animation-name: solve11;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0,0,0);
   transform: (1, 1);
   color: white;
 }
