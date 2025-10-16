@@ -482,6 +482,7 @@ function push(a) {
         animpush.push(6);
       } else {
         localStorage.setItem("ustatus", localStorage.getItem("ustatus") + euclid(solution, parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML))[1]);
+        animpush.push(euclid(solution, parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML))[1]);
       }
     }
     if (guesses == 7) {
