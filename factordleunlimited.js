@@ -626,6 +626,8 @@ function stats() {
 function closetutorial() {
   document.getElementById('tutorial').innerHTML = "";
   document.getElementById('tutorial').style.border = "none";
+  document.getElementById('tutorial').style.width = "1300px";
+  document.getElementById('tutorial').style.height = "auto";
   sconst = 0;
 }
 function resetstats() {
