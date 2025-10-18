@@ -220,6 +220,14 @@ var solution = solutions[(Math.floor(Date.now() / 86400000 - 20332.25)) % 3051];
 function randsol() {
   solution = solutions[Math.floor(Math.random() * 3051)];
 }
+if (((window.innerWidth > 0) ? window.innerWidth : screen.width) < 1300) {
+  document.getElementById('all').innerHTML='Resize your screen to be wider than 1300px, then reload.'
+}
+addEventListener("resize", () => {
+  if (((window.innerWidth > 0) ? window.innerWidth : screen.width) < 1300) {
+    document.getElementById('all').innerHTML='Resize your screen to be wider than 1300px, then reload.'
+  }
+})
 var guess = [];
 var guesses = 0;
 var complete = false;
@@ -227,7 +235,9 @@ var res;
 var kconst = 0;
 var sconst = 0;
 function convert(a) {
-  if (a == 3) {
+  if (a == 6) {
+    return 'rgb(0,0,0)'
+  } else if (a == 3) {
     return 'rgb(0,100,250)';
   } else if (a == 2) {
     return 'rgb(0,175,0)';
@@ -254,8 +264,17 @@ if (localStorage.getItem("solve1") == null) {
   localStorage.setItem("solve8", 0);
   localStorage.setItem("solve9", 0);
   localStorage.setItem("streak", 0);
-  localStorage.setItem("status", "");
-  localStorage.setItem("guesses", "");
+}
+if (localStorage.getItem("solve1h") == null) {
+  localStorage.setItem("solve1h", 0);
+  localStorage.setItem("solve2h", 0);
+  localStorage.setItem("solve3h", 0);
+  localStorage.setItem("solve4h", 0);
+  localStorage.setItem("solve5h", 0);
+  localStorage.setItem("solve6h", 0);
+  localStorage.setItem("solve7h", 0);
+  localStorage.setItem("solve8h", 0);
+  localStorage.setItem("solve9h", 0);
 }
 if (localStorage.getItem("ks") == null) {
   localStorage.setItem("ks", "9999999999999999999999999");
@@ -266,6 +285,9 @@ if (localStorage.getItem("set0") == null) {
   localStorage.setItem("set2", "2");
   localStorage.setItem("set3", "3");
   localStorage.setItem("setb", "Backspace");
+}
+if (localStorage.getItem("h") == null) {
+  localStorage.setItem("h", "0");
 }
 if ((Math.floor(Date.now() / 86400000 - 20332.25)) - localStorage.getItem("streakday") >= 2) {
   localStorage.setItem("streak", 0);
@@ -288,9 +310,9 @@ function onload() {
   if (localStorage.getItem("guesses").length != 0) {
     guesses++;
   }
-  if (localStorage.getItem("status")[localStorage.getItem("status").length - 1] == 3 || guesses == 8) {
+  if (localStorage.getItem("status")[localStorage.getItem("status").length - 2] == 3 || guesses == 8) {
     complete = true;
-    if (localStorage.getItem("status")[localStorage.getItem("status").length - 1] != 3) {
+    if (localStorage.getItem("status")[localStorage.getItem("status").length - 2] != 3) {
       guesses = 9;
     }
     stats();
@@ -314,7 +336,7 @@ function onload() {
       document.getElementById('k'+i).style.color = "white";
     }  
   }
-  document.getElementById('title').innerHTML = "Factordle #" + (Math.floor(Date.now() / 86400000 - 20331.25)) + " (<a onclick=tutorial()>How To Play</a> | <a onclick=stats()>View Your Statistics</a> | <a onclick=settings()>Change Settings</a>)";
+  document.getElementById('title').innerHTML = "Factordle #" + (Math.floor(Date.now() / 86400000 - 20331.25)) + " (<a onclick=calc()>Calculator</a> | <a onclick=tutorial()>How To Play</a> | <a onclick=stats()>View Your Statistics</a> | <a onclick=settings()>Change Settings</a>)";
 }
 function detect(e) {
   if (!(complete) && step == 0) {
@@ -380,44 +402,44 @@ function detect(e) {
     }
   }
   if (sconst != 0) {
-      if (e.key == localStorage.getItem('set0') && sconst != 1) {
-        popanim2("Key "+e.key+" is already used by Gray keybind");
-        settings();
-        sconst = 0;
-        return;
-      }
-      if (e.key == localStorage.getItem('set1') && sconst != 2) {
-        popanim2("Key "+e.key+" is already used by Yellow keybind");
-        settings();
-        sconst = 0;
-        return;
-      }
-      if (e.key == localStorage.getItem('set2') && sconst != 3) {
-        popanim2("Key "+e.key+" is already used by Green keybind");
-        settings();
-        sconst = 0;
-        return;
-      }
-      if (e.key == localStorage.getItem('set3') && sconst != 4) {
-        popanim2("Key "+e.key+" is already used by Blue keybind");
-        settings();
-        sconst = 0;
-        return;
-      }
-      if (e.key == localStorage.getItem('setb') && sconst != 5) {
-        popanim2("Key "+e.key+" is already used by Undo Coloring keybind");
-        settings();
-        sconst = 0;
-        return;
-      }
-      if (sconst != 5) {
-        localStorage.setItem('set'+(sconst-1), e.key);
-      } else {
-        localStorage.setItem('setb', e.key);
-      }
-      sconst = 0;
+    if (e.key == localStorage.getItem('set0') && sconst != 1) {
+      popanim2("Key "+e.key+" is already used by Gray keybind");
       settings();
+      sconst = 0;
+      return;
     }
+    if (e.key == localStorage.getItem('set1') && sconst != 2) {
+      popanim2("Key "+e.key+" is already used by Yellow keybind");
+      settings();
+      sconst = 0;
+      return;
+    }
+    if (e.key == localStorage.getItem('set2') && sconst != 3) {
+      popanim2("Key "+e.key+" is already used by Green keybind");
+      settings();
+      sconst = 0;
+      return;
+    }
+    if (e.key == localStorage.getItem('set3') && sconst != 4) {
+      popanim2("Key "+e.key+" is already used by Blue keybind");
+      settings();
+      sconst = 0;
+      return;
+    }
+    if (e.key == localStorage.getItem('setb') && sconst != 5) {
+      popanim2("Key "+e.key+" is already used by Undo Coloring keybind");
+      settings();
+      sconst = 0;
+      return;
+    }
+    if (sconst != 5) {
+      localStorage.setItem('set'+(sconst-1), e.key);
+    } else {
+      localStorage.setItem('setb', e.key);
+    }
+    sconst = 0;
+    settings();
+  }
 }
 var animpush = [];
 function push(a) {
@@ -430,20 +452,38 @@ function push(a) {
     for (i = 1; i < 11; i++) {
       document.getElementById('m' + (guesses * 10 + i)).innerHTML = parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML);
     }
-    localStorage.setItem("status", localStorage.getItem("status") + "3333333333");
-    anim(guesses, [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]);
+    if (localStorage.getItem("h") == 1) {
+      localStorage.setItem("status", localStorage.getItem("status") + "3333333336");
+      anim(guesses, [3, 3, 3, 3, 3, 3, 3, 3, 3, 6]);
+    } else {
+      localStorage.setItem("status", localStorage.getItem("status") + "3333333333");
+      anim(guesses, [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]);
+    }
     complete = true;
-    localStorage.setItem('solve' + ((guesses + 1)), parseInt(localStorage.getItem('solve' + ((guesses + 1)))) + 1);
+    if (localStorage.getItem("h") == 1) {
+      localStorage.setItem('solve' + (guesses + 1) + "h", parseInt(localStorage.getItem('solve' + (guesses + 1)+"h")) + 1);
+    } else {
+      localStorage.setItem('solve' + ((guesses + 1)), parseInt(localStorage.getItem('solve' + ((guesses + 1)))) + 1);
+    }
     localStorage.setItem("streakday", Math.floor(Date.now() / 86400000 - 20332.25));
     localStorage.setItem("streak", parseInt(localStorage.getItem("streak")) + 1);
   } else {
     for (i = 1; i < 11; i++) {
       document.getElementById('m' + (guesses * 10 + i)).innerHTML = parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML);
-      localStorage.setItem("status", localStorage.getItem("status") + euclid(solution, parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML))[1]);
-      animpush.push(euclid(solution, parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML))[1]);
+      if (i == 10 && localStorage.getItem("h") == 1) {
+        localStorage.setItem("status", localStorage.getItem("status") + '6');
+        animpush.push(6);
+      } else {
+        localStorage.setItem("status", localStorage.getItem("status") + euclid(solution, parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML))[1]);
+        animpush.push(euclid(solution, parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML))[1]);
+      }
     }
     if (guesses == 7) {
-      localStorage.setItem('solve9', parseInt(localStorage.getItem('solve9')) + 1);
+      if (localStorage.getItem('h') == 1) {
+        localStorage.setItem('solve9h', parseInt(localStorage.getItem('solve9h')) + 1);
+      } else {
+        localStorage.setItem('solve9', parseInt(localStorage.getItem('solve9')) + 1);
+      }
       localStorage.setItem("streak", 0);
       complete = true;
     }
@@ -530,6 +570,9 @@ function update(a) {
 function convertstatus() {
   var s = localStorage.getItem('status');
   res = "Factordle #" + (parseInt(localStorage.getItem("day")) + 1);
+  if (localStorage.getItem('h') == 1) {
+    res += ", Hard Mode,";
+  }
   if (s.length == 80) {
     if (s[79] != 3) {
       res += " X/8\n";
@@ -541,8 +584,12 @@ function convertstatus() {
   }
   res += "https://carregando1.github.io/factordle.html\n\n";
   for (i = 0; i < s.length / 10; i++) {
-    if (s[i * 10 + 9] == 3) {
-      res += "🟦🟦🟦🟦   🟦🟦🟦   🟦🟦   🟦";
+    if (s[i * 10 + 8] == 3) {
+      if (localStorage.getItem('h') == 1) {
+        res += "🟦🟦🟦🟦   🟦🟦🟦   🟦🟦   ⬛";
+      } else {
+        res += "🟦🟦🟦🟦   🟦🟦🟦   🟦🟦   🟦";
+      }
     } else {
       for (j = 0; j < 10; j++) {
         if (s[i * 10 + j] == 2) {
@@ -550,6 +597,8 @@ function convertstatus() {
         } else if (s[i * 10 + j] == 1) {
           res += "🟨";
         } else if (s[i * 10 + j] == 0) {
+          res += "⬜";
+        } else if (s[i * 10 + j] == 6) {
           res += "⬛";
         }
         if (j == 3 || j == 6 || j == 8) {
@@ -563,11 +612,14 @@ function convertstatus() {
   popanim2("Results copied to clipboard successfully!");
 }
 function tutorial() {
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number will never have any prime factors larger than 100.</p><p id='tp2'>When you input a guess, each of the numbers in the 10 boxes give you information on the factors of the target number. The top 4 boxes are always the digits of your guess. An example guess (1250) is shown below.</p><hr><div id='example'><div class='g1div'><div id='e1'>1</div><div id='e2'>2</div><div id='e3'>5</div><div id='e4'>0</div></div><div class='g2div'><div id='e5'>12</div><div id='e6'>25</div><div id='e7'>50</div></div><div class='g3div'><div id='e8'>125</div><div id='e9'>250</div></div><div class='g4div'><div id='e10'>1250</div></div></div><p>2 is a factor of the target number.</p> <p>50 and the target number share a common factor.</p><p>125 and the target number have no common factors. <i>(Tutorial continued below)</i></p><hr><p>Once your guess matches the target number, you win, and all the boxes will turn blue.</p><hr><p>You can use the 25 boxes with primes below all the guess boxes to record which factors are in or not in the target number.</p><p>Click on a box then press "+localStorage.getItem("set0")+", "+localStorage.getItem("set1")+", "+localStorage.getItem("set2")+", "+localStorage.getItem("set3")+", or "+localStorage.getItem("setb")+" to make the box turn gray, yellow, green, blue, and white, respectively.<p></p>These keybinds can be changed in Settings.</p><hr><p>The daily Factordle resets every day at 12:00 AM MST.</p>"
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p>This tutorial is long; use the scrollbar to navigate through this tutorial.</p><hr><p><u>Factordle has important structural differences from Wordle.</u> Read carefully to learn more about the differences.</p><hr><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number will never have any prime factors larger than 100.</p><p id='tp2'>When you input a guess, each of the numbers in the 10 boxes give you information on the factors of the target number. The top 4 boxes are always the digits of your guess. An example guess (1250) is shown below.</p><hr><div id='example'><div class='g1div'><div id='e1'>1</div><div id='e2'>2</div><div id='e3'>5</div><div id='e4'>0</div></div><div class='g2div'><div id='e5'>12</div><div id='e6'>25</div><div id='e7'>50</div></div><div class='g3div'><div id='e8'>125</div><div id='e9'>250</div></div><div class='g4div'><div id='e10'>1250</div></div></div><p>2 is a factor of the target number. Note that, unlike Wordle, this does <i>not</i> imply that 2 is in the correct spot in the target number.</p> <p>50 and the target number share a common factor.</p><p>125 and the target number have no common factors.</p><p>No information is given about the relation between 1250 and the target number. This only occurs in hard mode.</p><hr><p>Once your guess matches the target number, you win, and all the boxes will turn blue.</p><hr><p>You can use the 25 boxes with primes below all the guess boxes to record which factors are in or not in the target number.</p><p>Click on a box then press 0, 1, 2, 3, or Backspace to make the box turn gray, yellow, green, blue, and white, respectively.<p><hr><p>Factordle supports a calculator for multiplication and division for easy calculation. Just click on \"Calculator\" from the links to access and use it.</p><hr></p>These keybinds can be changed in Settings.</p><hr><p>Hard mode is a higher difficulty where the number in the 10th box of each guess never gives information.</p><p>Hard mode statistics are tracked separately from normal mode statistics.</p><p>You can enable hard mode within the settings.</p><hr><p>The daily Factordle resets at 12:00 AM MST.</p>"
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
 }
 function stats() {
   var total = parseInt(localStorage.getItem('solve1')) + parseInt(localStorage.getItem('solve2')) + parseInt(localStorage.getItem('solve3')) + parseInt(localStorage.getItem('solve4')) + parseInt(localStorage.getItem('solve5')) + parseInt(localStorage.getItem('solve6')) + parseInt(localStorage.getItem('solve7')) + parseInt(localStorage.getItem('solve8')) + parseInt(localStorage.getItem('solve9'));
+  if (localStorage.getItem("h") == 1) {
+    total = parseInt(localStorage.getItem('solve1h')) + parseInt(localStorage.getItem('solve2h')) + parseInt(localStorage.getItem('solve3h')) + parseInt(localStorage.getItem('solve4h')) + parseInt(localStorage.getItem('solve5h')) + parseInt(localStorage.getItem('solve6h')) + parseInt(localStorage.getItem('solve7h')) + parseInt(localStorage.getItem('solve8h')) + parseInt(localStorage.getItem('solve9h'));
+  }
   var temp = [((total - parseInt(localStorage.getItem('solve9'))) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('solve1')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('solve2')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('solve3')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('solve4')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('solve5')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('solve6')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('solve7')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('solve8')) * 100 / total).toString().slice(0, 4), (parseInt(localStorage.getItem('solve9')) * 100 / total).toString().slice(0, 4)];
   for (var i = 0; i < 10; i++) {
     if (temp[i] == 'NaN') {
@@ -575,6 +627,9 @@ function stats() {
     }
   }
   maximum = Math.max(localStorage.getItem('solve1'), localStorage.getItem('solve2'), localStorage.getItem('solve3'), localStorage.getItem('solve4'), localStorage.getItem('solve5'), localStorage.getItem('solve6'), localStorage.getItem('solve7'), localStorage.getItem('solve8'), localStorage.getItem('solve9'))
+  if (localStorage.getItem("h") == 1) {
+    maximum = Math.max(localStorage.getItem('solve1h'), localStorage.getItem('solve2h'), localStorage.getItem('solve3h'), localStorage.getItem('solve4h'), localStorage.getItem('solve5h'), localStorage.getItem('solve6h'), localStorage.getItem('solve7h'), localStorage.getItem('solve8h'), localStorage.getItem('solve9h'))
+  }
   if (maximum == 0) {
     maximum = 1;
   }
@@ -589,6 +644,18 @@ function stats() {
   document.getElementById('stats8').style.width = (localStorage.getItem('solve8') * 500 / maximum + 35) + "px";
   document.getElementById('stats9').style.width = (localStorage.getItem('solve9') * 500 / maximum + 35) + "px";
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+    if (localStorage.getItem('h') == 1) {
+      document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Your Factordle Statistics, Hard Mode (<a onclick=closetutorial()>Close Statistics Window</a>)</p><p id='tp1'>You have played <span class='px'>" + total + "</span> total hard mode Factordles, and won <span class='px'>" + temp[0] + "%</span> of them.</p><p>You currently have a <span class='px'>" + localStorage.getItem('streak') + "</span> day streak.</p><div id=statsdiv><div class='statsdivs'><div class='stats'>1</div><div id='stats1'>" + localStorage.getItem('solve1h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>2</div><div id='stats2'>" + localStorage.getItem('solve2h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>3</div><div id='stats3'>" + localStorage.getItem('solve3h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>4</div><div id='stats4'>" + localStorage.getItem('solve4h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>5</div><div id='stats5'>" + localStorage.getItem('solve5h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>6</div><div id='stats6'>" + localStorage.getItem('solve6h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>7</div><div id='stats7'>" + localStorage.getItem('solve7h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>8</div><div id='stats8'>" + localStorage.getItem('solve8h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>X</div><div id='stats9'>" + localStorage.getItem('solve9h') + "&nbsp;&nbsp;</div></div></div>"
+      document.getElementById('stats1').style.width = (localStorage.getItem('solve1h') * 500 / maximum + 35) + "px";
+      document.getElementById('stats2').style.width = (localStorage.getItem('solve2h') * 500 / maximum + 35) + "px";
+      document.getElementById('stats3').style.width = (localStorage.getItem('solve3h') * 500 / maximum + 35) + "px";
+      document.getElementById('stats4').style.width = (localStorage.getItem('solve4h') * 500 / maximum + 35) + "px";
+      document.getElementById('stats5').style.width = (localStorage.getItem('solve5h') * 500 / maximum + 35) + "px";
+      document.getElementById('stats6').style.width = (localStorage.getItem('solve6h') * 500 / maximum + 35) + "px";
+      document.getElementById('stats7').style.width = (localStorage.getItem('solve7h') * 500 / maximum + 35) + "px";
+      document.getElementById('stats8').style.width = (localStorage.getItem('solve8h') * 500 / maximum + 35) + "px";
+      document.getElementById('stats9').style.width = (localStorage.getItem('solve9h') * 500 / maximum + 35) + "px";
+    }
   if (complete) {
     document.getElementById('stats' + guesses).style.backgroundColor = "rgb(0, 100, 250)";
     document.getElementById('tutorial').innerHTML += "<div id='copystats' onclick=convertstatus()>Share Results!</div>";
@@ -597,6 +664,8 @@ function stats() {
 function closetutorial() {
   document.getElementById('tutorial').innerHTML = "";
   document.getElementById('tutorial').style.border = "none";
+  document.getElementById('tutorial').style.width = "1300px";
+  document.getElementById('tutorial').style.height = "auto";
   sconst = 0;
 }
 function resetstats() {
@@ -657,7 +726,11 @@ function anim(a, b) {
     document.getElementById('m' + (animguesses * 10 + 7)).classList.add("solve7");
     document.getElementById('m' + (animguesses * 10 + 8)).classList.add("solve8");
     document.getElementById('m' + (animguesses * 10 + 9)).classList.add("solve9");
-    document.getElementById('m' + (animguesses * 10 + 10)).classList.add("solve10");
+    if (localStorage.getItem("h") == 1) {
+      document.getElementById('m' + (animguesses * 10 + 10)).classList.add("solve11");
+    } else {
+      document.getElementById('m' + (animguesses * 10 + 10)).classList.add("solve10");
+    }
     localStorage.setItem("ks", "3333333333333333333333333");
     for (var i = 1; i <= 25; i++) {
       document.getElementById('k'+i).style.backgroundColor = "rgb(0,100,250)";
@@ -727,8 +800,11 @@ function k(a) {
   }
 }
 function settings() {
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><p>Keybinds for Notes</p><p>Current keybind for <span id='c0'>Gray</span> color: <span id=set0>"+localStorage.getItem('set0')+"</span> (<a onclick='set(1)'>Click to Change</a>)</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('set1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('set2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('set3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for Clear Coloring: <span id=setb>"+localStorage.getItem('setb')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p>"
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><p>Keybinds for Notes</p><p>Current keybind for <span id='c0'>Gray</span> color: <span id=set0>"+localStorage.getItem('set0')+"</span> (<a onclick='set(1)'>Click to Change</a>)</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('set1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('set2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('set3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for Undo Coloring: <span id=setb>"+localStorage.getItem('setb')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)"
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+  if (localStorage.getItem("h") == 1) {
+    document.getElementById('hstatus').innerHTML = "On";
+  }
 }
 function set(a) {
   if (sconst == 0) {
@@ -740,3 +816,100 @@ function set(a) {
     }
   }
 } 
+function sethm() {
+  if (guesses == 0){
+    if (localStorage.getItem("h") == 1) {
+      localStorage.setItem("h", 0);
+    } else if (localStorage.getItem("h") == 0) {
+      localStorage.setItem("h", 1);
+    }
+    settings();
+  } else if (complete) {
+    popanim2("Wait for the next challenge to change hard mode.")
+  } else {
+    popanim2("Hard mode can not be changed in the middle of a game")
+  }
+}
+//Calculator stuff
+var cin = [""];
+var cops = []
+var cinstring = "";
+var cout = 0;
+function calc() {
+  document.getElementById('tutorial').innerHTML="<p id='ttitle'>Calculator (<a onclick=closetutorial()>Close Calculator</a>)</p><div id='calcdiv'><div class='cdiv' id='cin'></div><div class='cdiv' id='cout'></div><div class='cdiv'><div class='ckey' onclick=cpush('ac') id='clear1'>AC</div><div class='ckey' onclick=cpush('c') id='clear2'>C</div><div class='ckey' onclick=cpush('bc') id='clear3'>Backspace</div></div><div class='cdiv'><div class='ckey' onclick=cpush('1')>1</div><div class='ckey' onclick=cpush('2')>2</div><div class='ckey' onclick=cpush('3')>3</div></div><div class='cdiv'><div class='ckey' onclick=cpush('4')>4</div><div class='ckey' onclick=cpush('5')>5</div><div class='ckey' onclick=cpush('6')>6</div></div><div class='cdiv'><div class='ckey' onclick=cpush('7')>7</div><div class='ckey' onclick=cpush('8')>8</div><div class='ckey' onclick=cpush('9')>9</div></div><div class='cdiv'><div class='ckey' id='mult' onclick=cpush('×')>×</div><div class='ckey' onclick=cpush('0')>0</div><div class='ckey' id='ans' onclick=cpush('ans')>Ans</div></div><div class='cdiv'><div class='ckey' id='divide' onclick=cpush('÷')>÷</div><div class='ckey' id='enter' onclick=cpush('=')>=</div></div></div>";
+  document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+  document.getElementById('tutorial').style.width = "1000px";
+  document.getElementById('tutorial').style.height = "560px";
+  for (var i = 0; i < cin.length; i++) {
+    cinstring += cin[i].replace("a", "Ans");
+    if (i < cops.length && cops[i] == "m") {
+      cinstring += " × ";
+    } else if (i < cops.length && cops[i] == "d") {
+      cinstring += " ÷ ";
+    }
+  }
+  document.getElementById('cin').innerHTML = cinstring;
+  document.getElementById('cout').innerHTML = cout;
+}
+function cpush(str) {
+  cinstring = "";
+  if (str != "=" && str != "×" && str != "bc" && str != "c" && str != "ac" && str != "ans" && str != "÷") {
+    cin[cin.length - 1] += str;
+  } else if (str == "×") {
+    cin.push("");
+    cops.push("m");
+  } else if (str == "÷") {
+    cin.push("");
+    cops.push("d");
+  } else if (str == "ac") {
+    cin = [""];
+    cops = [];
+  } else if (str == "c") {
+    cin[cin.length - 1] = "";
+  } else if (str == "bc") {
+    if (cin.length == 1 && cin[0] == "") {;}
+    else if (cin[cin.length-1] == "") {
+      cin.pop();
+      cops.pop();
+    } else {
+      cin[cin.length - 1] = cin[cin.length-1].substring(0,cin[cin.length-1].length-1)
+    }
+  } else if (str == "ans") {
+    cin[cin.length - 1] += "a";
+  } else {
+    res = 1;
+    for (var i = 0; i < cin.length; i++) {
+      if (cin[i] == "a") {
+        if (i == 0 || cops[i-1] == "m") {
+          res *= cout;
+        } else {
+          res /= cout;
+        }
+      } else if (cin[i] == "" || parseInt(cin[i]).toString() != cin[i]) {
+        res = "Syntax Error";
+        break;
+      } else {
+        if (i == 0 || cops[i-1] == "m") {
+          res *= parseInt(cin[i]);
+        } else {
+          res /= parseInt(cin[i]);
+        }
+      }
+    }
+    cout = res.toString();
+    document.getElementById('cout').innerHTML = cout;
+  }
+  for (var i = 0; i < cin.length; i++) {
+    cinstring += cin[i].replaceAll("a", "Ans");
+    if (i < cops.length && cops[i] == "m") {
+      cinstring += " × ";
+    } else if (i < cops.length && cops[i] == "d") {
+      cinstring += " ÷ ";
+    }
+  }
+  if (str == "=") {
+    cin = [""];
+    cops = [];
+  }
+  document.getElementById('cin').innerHTML = cinstring;
+}
