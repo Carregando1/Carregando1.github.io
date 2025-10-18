@@ -71,6 +71,10 @@ html {
   color: white;
 }
 
+#e10 {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
 #guess1,#guess2,#guess3,#guess4,#guess5,#guess6,#guess7,#guess8 {
   float: left;
   width: 312.5px;
@@ -96,6 +100,8 @@ html {
   text-align: center;
   padding-left: 10px;
   padding-right: 10px;
+  overflow-y: auto;
+  max-height: 100%;
 }
 
 #example {
