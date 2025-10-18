@@ -800,6 +800,7 @@ function calc() {
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
   document.getElementById('tutorial').style.width = "1000px";
   document.getElementById('tutorial').style.height = "560px";
+  cinstring = "";
   for (var i = 0; i < cin.length; i++) {
     cinstring += cin[i].replace("a", "Ans");
     if (i < cops.length && cops[i] == "m") {
