@@ -788,3 +788,86 @@ function sethm() {
     popanim2("Hard mode can not be changed in the middle of a game")
   }
 }
+//Calculator stuff
+var cin = [""];
+var cops = []
+var cinstring = "";
+var cout = 0;
+function calc() {
+  document.getElementById('tutorial').innerHTML="<p id='ttitle'>Calculator (<a onclick=closetutorial()>Close Calculator</a>)</p><div id='calcdiv'><div class='cdiv' id='cin'></div><div class='cdiv' id='cout'></div><div class='cdiv'><div class='ckey' onclick=cpush('ac') id='clear1'>AC</div><div class='ckey' onclick=cpush('c') id='clear2'>C</div><div class='ckey' onclick=cpush('bc') id='clear3'>Backspace</div></div><div class='cdiv'><div class='ckey' onclick=cpush('1')>1</div><div class='ckey' onclick=cpush('2')>2</div><div class='ckey' onclick=cpush('3')>3</div></div><div class='cdiv'><div class='ckey' onclick=cpush('4')>4</div><div class='ckey' onclick=cpush('5')>5</div><div class='ckey' onclick=cpush('6')>6</div></div><div class='cdiv'><div class='ckey' onclick=cpush('7')>7</div><div class='ckey' onclick=cpush('8')>8</div><div class='ckey' onclick=cpush('9')>9</div></div><div class='cdiv'><div class='ckey' id='mult' onclick=cpush('×')>×</div><div class='ckey' onclick=cpush('0')>0</div><div class='ckey' id='ans' onclick=cpush('ans')>Ans</div></div><div class='cdiv'><div class='ckey' id='divide' onclick=cpush('÷')>÷</div><div class='ckey' id='enter' onclick=cpush('=')>=</div></div></div>";
+  document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+  document.getElementById('tutorial').style.width = "1000px";
+  document.getElementById('tutorial').style.height = "560px";
+  for (var i = 0; i < cin.length; i++) {
+    cinstring += cin[i].replace("a", "Ans");
+    if (i < cops.length && cops[i] == "m") {
+      cinstring += " × ";
+    } else if (i < cops.length && cops[i] == "d") {
+      cinstring += " ÷ ";
+    }
+  }
+  document.getElementById('cin').innerHTML = cinstring;
+  document.getElementById('cout').innerHTML = cout;
+}
+function cpush(str) {
+  cinstring = "";
+  if (str != "=" && str != "×" && str != "bc" && str != "c" && str != "ac" && str != "ans" && str != "÷") {
+    cin[cin.length - 1] += str;
+  } else if (str == "×") {
+    cin.push("");
+    cops.push("m");
+  } else if (str == "÷") {
+    cin.push("");
+    cops.push("d");
+  } else if (str == "ac") {
+    cin = [""];
+    cops = [];
+  } else if (str == "c") {
+    cin[cin.length - 1] = "";
+  } else if (str == "bc") {
+    if (cin.length == 1 && cin[0] == "") {;}
+    else if (cin[cin.length-1] == "") {
+      cin.pop();
+      cops.pop();
+    } else {
+      cin[cin.length - 1] = cin[cin.length-1].substring(0,cin[cin.length-1].length-1)
+    }
+  } else if (str == "ans") {
+    cin[cin.length - 1] += "a";
+  } else {
+    res = 1;
+    for (var i = 0; i < cin.length; i++) {
+      if (cin[i] == "a") {
+        if (i == 0 || cops[i-1] == "m") {
+          res *= cout;
+        } else {
+          res /= cout;
+        }
+      } else if (cin[i] == "" || parseInt(cin[i]).toString() != cin[i]) {
+        res = "Syntax Error";
+        break;
+      } else {
+        if (i == 0 || cops[i-1] == "m") {
+          res *= parseInt(cin[i]);
+        } else {
+          res /= parseInt(cin[i]);
+        }
+      }
+    }
+    cout = res.toString();
+    document.getElementById('cout').innerHTML = cout;
+  }
+  for (var i = 0; i < cin.length; i++) {
+    cinstring += cin[i].replaceAll("a", "Ans");
+    if (i < cops.length && cops[i] == "m") {
+      cinstring += " × ";
+    } else if (i < cops.length && cops[i] == "d") {
+      cinstring += " ÷ ";
+    }
+  }
+  if (str == "=") {
+    cin = [""];
+    cops = [];
+  }
+  document.getElementById('cin').innerHTML = cinstring;
+}
