@@ -306,6 +306,7 @@ function onload() {
   for (var i = 0; i < localStorage.getItem("status").length; i++) {
     document.getElementById('m' + (i + 1)).style.backgroundColor = convert(localStorage.getItem("status")[i]);
     document.getElementById('m' + (i + 1)).style.color = 'white';
+    document.getElementById('m' + (i+1)).innerHTML = parseInt(document.getElementById('m' + (i+1)).innerHTML);
   }
   if (localStorage.getItem("guesses").length != 0) {
     guesses++;
