@@ -2,9 +2,56 @@ html {
   font-family: sans-serif;
   font-size: 24px;
   color: black;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
-
-#m1,#m2,#m3,#m4,#m10,#m11,#m12,#m13,#m14,#m20,#m21,#m22,#m23,#m24,#m30,#m31,#m32,#m33,#m34,#m40,#m41,#m42,#m43,#m44,#m50,#m51,#m52,#m53,#m54,#m60,#m61,#m62,#m63,#m64,#m70,#m71,#m72,#m73,#m74,#m80, #e1, #e2, #e3, #e4, #e10 {
+.extext {
+  font-size: 24px;
+  float: left;
+  width: 800px;
+  height: 50px;
+}
+#m1,
+#m2,
+#m3,
+#m4,
+#m10,
+#m11,
+#m12,
+#m13,
+#m14,
+#m20,
+#m21,
+#m22,
+#m23,
+#m24,
+#m30,
+#m31,
+#m32,
+#m33,
+#m34,
+#m40,
+#m41,
+#m42,
+#m43,
+#m44,
+#m50,
+#m51,
+#m52,
+#m53,
+#m54,
+#m60,
+#m61,
+#m62,
+#m63,
+#m64,
+#m70,
+#m71,
+#m72,
+#m73,
+#m74,
+#m80, .e1 {
   width: 50px;
   height: 50px;
   border: 2px solid rgb(150, 150, 150);
@@ -12,7 +59,30 @@ html {
   margin: 0px 10px 0px 10px;
 }
 
-#m5, #e5, #e6, #e7,#m6,#m7,#m15,#m16,#m17,#m25,#m26,#m27,#m35,#m36,#m37,#m45,#m46,#m47,#m55,#m56,#m57,#m65,#m66,#m67,#m75,#m76,#m77 {
+#m5,
+#m6,
+#m7,
+#m15,
+#m16,
+#m17,
+#m25,
+#m26,
+#m27,
+#m35,
+#m36,
+#m37,
+#m45,
+#m46,
+#m47,
+#m55,
+#m56,
+#m57,
+#m65,
+#m66,
+#m67,
+#m75,
+#m76,
+#m77, .e2 {
   width: 75px;
   height: 50px;
   border: 2px solid rgb(150, 150, 150);
@@ -20,14 +90,37 @@ html {
   margin: 0px 10px 0px 10px;
 }
 
-#m8,#m9,#m18,#m19,#m28,#m29,#m38,#m39,#m48,#m49,#m58,#m59,#m68,#m69,#m78,#m79, #e8, #e9 {
+#m8,
+#m9,
+#m18,
+#m19,
+#m28,
+#m29,
+#m38,
+#m39,
+#m48,
+#m49,
+#m58,
+#m59,
+#m68,
+#m69,
+#m78,
+#m79, .e3 {
   width: 100px;
   height: 50px;
   border: 2px solid rgb(150, 150, 150);
   float: left;
   margin: 0px 10px 0px 10px;
 }
-#m10,#m20,#m30,#m40,#m50,#m60,#m70,#m80, #e10 {
+
+#m10,
+#m20,
+#m30,
+#m40,
+#m50,
+#m60,
+#m70,
+#m80, .e4 {
   width: 125px;
   height: 50px;
   border: 2px solid rgb(150, 150, 150);
@@ -35,7 +128,11 @@ html {
   margin: 0px 10px 0px 10px;
 }
 
-.g1div,.g2div,.g3div,.g4div {
+.g1div,
+.g2div,
+.g3div,
+.g4div
+{
   height: 60px;
   width: 312.5px;
   text-align: center;
@@ -44,44 +141,77 @@ html {
   font-size: 32px;
 }
 
-.g2div {
-  padding: 0px 2.5px;
+.e1div,
+.e2div,
+.e3div,
+.e4div
+{
+  height: 60px;
+  width: 1100px;
+  text-align: center;
+  line-height: 50px;
+  color: black;
+  font-size: 32px;  
 }
 
-.g3div {
+.g2div,
+.e2div {
+  padding: 0px 2.5px; 
+}
+
+.g3div,
+.e3div {
   padding: 0px 25px;
 }
 
-.g4div {
+.g4div,
+.e4div {
   padding: 0px 75px;
 }
 
-#e2 {
+
+#e5 {
   background-color: rgb(0, 175, 0);
   color: white;
 }
 
-#e7 {
+#e6 {
   background-color: rgb(200, 200, 0);
   color: white;
 }
 
-#e8 {
+#e7 {
   background-color: rgb(150, 150, 150);
   color: white;
 }
 
-#e10 {
+#e8 {
   background-color: rgb(0, 0, 0);
   color: white;
 }
-#guess1,#guess2,#guess3,#guess4,#guess5,#guess6,#guess7,#guess8 {
+#guess1,
+#guess2,
+#guess3,
+#guess4,
+#guess5,
+#guess6,
+#guess7,
+#guess8 {
   float: left;
   width: 312.5px;
   height: 250px;
   border: 1px solid rgb(150, 150, 150);
   padding-left: 5px;
   padding-top: 12.5px;
+}
+#eg1 {
+  float: left;
+  width: 1280px;
+  height: 250px;
+  border: 1px solid rgb(150, 150, 150);
+  padding-left: 5px;
+  padding-top: 12.5px;
+  margin-bottom: 25px;
 }
 
 #main {
@@ -102,14 +232,22 @@ html {
   padding-right: 10px;
   overflow-y: auto;
   max-height: 100%;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 #example {
   width: 312.5px;
   margin: auto;
 }
-
-#title,#warning {
+#title {
+  -webkit-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+#title,
+#warning {
   text-align: center;
 }
 
@@ -256,6 +394,33 @@ a {
     color: white;
   }
 }
+
+@keyframes flip3 {
+  0% {
+    background-color: white;
+    transform: (1, 1);
+    color: black;
+  }
+
+  49.99% {
+    transform: scale(1, 0);
+    background-color: white;
+    color: black;
+  }
+
+  50.01% {
+    transform: scale(1, 0);
+    background-color: rgb(0, 100, 250);
+    color: white;
+  }
+
+  100% {
+    background-color: rgb(0, 100, 250);
+    transform: (1, 1);
+    color: white;
+  }
+}
+
 @keyframes flip6 {
   0% {
     background-color: white;
@@ -352,8 +517,9 @@ a {
   animation-timing-function: linear;
   background-color: rgb(0, 100, 250);
   transform: (1, 1);
-  color: white;
+  color:white;
 }
+
 .flip6 {
   animation-duration: 0.3s;
   animation-name: flip6;
@@ -453,7 +619,33 @@ a {
 }
 .solve11 {
   animation-duration: 0.5s;
-  animation-delay: 0.45s;
+  animation-name: solve11;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0,0,0);
+  transform: (1, 1);
+  color: white;
+}
+.solve12 {
+  animation-duration: 0.5s;
+  animation-delay: 0.05s;
+  animation-name: solve11;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0,0,0);
+  transform: (1, 1);
+  color: white;
+}
+.solve13 {
+  animation-duration: 0.5s;
+  animation-delay: 0.1s;
+  animation-name: solve11;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0,0,0);
+  transform: (1, 1);
+  color: white;
+}
+.solve14 {
+  animation-duration: 0.5s;
+  animation-delay: 0.15s;
   animation-name: solve11;
   animation-timing-function: ease-in-out-quad;
   background-color: rgb(0,0,0);
@@ -596,6 +788,10 @@ a {
 #c3 {
   color: rgb(0,100,250);
 }
+/*New*/
+#c4 {
+  color: rgb(150,0,250);
+}
 /*Calculator Div Stuff*/
 .ckey {
   width: 150px;
@@ -625,13 +821,16 @@ a {
   font-size: 28px;
 }
 #enter:active, #ans:active {
-  background-color: rgb(0,175,0)
+  background-color: rgb(0,175,0);
 }
 #enter, #ans {
   border: 4px solid rgb(0,175,0);
 }
-#enter {
-  width: 308px;
+#factor {
+  border: 4px solid rgb(0,100,250);
+}
+#factor:active {
+  background-color: rgb(0,100,250);
 }
 #mult:active, #divide:active {
   background-color: rgb(200,200,0);
@@ -641,19 +840,41 @@ a {
 }
 #cin, #cout {
   border: 4px solid rgb(150,150,150);
-  width: 454px;
+  width: 455px;
 }
 #cin {
   text-align: left;
   padding-left: 10px;
+  max-width: 455px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
 }
 #cout {
   text-align: right;
   padding-right: 10px;
+  max-width: 455px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
 }
 #clear1:active,#clear2:active,#clear3:active {
   background-color: rgb(200,0,0);
 }
 #clear1,#clear2,#clear3 {
   border: 4px solid rgb(200,0,0);
+}
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+#px32 {
+  font-size: 32px;
 }
