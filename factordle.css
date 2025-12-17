@@ -215,8 +215,9 @@ html {
 }
 
 #main {
-  width: 1300px;
-  margin: auto;
+  width: 1280px;
+  height: 527px;
+  margin-inline: auto;
 }
 
 #tutorial {
@@ -252,11 +253,13 @@ html {
 }
 
 #keys {
-  width: 1300px;
-  height: 75px;
-  margin: auto;
-  padding-left: 250.5px;
-  top: 925px;
+  width: 1235px;
+  height: 50px;
+  padding-top: 20px;
+  display: block;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-inline: auto;
 }
 
 .key {
@@ -765,16 +768,6 @@ a {
   background-color: white;
   text-align: center;
   line-height: 44px;
-}
-#keys {
-  width: 1250px;
-  height: 60px;
-  position: absolute;
-  top: 625px;
-  padding-right: 0px;
-  padding-left: 0px;
-  left: 50%;
-  transform: translate(-50%, 0%);
 }
 #c0 {
   color: rgb(150,150,150);
