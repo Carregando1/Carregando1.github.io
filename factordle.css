@@ -54,9 +54,11 @@ html {
 #m80, .e1 {
   width: 50px;
   height: 50px;
+  line-height: 46px;
   border: 2px solid rgb(150, 150, 150);
   float: left;
   margin: 0px 10px 0px 10px;
+  box-sizing: border-box;
 }
 
 #m5,
@@ -85,9 +87,11 @@ html {
 #m77, .e2 {
   width: 75px;
   height: 50px;
+  line-height: 46px;
   border: 2px solid rgb(150, 150, 150);
   float: left;
   margin: 0px 10px 0px 10px;
+  box-sizing: border-box;
 }
 
 #m8,
@@ -108,9 +112,11 @@ html {
 #m79, .e3 {
   width: 100px;
   height: 50px;
+  line-height: 46px;
   border: 2px solid rgb(150, 150, 150);
   float: left;
   margin: 0px 10px 0px 10px;
+  box-sizing: border-box;
 }
 
 #m10,
@@ -123,9 +129,11 @@ html {
 #m80, .e4 {
   width: 125px;
   height: 50px;
+  line-height: 46px;
   border: 2px solid rgb(150, 150, 150);
   float: left;
   margin: 0px 10px 0px 10px;
+  box-sizing: border-box;
 }
 
 .g1div,
@@ -134,11 +142,28 @@ html {
 .g4div
 {
   height: 60px;
-  width: 312.5px;
   text-align: center;
   line-height: 50px;
   color: black;
   font-size: 32px;
+  box-sizing: border-box;
+  margin-inline: auto;
+}
+
+.g1div {
+  width: 280px;
+}
+
+.g2div {
+  width: 285px;
+}
+
+.g3div {
+  width: 240px;
+}
+
+.g4div {
+  width: 145px;
 }
 
 .e1div,
@@ -154,17 +179,14 @@ html {
   font-size: 32px;  
 }
 
-.g2div,
 .e2div {
-  padding: 0px 2.5px; 
+  padding: 0px 1.25px; 
 }
 
-.g3div,
 .e3div {
   padding: 0px 25px;
 }
 
-.g4div,
 .e4div {
   padding: 0px 75px;
 }
@@ -198,11 +220,11 @@ html {
 #guess7,
 #guess8 {
   float: left;
-  width: 312.5px;
-  height: 250px;
+  width: 300px;
+  height: 260px;
   border: 1px solid rgb(150, 150, 150);
-  padding-left: 5px;
-  padding-top: 12.5px;
+  padding-top: 15px;
+  box-sizing: border-box;
 }
 #eg1 {
   float: left;
@@ -215,8 +237,8 @@ html {
 }
 
 #main {
-  width: 1280px;
-  height: 527px;
+  width: 1200px;
+  height: 520px;
   margin-inline: auto;
 }
 
@@ -253,7 +275,7 @@ html {
 }
 
 #keys {
-  width: 1235px;
+  width: 1250px;
   height: 50px;
   padding-top: 20px;
   display: block;
@@ -262,6 +284,7 @@ html {
   margin-inline: auto;
 }
 
+/* what was this class for again?
 .key {
   width: 50px;
   height: 50px;
@@ -272,6 +295,7 @@ html {
   background-color: rgb(225, 225, 225);
   margin: 0px 5px;
 }
+*/
 
 #bs {
   width: 175px;
@@ -761,13 +785,14 @@ a {
 }
 .k {
   float: left;
-  height: 44px;
-  width: 44px;
+  height: 50px;
+  width: 50px;
   border: 3px solid rgb(150,150,150);
   color: black;
   background-color: white;
   text-align: center;
   line-height: 44px;
+  box-sizing: border-box;
 }
 #c0 {
   color: rgb(150,150,150);
@@ -787,26 +812,27 @@ a {
 }
 /*Calculator Div Stuff*/
 .ckey {
-  width: 150px;
-  height: 50px;
+  width: 160px;
+  height: 60px;
   border: 4px solid rgb(150,150,150);
   text-align: center;
-  line-height: 50px;
+  line-height: 52px;
   float: left;
   background-color: white;
   color: black;
+  box-sizing: border-box;
 }
 .ckey:active {
   background-color: rgb(150,150,150);
   color: white;
 }
 .cdiv {
-  width: 474px;
-  height: 57px;
-  line-height: 54px;
+  width: 480px;
+  height: 60px;
+  line-height: 52px;
 }
 #calcdiv {
-  width: 470px;
+  width: 480px;
   height: 471px;
   left: 50%;
   transform: translate(-50%, 0%);
@@ -833,12 +859,15 @@ a {
 }
 #cin, #cout {
   border: 4px solid rgb(150,150,150);
-  width: 455px;
+  width: 480px;
+  height: 60px;
+  box-sizing: border-box;
+  line-height: 52px;
 }
 #cin {
   text-align: left;
   padding-left: 10px;
-  max-width: 455px;
+  max-width: 480px;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
@@ -846,7 +875,7 @@ a {
 #cout {
   text-align: right;
   padding-right: 10px;
-  max-width: 455px;
+  max-width: 480px;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
