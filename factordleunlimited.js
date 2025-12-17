@@ -224,6 +224,7 @@ var res;
 var solution;
 var kconst = 0;
 var sconst = 0;
+var cconst = 0;
 if (((window.innerWidth > 0) ? window.innerWidth : screen.width) < 1300) {
   document.getElementById('all').innerHTML='Resize your screen to be wider than 1300px, then reload.'
 }
@@ -270,28 +271,26 @@ if (localStorage.getItem("usolve1h") == null) {
 if (localStorage.getItem("uks") == null) {
   localStorage.setItem("uks", "9999999999999999999999999");
 }
-if (localStorage.getItem("uset0") == null) {
-  localStorage.setItem("uset0", "0");
-  localStorage.setItem("uset1", "1");
-  localStorage.setItem("uset2", "2");
-  localStorage.setItem("uset3", "3");
-  localStorage.setItem("uguesses", "");
+if (localStorage.getItem("uset1") == null) {
+  localStorage.setItem("uset1", "a");
+  localStorage.setItem("uset2", "s");
+  localStorage.setItem("uset3", "d");
+  localStorage.setItem("uset4", "f");
+  localStorage.setItem("usetb", "g");
 }
 if (localStorage.getItem("uh") == null) {
   localStorage.setItem("uh", "0");
-}
-if (localStorage.getItem("ustatus") == null) {
   localStorage.setItem("ustatus", "");
-  localStorage.setItem("usetb", "Backspace");
-  solution = solutions[Math.floor(Math.random()*3051)];
-  localStorage.setItem("usolution", solution);
+}
+if (localStorage.getItem("ukp") == null) {
+  localStorage.setItem("ukp", "0");
 }
 document.getElementById("all").addEventListener("keyup", detect);
 function onload() {
   if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 2] == 3 || localStorage.getItem("ustatus").length == 80) {
     complete = true;
   }
-  if (complete) {
+  if (complete || localStorage.getItem("ustatus") == 0) {
     complete = false;
     localStorage.setItem("ustatus", "");
     localStorage.setItem("uguesses", "");
@@ -318,7 +317,11 @@ function onload() {
       document.getElementById('k'+i).style.backgroundColor = "rgb(0,100,250)";
       document.getElementById('k'+i).style.border = "3px solid rgb(0,100,250)";
       document.getElementById('k'+i).style.color = "white";
-    }  
+    } else if (localStorage.getItem("uks")[i-1] == "4") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(150,0,250)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(150,0,250)";
+      document.getElementById('k'+i).style.color = "white";
+    }   
   }
   for (var i = 0; i < localStorage.getItem("uguesses").length / 4; i++) {
     guesses = i;
@@ -332,6 +335,7 @@ function onload() {
   for (var i = 0; i < localStorage.getItem("ustatus").length; i++) {
     document.getElementById('m' + (i + 1)).style.backgroundColor = convert(localStorage.getItem("ustatus")[i]);
     document.getElementById('m' + (i + 1)).style.color = 'white';
+    document.getElementById('m'+(i+1)).innerHTML = parseInt(document.getElementById('m'+(i+1)).innerHTML);
   }
   if (localStorage.getItem("uguesses").length != 0) {
     guesses++;
@@ -346,73 +350,88 @@ function onload() {
     closetutorial();
   }
   document.getElementById('title').innerHTML = "Factordle Unlimited (<a onclick=calc()>Calculator</a> | <a onclick=tutorial()>How To Play</a> | <a onclick=stats()>View Your Statistics</a> | <a onclick=settings()>Change Settings</a>)";
+  if (localStorage.getItem("ukp") == 1) {
+    document.getElementById('extracss').innerHTML="<link href='keypads.css' rel='stylesheet' type='text/css' />";
+    document.getElementById('extra1').innerHTML="<div id='kp1'><div class='kp1n' onclick='detect({key: \"1\"})'>1</div><div class='kp1n' onclick='detect({key: \"2\"})'>2</div><div class='kp1n' onclick='detect({key: \"3\"})'>3</div><div class='kp1n' onclick='detect({key: \"4\"})'>4</div><div class='kp1n' onclick='detect({key: \"5\"})'>5</div><div class='kp1n' onclick='detect({key: \"6\"})'>6</div><div class='kp1n' onclick='detect({key: \"7\"})'>7</div><div class='kp1n' onclick='detect({key: \"8\"})'>8</div><div class='kp1n' onclick='detect({key: \"9\"})'>9</div><div class='kp1n' onclick='detect({key: \"0\"})'>0</div><div class='kp1b' onclick='detect({key: \"Backspace\"})'>Backspace</div><div class='kp1e' onclick='detect({key: \"Enter\"})'>Enter</div></div>";
+    document.getElementById('extra2').innerHTML="<div id='kp2'><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset1')+"\"})' id='kp2c1'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset2')+"\"})' id='kp2c2'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset3')+"\"})' id='kp2c3'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset4')+"\"})' id='kp2c4'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('usetb')+"\"})' id='kp2c5'>Reset Color</div><div class='kp2c' onclick='kall(-1)' id='kp2c6'>Gray All</div></div>";
+  } else {
+    document.getElementById('extracss').innerHTML="";
+    document.getElementById('extra1').innerHTML="";
+    document.getElementById('extra2').innerHTML="";
+  }
 }
+var keyset = ["Backspace", "Enter", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 function detect(e) {
-  if (!(complete) && step == 0) {
-    if (e.key == "Enter" && kconst == 0 && sconst == 0) {
-      document.getElementById('pop').classList.remove("popanim2");
-      document.getElementById('pop').innerHTML = '';
-      push(guess);
-    }
-    if (e.key == "Backspace" && kconst == 0 && sconst == 0) {
-      document.getElementById('pop').classList.remove("popanim2");
-      document.getElementById('pop').innerHTML = '';
-      if (guess.length > 0) {
-        guess.pop();
-        update(-(guess.length + 1));
+  if (cconst == 0) {
+    if (!(complete) && step == 0) {
+      if (e.key == "Enter" && kconst == 0 && sconst == 0) {
+        document.getElementById('pop').classList.remove("popanim2");
+        document.getElementById('pop').innerHTML = '';
+        push(guess);
       }
-    }
-    if ((e.key == "0" || e.key == "1" || e.key == "2" || e.key == "3" || e.key == "4" || e.key == "5" || e.key == "6" || e.key == "7" || e.key == "8" || e.key == "9") && kconst == 0 && sconst == 0) {
-      document.getElementById('pop').classList.remove("popanim2");
-      document.getElementById('pop').innerHTML = '';
-      if (guess.length == 0 && e.key == '0') {
-        popanim2("Guesses must be between 1000 and 9999");
-      } else {
-        if (guess.length <= 3) {
-          guess.push(parseInt(e.key));
-          update(guess.length);
+      if (e.key == "Backspace" && kconst == 0 && sconst == 0) {
+        document.getElementById('pop').classList.remove("popanim2");
+        document.getElementById('pop').innerHTML = '';
+        if (guess.length > 0) {
+          guess.pop();
+          update(-(guess.length + 1));
         }
       }
+      if (keyset.slice(2).includes(e.key) && sconst == 0) {
+        if (0 != kconst) {
+          document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
+          kconst = 0;
+        }
+        document.getElementById('pop').classList.remove("popanim2");
+        document.getElementById('pop').innerHTML = '';
+        if (guess.length == 0 && e.key == '0') {
+          popanim2("Guesses must be between 1000 and 9999");
+        } else {
+          if (guess.length <= 3) {
+            guess.push(parseInt(e.key));
+            update(guess.length);
+          }
+        }
+      }
+      if (e.key == localStorage.getItem('uset1') && kconst != 0 && !(complete) && sconst == 0) {
+        document.getElementById('k'+kconst).style.backgroundColor = "rgb(200,200,0)";
+        document.getElementById('k'+kconst).style.color = "white";
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(200,200,0)";
+        localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "1" + localStorage.getItem("uks").substring(kconst));
+        kconst = 0;
+      }
+      if (e.key == localStorage.getItem('uset2') && kconst != 0 && !(complete) && sconst == 0) {
+        document.getElementById('k'+kconst).style.backgroundColor = "rgb(0,175,0)";
+        document.getElementById('k'+kconst).style.color = "white";
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(0,175,0)";
+        localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "2" + localStorage.getItem("uks").substring(kconst));
+        kconst = 0;
+      }
+      if (e.key == localStorage.getItem('uset3') && kconst != 0 && !(complete) && sconst == 0) {
+        document.getElementById('k'+kconst).style.backgroundColor = "rgb(0,100,250)";
+        document.getElementById('k'+kconst).style.color = "white";
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(0,100,250)";
+        localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "3" + localStorage.getItem("uks").substring(kconst));
+        kconst = 0;
+      }
+      if (e.key == localStorage.getItem('uset4') && kconst != 0 && !(complete) && sconst == 0) {
+        document.getElementById('k'+kconst).style.backgroundColor = "rgb(150,0,250)";
+        document.getElementById('k'+kconst).style.color = "white";
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(150,0,250)";
+        localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "4" + localStorage.getItem("uks").substring(kconst));
+        kconst = 0;
+      }
+      if (e.key == localStorage.getItem('usetb') && kconst != 0 && !(complete) && sconst == 0) {
+        document.getElementById('k'+kconst).style.backgroundColor = "white";
+        document.getElementById('k'+kconst).style.color = "black";
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
+        localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "9" + localStorage.getItem("uks").substring(kconst));
+        kconst = 0;
+      }
     }
-    if (e.key == localStorage.getItem('uset0') && kconst != 0 && !(complete) && sconst == 0) {
-      document.getElementById('k'+kconst).style.backgroundColor = "rgb(150,150,150)";
-      document.getElementById('k'+kconst).style.color = "white";
-      document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
-      localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "0" + localStorage.getItem("uks").substring(kconst));
-      kconst = 0;
-    }
-    if (e.key == localStorage.getItem('uset1') && kconst != 0 && !(complete) && sconst == 0) {
-      document.getElementById('k'+kconst).style.backgroundColor = "rgb(200,200,0)";
-      document.getElementById('k'+kconst).style.color = "white";
-      document.getElementById('k'+kconst).style.border = "3px solid rgb(200,200,0)";
-      localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "1" + localStorage.getItem("uks").substring(kconst));
-      kconst = 0;
-    }
-    if (e.key == localStorage.getItem('uset2') && kconst != 0 && !(complete) && sconst == 0) {
-      document.getElementById('k'+kconst).style.backgroundColor = "rgb(0,175,0)";
-      document.getElementById('k'+kconst).style.color = "white";
-      document.getElementById('k'+kconst).style.border = "3px solid rgb(0,175,0)";
-      localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "2" + localStorage.getItem("uks").substring(kconst));
-      kconst = 0;
-    }
-    if (e.key == localStorage.getItem('uset3') && kconst != 0 && !(complete) && sconst == 0) {
-      document.getElementById('k'+kconst).style.backgroundColor = "rgb(0,100,250)";
-      document.getElementById('k'+kconst).style.color = "white";
-      document.getElementById('k'+kconst).style.border = "3px solid rgb(0,100,250)";
-      localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "3" + localStorage.getItem("uks").substring(kconst));
-      kconst = 0;
-    }
-    if (e.key == localStorage.getItem('usetb') && kconst != 0 && !(complete) && sconst == 0) {
-      document.getElementById('k'+kconst).style.backgroundColor = "white";
-      document.getElementById('k'+kconst).style.color = "black";
-      document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
-      localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "9" + localStorage.getItem("uks").substring(kconst));
-      kconst = 0;
-    }
-  }
-  if (sconst != 0) {
-      if (e.key == localStorage.getItem('uset0') && sconst != 1) {
-        popanim2("Key "+e.key+" is already used by Gray keybind");
+    if (sconst != 0) {
+      if (keyset.includes(e.key)) {
+        popanim2("Number keys, Backspace, and Enter are reserved for inputting guesses");
         settings();
         sconst = 0;
         return;
@@ -435,19 +454,46 @@ function detect(e) {
         sconst = 0;
         return;
       }
-      if (e.key == localStorage.getItem('usetb') && sconst != 5) {
+      if (e.key == localStorage.getItem('uset4') && sconst != 5) {
+        popanim2("Key "+e.key+" is already used by Purple keybind");
+        settings();
+        sconst = 0;
+        return;
+      }
+      if (e.key == localStorage.getItem('usetb') && sconst != 6) {
         popanim2("Key "+e.key+" is already used by Undo Coloring keybind");
         settings();
         sconst = 0;
         return;
       }
-      if (sconst != 5) {
+      if (sconst != 6) {
         localStorage.setItem('uset'+(sconst-1), e.key);
       } else {
         localStorage.setItem('usetb', e.key);
       }
       sconst = 0;
       settings();
+    }
+  } else if (cconst == 1) {
+      if (keyset.slice(2).includes(e.key)) {
+        cpush(e.key);
+      } else if (e.key == "Enter") {
+        cpush("=");
+      } else if (e.key == "/") {
+        cpush("÷");
+      } else if (e.key == "b" || e.key == "Backspace") {
+        cpush("bc");
+      } else if (e.key == "a") {
+        cpush("ac");
+      } else if (e.key == "c") {
+        cpush("c");
+      } else if (e.key == "n") {
+        cpush("ans");
+      } else if (e.key == "f") {
+        cpush("f");
+      } else if (e.key == "x" || e.key == "*") {
+        cpush("×");
+      } 
   }
 }
 var animpush = [];
@@ -462,8 +508,8 @@ function push(a) {
       document.getElementById('m' + (guesses * 10 + i)).innerHTML = parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML);
     }
     if (localStorage.getItem("uh") == 1) {
-      localStorage.setItem("ustatus", localStorage.getItem("ustatus") + "3333333336");
-      anim(guesses, [3, 3, 3, 3, 3, 3, 3, 3, 3, 6]);
+      localStorage.setItem("ustatus", localStorage.getItem("ustatus") + "6666333333");
+      anim(guesses, [6, 6, 6, 6, 3, 3, 3, 3, 3, 3]);
     } else {
       localStorage.setItem("ustatus", localStorage.getItem("ustatus") + "3333333333");
       anim(guesses, [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]);
@@ -477,7 +523,7 @@ function push(a) {
   } else {
     for (i = 1; i < 11; i++) {
       document.getElementById('m' + (guesses * 10 + i)).innerHTML = parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML);
-      if (i == 10 && localStorage.getItem("uh") == 1) {
+      if (i <= 4 && localStorage.getItem("uh") == 1) {
         localStorage.setItem("ustatus", localStorage.getItem("ustatus") + '6');
         animpush.push(6);
       } else {
@@ -573,8 +619,11 @@ function update(a) {
   }
 }
 function tutorial() {
-    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p>This tutorial is long; use the scrollbar to navigate through this tutorial.</p><hr><p><u>Factordle has important structural differences from Wordle.</u> Read carefully to learn more about the differences.</p><hr><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number will never have any prime factors larger than 100.</p><p id='tp2'>When you input a guess, each of the numbers in the 10 boxes give you information on the factors of the target number. The top 4 boxes are always the digits of your guess. An example guess (1250) is shown below.</p><hr><div id='example'><div class='g1div'><div id='e1'>1</div><div id='e2'>2</div><div id='e3'>5</div><div id='e4'>0</div></div><div class='g2div'><div id='e5'>12</div><div id='e6'>25</div><div id='e7'>50</div></div><div class='g3div'><div id='e8'>125</div><div id='e9'>250</div></div><div class='g4div'><div id='e10'>1250</div></div></div><p>2 is a factor of the target number. Note that, unlike Wordle, this does <i>not</i> imply that 2 is in the correct spot in the target number.</p> <p>50 and the target number share a common factor.</p><p>125 and the target number have no common factors.</p><p>No information is given about the relation between 1250 and the target number. This only occurs in hard mode.</p><hr><p>Once your guess matches the target number, you win, and all the boxes will turn blue.</p><hr><p>You can use the 25 boxes with primes below all the guess boxes to record which factors are in or not in the target number.</p><p>Click on a box then press 0, 1, 2, 3, or Backspace to make the box turn gray, yellow, green, blue, and white, respectively.<p><hr><p>Factordle supports a calculator for multiplication and division for easy calculation. Just click on \"Calculator\" from the links to access and use it.</p><hr></p>These keybinds can be changed in Settings.</p><hr><p>Hard mode is a higher difficulty where the number in the 10th box of each guess never gives information.</p><p>Hard mode statistics are tracked separately from normal mode statistics.</p><p>You can enable hard mode within the settings.</p>"  
-    document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 boxes with primes below all the guess cells to record which primes are factors of the target number. To change the color of the prime boxes, click on a box then press a key according to your keybinds in Settings.</p><p>Right clicking a prime box changes the color of itself and all white prime boxes to the right of it to gray.</p>"
+  if (localStorage.getItem('ukp') == 1) {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 boxes with primes below all the guess cells to record the factors of the target number by changing their colors.<p><p>To change the color of the prime boxes, press on a box, then choose a color from the menu below the boxes if necessary. Pressing a box changes the color to gray by default.</p><p>Press the 'Gray All' option after selecting a box to change the color of the selected box and all white prime boxes to the right of it to gray.</p>"
+  }
+  document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
 }
 function stats() {
   var total = parseInt(localStorage.getItem('usolve1')) + parseInt(localStorage.getItem('usolve2')) + parseInt(localStorage.getItem('usolve3')) + parseInt(localStorage.getItem('usolve4')) + parseInt(localStorage.getItem('usolve5')) + parseInt(localStorage.getItem('usolve6')) + parseInt(localStorage.getItem('usolve7')) + parseInt(localStorage.getItem('usolve8')) + parseInt(localStorage.getItem('usolve9'));
@@ -629,6 +678,7 @@ function closetutorial() {
   document.getElementById('tutorial').style.width = "1300px";
   document.getElementById('tutorial').style.height = "auto";
   sconst = 0;
+  cconst = 0;
 }
 function resetstats() {
   localStorage.removeItem("usolve1");
@@ -665,7 +715,7 @@ function anim(a, b) {
     document.getElementById('m' + (animguesses * 10 + 9)).classList.add("flip" + animreceived[8]);
   } else if (step == 10) {
     document.getElementById('m' + (animguesses * 10 + 10)).classList.add("flip" + animreceived[9]);
-  } else if (step == 11 && animreceived[0] == 3) {
+  } else if (step == 11 && animreceived[9] == 3) {
     document.getElementById('m' + (animguesses * 10 + 1)).classList.remove("flip" + animreceived[0]);
     document.getElementById('m' + (animguesses * 10 + 2)).classList.remove("flip" + animreceived[1]);
     document.getElementById('m' + (animguesses * 10 + 3)).classList.remove("flip" + animreceived[2]);
@@ -676,20 +726,23 @@ function anim(a, b) {
     document.getElementById('m' + (animguesses * 10 + 8)).classList.remove("flip" + animreceived[7]);
     document.getElementById('m' + (animguesses * 10 + 9)).classList.remove("flip" + animreceived[8]);
     document.getElementById('m' + (animguesses * 10 + 10)).classList.remove("flip" + animreceived[9]);
-    document.getElementById('m' + (animguesses * 10 + 1)).classList.add("solve1");
-    document.getElementById('m' + (animguesses * 10 + 2)).classList.add("solve2");
-    document.getElementById('m' + (animguesses * 10 + 3)).classList.add("solve3");
-    document.getElementById('m' + (animguesses * 10 + 4)).classList.add("solve4");
+    if (localStorage.getItem("uh") == 1) {
+      document.getElementById('m' + (animguesses * 10 + 1)).classList.add("solve11");
+      document.getElementById('m' + (animguesses * 10 + 2)).classList.add("solve12");
+      document.getElementById('m' + (animguesses * 10 + 3)).classList.add("solve13");
+      document.getElementById('m' + (animguesses * 10 + 4)).classList.add("solve14");
+    } else {
+      document.getElementById('m' + (animguesses * 10 + 1)).classList.add("solve1");
+      document.getElementById('m' + (animguesses * 10 + 2)).classList.add("solve2");
+      document.getElementById('m' + (animguesses * 10 + 3)).classList.add("solve3");
+      document.getElementById('m' + (animguesses * 10 + 4)).classList.add("solve4");
+    }
     document.getElementById('m' + (animguesses * 10 + 5)).classList.add("solve5");
     document.getElementById('m' + (animguesses * 10 + 6)).classList.add("solve6");
     document.getElementById('m' + (animguesses * 10 + 7)).classList.add("solve7");
     document.getElementById('m' + (animguesses * 10 + 8)).classList.add("solve8");
     document.getElementById('m' + (animguesses * 10 + 9)).classList.add("solve9");
-    if (localStorage.getItem("uh") == 1) {
-      document.getElementById('m' + (animguesses * 10 + 10)).classList.add("solve11");
-    } else {
-      document.getElementById('m' + (animguesses * 10 + 10)).classList.add("solve10");
-    }
+    document.getElementById('m' + (animguesses * 10 + 10)).classList.add("solve10");
     localStorage.setItem("uks", "3333333333333333333333333");
     for (var i = 1; i <= 25; i++) {
       document.getElementById('k'+i).style.backgroundColor = "rgb(0,100,250)";
@@ -701,8 +754,10 @@ function anim(a, b) {
     stringy = true;
     popanim('The number was ' + solution);
     guesses = 9;
+    updatenotes();
   } else if (step == 11) {
     step = 0;
+    updatenotes();
   }
   if (a.animationName == 'popanim' || a.animationName == 'popanim2') {
     step = 0;
@@ -713,6 +768,48 @@ function anim(a, b) {
       stats();
     }
     stringy = false;
+  }
+}
+function updatenotes() {
+  guesstemp = parseInt(localStorage.getItem('uguesses').slice(localStorage.getItem('uguesses').length - 4));
+  guessstatus = localStorage.getItem('ustatus').slice(localStorage.getItem('ustatus').length - 10);
+  guessarr = [Math.floor(guesstemp/1000), Math.floor(guesstemp/100)%10, Math.floor(guesstemp/10)%10, guesstemp%10, Math.floor(guesstemp/100), Math.floor(guesstemp/10)%100, guesstemp%100, Math.floor(guesstemp/10), guesstemp%1000, guesstemp];
+  primearray = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+  loop:
+  for (var i = 0; i < 10; i++) {
+    for (var j = 0; j < 25; j++) {
+      if (guessstatus.charAt(i) == '6') {
+        continue loop;
+      } else if (guessstatus.charAt(i) == '0') {
+        if (guessarr[i] % primearray[j] == 0 && guessarr[i] != 0) {
+          document.getElementById('k'+(j+1)).style.backgroundColor = "rgb(150,150,150)";
+          document.getElementById('k'+(j+1)).style.color = "white";
+          document.getElementById('k'+(j+1)).style.border = "3px solid rgb(150,150,150)";
+          localStorage.setItem("uks", localStorage.getItem("uks").substring(0,j) + "0" + localStorage.getItem("uks").substring(j+1));
+        }
+      } else if (guessstatus.charAt(i) == '2') {
+        if (guessarr[i] % primearray[j] == 0 && localStorage.getItem('uks').charAt(j) != '4' && localStorage.getItem('uks').charAt(j) != '5') {
+          document.getElementById('k'+(j+1)).style.backgroundColor = "rgb(0,175,0)";
+          document.getElementById('k'+(j+1)).style.color = "white";
+          document.getElementById('k'+(j+1)).style.border = "3px solid rgb(0,175,0)";
+          localStorage.setItem("uks", localStorage.getItem("uks").substring(0,j) + "2" + localStorage.getItem("uks").substring(j+1));
+        }
+      } else if (guessstatus.charAt(i) == '1') {
+        if (guessarr[i] % primearray[j] == 0 && (localStorage.getItem('uks').charAt(j) == '9' || localStorage.getItem('uks').charAt(j) == '1')) {
+          if ([guessarr[i]/Math.pow(primearray[j], 2), guessarr[i]/Math.pow(primearray[j], 3), guessarr[i]/Math.pow(primearray[j], 4), guessarr[i]/Math.pow(primearray[j], 5), guessarr[i]/Math.pow(primearray[j], 6), guessarr[i]/Math.pow(primearray[j], 7), guessarr[i]/Math.pow(primearray[j], 8), guessarr[i]/Math.pow(primearray[j], 9), guessarr[i]/Math.pow(primearray[j], 10)].includes(1)) {
+            document.getElementById('k'+(j+1)).style.backgroundColor = "rgb(0,175,0)";
+            document.getElementById('k'+(j+1)).style.color = "white";
+            document.getElementById('k'+(j+1)).style.border = "3px solid rgb(0,175,0)";
+            localStorage.setItem("uks", localStorage.getItem("uks").substring(0,j) + "2" + localStorage.getItem("uks").substring(j+1));
+          } else {
+            document.getElementById('k'+(j+1)).style.backgroundColor = "rgb(200,200,0)";
+            document.getElementById('k'+(j+1)).style.color = "white";
+            document.getElementById('k'+(j+1)).style.border = "3px solid rgb(200,200,0)";
+            localStorage.setItem("uks", localStorage.getItem("uks").substring(0,j) + "1" + localStorage.getItem("uks").substring(j+1));
+          }
+        }
+      }
+    }
   }
 }
 function popanim(a) {
@@ -741,10 +838,19 @@ function stringify(a) {
     default: return "Error 1: You have reached an unexpected state";
   }
 }
+let timeout;
 function k(a) {
   if (!(complete) && sconst == 0) {
     if (kconst != 0) {
-      if (localStorage.getItem("uks")[kconst-1] == "1") {
+      //change
+      if (a == kconst) {
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
+        kconst = 0;
+        clearInterval(timeout);
+      }
+      if (localStorage.getItem("uks")[kconst-1] == "0") {
+        document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
+      } else if (localStorage.getItem("uks")[kconst-1] == "1") {
         document.getElementById('k'+kconst).style.border = "3px solid rgb(200,200,0)";
       } else if (localStorage.getItem("uks")[kconst-1] == "2") {
         document.getElementById('k'+kconst).style.border = "3px solid rgb(0,175,0)";
@@ -756,20 +862,51 @@ function k(a) {
     }
     kconst = a;
     document.getElementById('k'+kconst).style.border = "3px solid rgb(200,0,0)";
+    if (kconst != 0 && !(complete)) {
+      document.getElementById('k'+kconst).style.backgroundColor = "rgb(150,150,150)";
+      document.getElementById('k'+kconst).style.color = "white";
+      localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "0" + localStorage.getItem("uks").substring(kconst));
+    }
+    clearInterval(timeout);
+    timeout = setInterval(function(){k(kconst)}, 2000);
+  }
+}
+function kall(a) {
+  if (a == 0) {
+    return;
+  } else if (a == -1 && kconst != 0) {
+    a = kconst;
+  } else if (a == -1 && kconst == 0) {
+    return;
+  }
+  if (!(complete) && sconst == 0) {
+    if (kconst != 0) {
+      document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
+    }
+    for (var i = (a-1); i < 25; i++) {
+      if (localStorage.getItem("uks").charAt(i) == '9') {
+        document.getElementById('k'+(i+1)).style.backgroundColor = "rgb(150,150,150)";
+        document.getElementById('k'+(i+1)).style.color = "white";
+        localStorage.setItem("uks", localStorage.getItem("uks").substring(0,i) + "0" + localStorage.getItem("uks").substring(i+1));
+      }
+    }
+    kconst = 0;
   }
 }
 function settings() {
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><p>Keybinds for Notes</p><p>Current keybind for <span id='c0'>Gray</span> color: <span id=set0>"+localStorage.getItem('uset0')+"</span> (<a onclick='set(1)'>Click to Change</a>)</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('uset1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('uset2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('uset3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for Clear Coloring: <span id=setb>"+localStorage.getItem('usetb')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)"
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><p>Keybinds for Notes</p><p>Clicking a box turns it gray by default.</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('uset1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('uset2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('uset3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for <span id='c4'>Purple</span> color: <span id=set4>"+localStorage.getItem('uset4')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p><p>Current keybind for Undo Coloring: <span id=setb>"+localStorage.getItem('usetb')+"</span> (<a onclick='set(6)'>Click to Change</a>)</p><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p>Enable Keypads: <span id='kpstatus'>Off</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i><p>"
+  if (localStorage.getItem("ukp") == 1) {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><hr><p>Keybinds for Prime Boxes</p><p>To enable Keybinds, disable the Enable Keypads option.</p><p>For more information on prime boxes, see the Tutorial.</p><hr><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p><i>Hard mode disables all information about the target number from the first four cells, the single digit numbers.</i><p><p>Enable Keypads: <span id='kpstatus'>On</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i><p>"
+  }
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
   if (localStorage.getItem("uh") == 1) {
     document.getElementById('hstatus').innerHTML = "On";
   }
-  document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
 }
 function set(a) {
   if (sconst == 0) {
     sconst = a;
-    if (sconst != 5) {
+    if (sconst != 6) {
       document.getElementById('set'+(sconst-1)).innerHTML="[Press Key]";
     } else {
     document.getElementById('setb').innerHTML="[Press Key]";
@@ -790,38 +927,66 @@ function sethm() {
     popanim2("Hard mode can not be changed in the middle of a game")
   }
 }
+function setkp() {
+  if (localStorage.getItem("ukp") == 1) {
+    localStorage.setItem("ukp", 0);
+    document.getElementById('extracss').innerHTML="";
+    document.getElementById('extra1').innerHTML="";
+    document.getElementById('extra2').innerHTML="";
+  } else if (localStorage.getItem("ukp") == 0) {
+    localStorage.setItem("ukp", 1);
+    document.getElementById('extracss').innerHTML="<link href='keypads.css' rel='stylesheet' type='text/css' />";
+    document.getElementById('extra1').innerHTML="<div id='kp1'><div class='kp1n' onclick='detect({key: \"1\"})'>1</div><div class='kp1n' onclick='detect({key: \"2\"})'>2</div><div class='kp1n' onclick='detect({key: \"3\"})'>3</div><div class='kp1n' onclick='detect({key: \"4\"})'>4</div><div class='kp1n' onclick='detect({key: \"5\"})'>5</div><div class='kp1n' onclick='detect({key: \"6\"})'>6</div><div class='kp1n' onclick='detect({key: \"7\"})'>7</div><div class='kp1n' onclick='detect({key: \"8\"})'>8</div><div class='kp1n' onclick='detect({key: \"9\"})'>9</div><div class='kp1n' onclick='detect({key: \"0\"})'>0</div><div class='kp1b' onclick='detect({key: \"Backspace\"})'>Backspace</div><div class='kp1e' onclick='detect({key: \"Enter\"})'>Enter</div></div>";
+    document.getElementById('extra2').innerHTML="<div id='kp2'><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset1')+"\"})' id='kp2c1'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset2')+"\"})' id='kp2c2'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset3')+"\"})' id='kp2c3'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset4')+"\"})' id='kp2c4'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('usetb')+"\"})' id='kp2c5'>Reset Color</div><div class='kp2c' onclick='kall(-1)' id='kp2c6'>Gray All</div></div>";
+  }
+  settings();
+}
 //Calculator stuff
 var cin = [""];
 var cops = []
 var cinstring = "";
 var cout = 0;
 function calc() {
-  document.getElementById('tutorial').innerHTML="<p id='ttitle'>Calculator (<a onclick=closetutorial()>Close Calculator</a>)</p><div id='calcdiv'><div class='cdiv' id='cin'></div><div class='cdiv' id='cout'></div><div class='cdiv'><div class='ckey' onclick=cpush('ac') id='clear1'>AC</div><div class='ckey' onclick=cpush('c') id='clear2'>C</div><div class='ckey' onclick=cpush('bc') id='clear3'>Backspace</div></div><div class='cdiv'><div class='ckey' onclick=cpush('1')>1</div><div class='ckey' onclick=cpush('2')>2</div><div class='ckey' onclick=cpush('3')>3</div></div><div class='cdiv'><div class='ckey' onclick=cpush('4')>4</div><div class='ckey' onclick=cpush('5')>5</div><div class='ckey' onclick=cpush('6')>6</div></div><div class='cdiv'><div class='ckey' onclick=cpush('7')>7</div><div class='ckey' onclick=cpush('8')>8</div><div class='ckey' onclick=cpush('9')>9</div></div><div class='cdiv'><div class='ckey' id='mult' onclick=cpush('×')>×</div><div class='ckey' onclick=cpush('0')>0</div><div class='ckey' id='ans' onclick=cpush('ans')>Ans</div></div><div class='cdiv'><div class='ckey' id='divide' onclick=cpush('÷')>÷</div><div class='ckey' id='enter' onclick=cpush('=')>=</div></div></div>";
+  cconst = 1;
+  document.getElementById('tutorial').innerHTML="<p id='ttitle'>Calculator (<a onclick=closetutorial()>Close Calculator</a>)</p><div id='calcdiv'><div class='cdiv' id='cin'></div><div class='cdiv' id='cout'></div><div class='cdiv'><div class='ckey' onclick=cpush('ac') id='clear1'><u>A</u>C</div><div class='ckey' onclick=cpush('c') id='clear2'><u>C</u></div><div class='ckey' onclick=cpush('bc') id='clear3'><u>B</u>ackspace</div></div><div class='cdiv'><div class='ckey' onclick=cpush('1')>1</div><div class='ckey' onclick=cpush('2')>2</div><div class='ckey' onclick=cpush('3')>3</div></div><div class='cdiv'><div class='ckey' onclick=cpush('4')>4</div><div class='ckey' onclick=cpush('5')>5</div><div class='ckey' onclick=cpush('6')>6</div></div><div class='cdiv'><div class='ckey' onclick=cpush('7')>7</div><div class='ckey' onclick=cpush('8')>8</div><div class='ckey' onclick=cpush('9')>9</div></div><div class='cdiv'><div class='ckey' id='mult' onclick=cpush('×')>×</div><div class='ckey' onclick=cpush('0')>0</div><div class='ckey' id='ans' onclick=cpush('ans')>A<u>n</u>s</div></div><div class='cdiv'><div class='ckey' id='divide' onclick=cpush('÷')>÷</div><div class='ckey' id='factor' onclick=cpush('f')><u>F</u>actor</div><div class='ckey' id='enter' onclick=cpush('=')>=</div></div></div>";
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
   document.getElementById('tutorial').style.width = "1000px";
-  document.getElementById('tutorial').style.height = "560px";
+  document.getElementById('tutorial').style.height = "600px";
   cinstring = "";
   for (var i = 0; i < cin.length; i++) {
-    cinstring += cin[i].replace("a", "Ans");
+    cinstring += cin[i].replaceAll("a", "Ans");
     if (i < cops.length && cops[i] == "m") {
       cinstring += " × ";
     } else if (i < cops.length && cops[i] == "d") {
       cinstring += " ÷ ";
+      
+    } else if (i < cops.length && cops[i] == "f") {
+      cinstring += "Factor ";
     }
   }
   document.getElementById('cin').innerHTML = cinstring;
+  document.getElementById('cin').style.color = "rgb(0,0,0)";
   document.getElementById('cout').innerHTML = cout;
 }
 function cpush(str) {
   cinstring = "";
-  if (str != "=" && str != "×" && str != "bc" && str != "c" && str != "ac" && str != "ans" && str != "÷") {
+  if (str != "=" && str != "×" && str != "bc" && str != "c" && str != "ac" && str != "ans" && str != "÷" && str != "f") {
     cin[cin.length - 1] += str;
   } else if (str == "×") {
+    if (cin.length == 1 && cin[0] == "") {
+      cin[cin.length - 1] += "a";
+    }
     cin.push("");
     cops.push("m");
-  } else if (str == "÷") {
+  } else if (str == "÷") { 
+    if (cin.length == 1 && cin[0] == "") {
+      cin[cin.length - 1] += "a";
+    }
     cin.push("");
     cops.push("d");
+  } else if (str == "f") {
+    cin.push("");
+    cops.push("f");
   } else if (str == "ac") {
     cin = [""];
     cops = [];
@@ -840,24 +1005,43 @@ function cpush(str) {
   } else {
     res = 1;
     for (var i = 0; i < cin.length; i++) {
+      if (cops[0] == "f" && i == 0) {
+        if (cin[0] != "") {
+          res = "Syntax Error";
+          break;
+        }
+        i = 1;
+      }
       if (cin[i] == "a") {
         if (i == 0 || cops[i-1] == "m") {
           res *= cout;
         } else {
           res /= cout;
         }
-      } else if (cin[i] == "" || parseInt(cin[i]).toString() != cin[i]) {
+      } else if ((cin[i] == "" && cops[0] != "f") || parseInt(cin[i]).toString() != cin[i]) {
         res = "Syntax Error";
         break;
       } else {
-        if (i == 0 || cops[i-1] == "m") {
+        if (i == 0 || cops[i-1] == "m" || (i == 1 && cops[0] == "f")) {
           res *= parseInt(cin[i]);
-        } else {
+          
+        } else if (cops[i-1] == "d") {
           res /= parseInt(cin[i]);
         }
       }
     }
     cout = res.toString();
+    
+    if (cout == "NaN") {
+      cout = "Argument Error";
+    }
+    if (cout == "Infinity") {
+      cout = "Division by 0 Error";
+    }
+    
+    if (cops[0] == "f") {
+      cout = factor(res);
+    }
     document.getElementById('cout').innerHTML = cout;
   }
   for (var i = 0; i < cin.length; i++) {
@@ -866,11 +1050,50 @@ function cpush(str) {
       cinstring += " × ";
     } else if (i < cops.length && cops[i] == "d") {
       cinstring += " ÷ ";
+      
+    } else if (i < cops.length && cops[i] == "f") {
+      cinstring += "Factor ";
     }
   }
+  document.getElementById('cin').innerHTML = cinstring;
+  document.getElementById('cin').style.color = "rgb(0,0,0)";
   if (str == "=") {
     cin = [""];
     cops = [];
+    document.getElementById('cin').style.color = "rgb(150,150,150)";
   }
-  document.getElementById('cin').innerHTML = cinstring;
+}
+
+var arrayres = [];
+var primes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97];
+function factor(a) {
+  if (a == "Syntax Error") {
+    return a;
+  } else if (a == Infinity) {
+    return "Division by 0 Error";
+  }
+  arrayres = [];
+  if (a == 1) {
+    return "1";
+  }
+  if (a - parseInt(a) != 0) {
+    return "Argument Error"
+  } else if (a <= 0 || a >= 10000) {
+    return "Argument Error"
+  }
+  loop:
+  for (i = 0; i < 67; i++) {
+    for (j = 0; j < 24; j++) {
+      if (a % primes[j] == 0) {
+        a /= primes[j];
+        arrayres.push(primes[j]);
+        continue loop;
+      }
+    }
+    if (a != 1) {
+      arrayres.push(a);
+    }
+    arrayres.sort();
+    return arrayres.toString().replaceAll(",", " × ");
+  }
 }
