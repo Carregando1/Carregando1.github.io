@@ -1,0 +1,78 @@
+#extra1 {
+  width: 1060px;
+  height: 75px;
+  margin-inline: auto;
+  display: block;
+}
+#extra2 {
+  padding-top: 10px;
+  width: 780px;
+  height: 40px;
+  margin-inline: auto;
+  display: block;
+}
+.kp1n {
+  width: 75px;
+  height: 50px;
+  border: 3px solid rgb(150,150,150);
+  border-radius: 5px;
+  float: left;
+  text-align: center;
+  line-height: 50px;
+}
+.kp1b {
+  width: 150px;
+  height: 50px;
+  border: 3px solid rgb(150,150,150);
+  border-radius: 5px;
+  float: left;
+  text-align: center;
+  line-height: 50px;
+}
+.kp1e {
+  width: 100px;
+  height: 50px;
+  border: 3px solid rgb(150,150,150);
+  border-radius: 5px;
+  float: left;
+  text-align: center;
+  line-height: 50px;
+}
+.kp1b:active, .kp1e:active, .kp1n:active {
+  background-color: rgb(150,150,150);
+  color: white;
+}
+.kp2c {
+  width: 100px;
+  height: 40px;
+  border: 3px solid rgb(150,150,150);
+  float: left;
+}
+.kp2c:active {
+  border: 3px solid rgb(200,0,0);
+}
+#kp2c1 {
+  background-color: rgb(200,200,0);
+}
+#kp2c2 {
+  background-color: rgb(0,175,0);
+}
+#kp2c3 {
+  background-color: rgb(0,100,250);
+}
+#kp2c4 {
+  background-color: rgb(150,0,250);
+}
+#kp2c5 {
+  background-color: rgb(255,255,255);
+  width: 200px;
+  line-height: 40px;
+  text-align: center;
+}
+#kp2c6 {
+  background-color: rgb(150,150,150);
+  width: 150px;
+  line-height: 40px;
+  text-align: center;
+  color: white;
+}
