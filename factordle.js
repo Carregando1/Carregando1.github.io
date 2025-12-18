@@ -282,17 +282,19 @@ if (localStorage.getItem("solve1h") == null) {
 if (localStorage.getItem("ks") == null) {
   localStorage.setItem("ks", "9999999999999999999999999");
 }
-if (localStorage.getItem("set0") == null) {
+if (localStorage.getItem("set1") == null) {
   //change
-  localStorage.setItem("set0", "a");
-  localStorage.setItem("set1", "s");
-  localStorage.setItem("set2", "d");
-  localStorage.setItem("set3", "f");
-  localStorage.setItem("set4", "g");
-  localStorage.setItem("setb", "h");
+  localStorage.setItem("set1", "a");
+  localStorage.setItem("set2", "s");
+  localStorage.setItem("set3", "d");
+  localStorage.setItem("set4", "f");
+  localStorage.setItem("setb", "g");
 }
 if (localStorage.getItem("h") == null) {
   localStorage.setItem("h", "0");
+}
+if (localStorage.getItem("kp") == null) {
+  localStorage.setItem("kp", "0");
 }
 //change
 if ((((Math.floor((new Date() - new Date(2026, 0, 1)) / 86400000)%3051)+3051)%3051) - localStorage.getItem("streakday") >= 2) {
@@ -349,7 +351,16 @@ function onload() {
     } 
   }
   //change
-  document.getElementById('title').innerHTML = "Factordle #" + (((Math.floor((new Date() - new Date(2026, 0, 1)) / 86400000)%3051)+3051)%3051) + " (<a onclick=calc()>Calculator</a> | <a onclick=tutorial()>How To Play</a> | <a onclick=stats()>View Your Statistics</a> | <a onclick=settings()>Change Settings</a>)";
+  document.getElementById('title').innerHTML = "Factordle #" + (((Math.floor((new Date() - new Date(2026, 0, 1)) / 86400000)%3051)+3051)%3051) + " (<a onclick=calc()>Calculator</a> | <a onclick=tutorial()>How To Play</a> | <a onclick=stats()>View Your Statistics</a> | <a onclick=settings()>Change Settings</a> | <a onclick=window.open('https://forms.gle/6nB5CRGVzyTevC7BA')>Send Feedback</a>)";
+  if (localStorage.getItem("kp") == 1) {
+    document.getElementById('extracss').innerHTML="<link href='keypads.css' rel='stylesheet' type='text/css' />";
+    document.getElementById('extra1').innerHTML="<div id='kp1'><div class='kp1n' onclick='detect({key: \"1\"})'>1</div><div class='kp1n' onclick='detect({key: \"2\"})'>2</div><div class='kp1n' onclick='detect({key: \"3\"})'>3</div><div class='kp1n' onclick='detect({key: \"4\"})'>4</div><div class='kp1n' onclick='detect({key: \"5\"})'>5</div><div class='kp1n' onclick='detect({key: \"6\"})'>6</div><div class='kp1n' onclick='detect({key: \"7\"})'>7</div><div class='kp1n' onclick='detect({key: \"8\"})'>8</div><div class='kp1n' onclick='detect({key: \"9\"})'>9</div><div class='kp1n' onclick='detect({key: \"0\"})'>0</div><div class='kp1b' onclick='detect({key: \"Backspace\"})'>Backspace</div><div class='kp1e' onclick='detect({key: \"Enter\"})'>Enter</div></div>";
+    document.getElementById('extra2').innerHTML="<div id='kp2'><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set1')+"\"})' id='kp2c1'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set2')+"\"})' id='kp2c2'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set3')+"\"})' id='kp2c3'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set4')+"\"})' id='kp2c4'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('setb')+"\"})' id='kp2c5'>Reset Color</div><div class='kp2c' onclick='kall(-1)' id='kp2c6'>Gray All</div></div>";
+  } else {
+    document.getElementById('extracss').innerHTML="";
+    document.getElementById('extra1').innerHTML="";
+    document.getElementById('extra2').innerHTML="";
+  }
 }
 //change
 var keyset = ["Backspace", "Enter", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -386,13 +397,6 @@ function detect(e) {
             update(guess.length);
           }
         }
-      }
-      if (e.key == localStorage.getItem("set0") && kconst != 0 && !(complete)) {
-        document.getElementById('k'+kconst).style.backgroundColor = "rgb(150,150,150)";
-        document.getElementById('k'+kconst).style.color = "white";
-        document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
-        localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "0" + localStorage.getItem("ks").substring(kconst));
-        kconst = 0;
       }
       if (e.key == localStorage.getItem("set1") && kconst != 0 && !(complete)) {
         document.getElementById('k'+kconst).style.backgroundColor = "rgb(200,200,0)";
@@ -434,12 +438,6 @@ function detect(e) {
       //change
       if (keyset.includes(e.key)) {
         popanim2("Number keys, Backspace, and Enter are reserved for inputting guesses");
-        settings();
-        sconst = 0;
-        return;
-      }
-      if (e.key == localStorage.getItem('set0') && sconst != 1) {
-        popanim2("Key "+e.key+" is already used by Gray keybind");
         settings();
         sconst = 0;
         return;
@@ -680,7 +678,10 @@ function convertstatus() {
   popanim2("Results copied to clipboard successfully!");
 }
 function tutorial() {
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 prime boxes below all the guess boxes to record which primes are or aren't factors of the target number. To change the color of the boxes, click on a box then press a key according to your keybinds in Settings.</p><p>Right clicking a box changes the color of all white boxes to the right of it to gray.</p>"
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 boxes with primes below all the guess cells to record the factors of the target number by changing their colors.<p><p>To change the color of the prime boxes, click on a box then press a key according to your keybinds in Settings. Clicking a box changes the color to gray by default.</p><p>Right clicking a prime box changes the color of itself and all white prime boxes to the right of it to gray.</p>"
+  if (localStorage.getItem('kp') == 1) {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 boxes with primes below all the guess cells to record the factors of the target number by changing their colors.<p><p>To change the color of the prime boxes, press on a box, then choose a color from the menu below the boxes if necessary. Pressing a box changes the color to gray by default.</p><p>Press the 'Gray All' option after selecting a box to change the color of the selected box and all white prime boxes to the right of it to gray.</p>"
+  }
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
 }
 //change
@@ -858,7 +859,7 @@ function updatenotes() {
           localStorage.setItem("ks", localStorage.getItem("ks").substring(0,j) + "0" + localStorage.getItem("ks").substring(j+1));
         }
       } else if (guessstatus.charAt(i) == '2') {
-        if (guessarr[i] % primearray[j] == 0 && localStorage.getItem('ks').charAt(j) != '4' && localStorage.getItem('ks').charAt(j) != '5') {
+        if (guessarr[i] % primearray[j] == 0 && localStorage.getItem('ks').charAt(j) != '3' && localStorage.getItem('ks').charAt(j) != '4') {
           document.getElementById('k'+(j+1)).style.backgroundColor = "rgb(0,175,0)";
           document.getElementById('k'+(j+1)).style.color = "white";
           document.getElementById('k'+(j+1)).style.border = "3px solid rgb(0,175,0)";
@@ -908,13 +909,14 @@ function stringify(a) {
     default: return "Error: You have reached an unreachable state";
   }
 }
+let timeout;
 function k(a) {
   if (!(complete) && sconst == 0) {
     if (kconst != 0) {
-      //change
       if (a == kconst) {
         document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
         kconst = 0;
+        clearInterval(timeout);
       }
       if (localStorage.getItem("ks")[kconst-1] == "0") {
         document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
@@ -939,14 +941,23 @@ function k(a) {
       document.getElementById('k'+kconst).style.color = "white";
       localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "0" + localStorage.getItem("ks").substring(kconst));
     }
+    clearInterval(timeout);
+    timeout = setInterval(function(){k(kconst)}, 2000);
   }
 }
 function kall(a) {
+  if (a == 0) {
+    return;
+  } else if (a == -1 && kconst != 0) {
+    a = kconst;
+  } else if (a == -1 && kconst == 0) {
+    return;
+  }
   if (!(complete) && sconst == 0) {
     if (kconst != 0) {
       document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
     }
-    for (var i = a; i < 25; i++) {
+    for (var i = a-1; i < 25; i++) {
       if (localStorage.getItem("ks").charAt(i) == '9') {
         document.getElementById('k'+(i+1)).style.backgroundColor = "rgb(150,150,150)";
         document.getElementById('k'+(i+1)).style.color = "white";
@@ -958,7 +969,10 @@ function kall(a) {
 }
 function settings() {
   //change
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><hr><p>Keybinds for Notes</p><p>Current keybind for changing a prime box to <span id='c0'>Gray</span> color: <span id=set0>"+localStorage.getItem('set0')+"</span> (<a onclick='set(1)'>Click to Change</a>)</p><p>Current keybind for changing a prime box to <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('set1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for changing a prime box to <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('set2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for changing a prime box to <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('set3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for changing a prime box to <span id='c4'>Purple</span> color: <span id=set4>"+localStorage.getItem('set4')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p><p>Current keybind to reset a prime box's color to White: <span id=setb>"+localStorage.getItem('setb')+"</span> (<a onclick='set(6)'>Click to Change</a>)</p><p>For more information on prime boxes, see the Tutorial.</p><hr><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p><i>Hard mode disables all information about the target number from the first four cells, the single digit numbers.</i><p>"
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><hr><p>Keybinds for Prime Boxes</p><p>Clicking a prime box turns it gray by default.</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('set1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('set2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('set3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for <span id='c4'>Purple</span> color: <span id=set4>"+localStorage.getItem('set4')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p><p>Current keybind for resetting color to White: <span id=setb>"+localStorage.getItem('setb')+"</span> (<a onclick='set(6)'>Click to Change</a>)</p><p>For more information on prime boxes, see the Tutorial.</p><hr><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p><i>Hard mode disables all information about the target number from the first four cells, the single digit numbers.</i><p><p>Enable Keypads: <span id='kpstatus'>Off</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i><p>"
+  if (localStorage.getItem("kp") == 1) {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><hr><p>Keybinds for Prime Boxes</p><p>To enable Keybinds, disable the Enable Keypads option.</p><p>For more information on prime boxes, see the Tutorial.</p><hr><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p><i>Hard mode disables all information about the target number from the first four cells, the single digit numbers.</i><p><p>Enable Keypads: <span id='kpstatus'>On</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i><p>"
+  }
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
   if (localStorage.getItem("h") == 1) {
     document.getElementById('hstatus').innerHTML = "On";
@@ -989,6 +1003,20 @@ function sethm() {
     popanim2("Hard mode can not be changed in the middle of a game")
   }
 }
+function setkp() {
+  if (localStorage.getItem("kp") == 1) {
+    localStorage.setItem("kp", 0);
+    document.getElementById('extracss').innerHTML="";
+    document.getElementById('extra1').innerHTML="";
+    document.getElementById('extra2').innerHTML="";
+  } else if (localStorage.getItem("kp") == 0) {
+    localStorage.setItem("kp", 1);
+    document.getElementById('extracss').innerHTML="<link href='keypads.css' rel='stylesheet' type='text/css' />";
+    document.getElementById('extra1').innerHTML="<div id='kp1'><div class='kp1n' onclick='detect({key: \"1\"})'>1</div><div class='kp1n' onclick='detect({key: \"2\"})'>2</div><div class='kp1n' onclick='detect({key: \"3\"})'>3</div><div class='kp1n' onclick='detect({key: \"4\"})'>4</div><div class='kp1n' onclick='detect({key: \"5\"})'>5</div><div class='kp1n' onclick='detect({key: \"6\"})'>6</div><div class='kp1n' onclick='detect({key: \"7\"})'>7</div><div class='kp1n' onclick='detect({key: \"8\"})'>8</div><div class='kp1n' onclick='detect({key: \"9\"})'>9</div><div class='kp1n' onclick='detect({key: \"0\"})'>0</div><div class='kp1b' onclick='detect({key: \"Backspace\"})'>Backspace</div><div class='kp1e' onclick='detect({key: \"Enter\"})'>Enter</div></div>";
+    document.getElementById('extra2').innerHTML="<div id='kp2'><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set1')+"\"})' id='kp2c1'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set2')+"\"})' id='kp2c2'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set3')+"\"})' id='kp2c3'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set4')+"\"})' id='kp2c4'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('setb')+"\"})' id='kp2c5'>Reset Color</div><div class='kp2c' onclick='kall(-1)' id='kp2c6'>Gray All</div></div>";
+  }
+  settings();
+}
 //Calculator stuff
 var cin = [""];
 var cops = []
@@ -1000,7 +1028,7 @@ function calc() {
   //change for underlines and factor key
   document.getElementById('tutorial').innerHTML="<p id='ttitle'>Calculator (Supports Keyboard Input) (<a onclick=closetutorial()>Close Calculator</a>)</p><div id='calcdiv'><div class='cdiv' id='cin'></div><div class='cdiv' id='cout'></div><div class='cdiv'><div class='ckey' onclick=cpush('ac') id='clear1'><u>A</u>C</div><div class='ckey' onclick=cpush('c') id='clear2'><u>C</u></div><div class='ckey' onclick=cpush('bc') id='clear3'><u>B</u>ackspace</div></div><div class='cdiv'><div class='ckey' onclick=cpush('1')>1</div><div class='ckey' onclick=cpush('2')>2</div><div class='ckey' onclick=cpush('3')>3</div></div><div class='cdiv'><div class='ckey' onclick=cpush('4')>4</div><div class='ckey' onclick=cpush('5')>5</div><div class='ckey' onclick=cpush('6')>6</div></div><div class='cdiv'><div class='ckey' onclick=cpush('7')>7</div><div class='ckey' onclick=cpush('8')>8</div><div class='ckey' onclick=cpush('9')>9</div></div><div class='cdiv'><div class='ckey' id='mult' onclick=cpush('×')>×</div><div class='ckey' onclick=cpush('0')>0</div><div class='ckey' id='ans' onclick=cpush('ans')>A<u>n</u>s</div></div><div class='cdiv'><div class='ckey' id='divide' onclick=cpush('÷')>÷</div><div class='ckey' id='factor' onclick=cpush('f')><u>F</u>actor</div><div class='ckey' id='enter' onclick=cpush('=')>=</div></div></div>";
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
-  document.getElementById('tutorial').style.width = "1000px";
+  document.getElementById('tutorial').style.width = "800px";
   document.getElementById('tutorial').style.height = "600px";
   cinstring = "";
   for (var i = 0; i < cin.length; i++) {
