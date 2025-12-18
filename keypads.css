@@ -1,12 +1,12 @@
 #extra1 {
-  width: 1070px;
-  height: 75px;
+  width: 1000px;
+  height: 50px;
   margin-inline: auto;
   display: block;
+  margin-bottom: 20px;
 }
 #extra2 {
-  padding-top: 10px;
-  width: 790px;
+  width: 750px;
   height: 40px;
   margin-inline: auto;
   display: block;
@@ -18,7 +18,8 @@
   border-radius: 5px;
   float: left;
   text-align: center;
-  line-height: 50px;
+  line-height: 44px;
+  box-sizing: border-box;
 }
 .kp1b {
   width: 150px;
@@ -27,7 +28,8 @@
   border-radius: 5px;
   float: left;
   text-align: center;
-  line-height: 50px;
+  line-height: 44px;
+  box-sizing: border-box;
 }
 .kp1e {
   width: 100px;
@@ -36,7 +38,8 @@
   border-radius: 5px;
   float: left;
   text-align: center;
-  line-height: 50px;
+  line-height: 44px;
+  box-sizing: border-box;
 }
 .kp1b:active, .kp1e:active, .kp1n:active {
   background-color: rgb(150,150,150);
@@ -44,9 +47,10 @@
 }
 .kp2c {
   width: 100px;
-  height: 40px;
+  height: 50px;
   border: 3px solid rgb(150,150,150);
   float: left;
+  box-sizing: border-box;
 }
 .kp2c:active {
   border: 3px solid rgb(200,0,0);
@@ -66,13 +70,13 @@
 #kp2c5 {
   background-color: rgb(255,255,255);
   width: 200px;
-  line-height: 40px;
+  line-height: 44px;
   text-align: center;
 }
 #kp2c6 {
   background-color: rgb(150,150,150);
   width: 150px;
-  line-height: 40px;
+  line-height: 44px;
   text-align: center;
   color: white;
 }
