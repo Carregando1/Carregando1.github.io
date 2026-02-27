@@ -767,6 +767,22 @@ a {
   color: white;
   background-color: rgb(125,125,125);
 }
+.popanim3 {
+  animation-duration: 3s;
+  animation-name: popanim2;
+  animation-timing-function: ease-in-out;
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 10px 10px 10px 10px;
+  top: 75px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 69;
+  text-align: center;
+  color: white;
+  background-color: rgb(0,100,250) !important;
+}
 #copystats {
   transition-duration: 0.3s;
   margin-left: auto;
@@ -899,4 +915,26 @@ a {
 }
 #px32 {
   font-size: 32px;
+}
+.achs {
+  box-sizing: border-box;
+  border: 3px solid black;
+  width: 800px;
+  height: 50px;
+  margin: auto;
+  line-height: 50px;
+}
+.achp {
+  height: 45px;
+  background-color: rgb(0,175,0);
+  float: left;
+}
+.acht {
+  width: 796px;
+  height: 45px;
+  line-height: 45px;
+  box-sizing: border-box;
+  text-align: center !important;
+  position: absolute;
+  color: black;
 }
