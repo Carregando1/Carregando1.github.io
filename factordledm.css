@@ -1,190 +1,910 @@
+html {
+  font-family: sans-serif;
+  font-size: 24px;
+  color: white;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: black;
+}
+.extext {
+  font-size: 24px;
+  float: left;
+  width: 800px;
+  height: 50px;
+}
+#m1,
+#m2,
+#m3,
+#m4,
+#m10,
+#m11,
+#m12,
+#m13,
+#m14,
+#m20,
+#m21,
+#m22,
+#m23,
+#m24,
+#m30,
+#m31,
+#m32,
+#m33,
+#m34,
+#m40,
+#m41,
+#m42,
+#m43,
+#m44,
+#m50,
+#m51,
+#m52,
+#m53,
+#m54,
+#m60,
+#m61,
+#m62,
+#m63,
+#m64,
+#m70,
+#m71,
+#m72,
+#m73,
+#m74,
+#m80, .e1 {
+  width: 50px;
+  height: 50px;
+  line-height: 46px;
+  border: 2px solid rgb(150, 150, 150);
+  float: left;
+  margin: 0px 10px 0px 10px;
+  box-sizing: border-box;
+}
 
-<!DOCTYPE html>
-<html>
+#m5,
+#m6,
+#m7,
+#m15,
+#m16,
+#m17,
+#m25,
+#m26,
+#m27,
+#m35,
+#m36,
+#m37,
+#m45,
+#m46,
+#m47,
+#m55,
+#m56,
+#m57,
+#m65,
+#m66,
+#m67,
+#m75,
+#m76,
+#m77, .e2 {
+  width: 75px;
+  height: 50px;
+  line-height: 46px;
+  border: 2px solid rgb(150, 150, 150);
+  float: left;
+  margin: 0px 10px 0px 10px;
+  box-sizing: border-box;
+}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>Factordle by Carregando1</title>
-  <span id="maincss"><link href="factordle.css" rel="stylesheet" type="text/css" /></span>
-  <span id='extracss'></span>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <meta name="keywords" content="Factordle" />
-  <meta name="description" content="A daily number guessing game" />
-</head>
+#m8,
+#m9,
+#m18,
+#m19,
+#m28,
+#m29,
+#m38,
+#m39,
+#m48,
+#m49,
+#m58,
+#m59,
+#m68,
+#m69,
+#m78,
+#m79, .e3 {
+  width: 100px;
+  height: 50px;
+  line-height: 46px;
+  border: 2px solid rgb(150, 150, 150);
+  float: left;
+  margin: 0px 10px 0px 10px;
+  box-sizing: border-box;
+}
 
-<body id='all' onload=onload()>
-  <div id='header'>
-  <p id='title'></p>
-  </div>
-  <div id='extra1'></div>
-  <div id='main'>
-    <div id='row1'>
-    <div id='guess1'>
-      <div class='g1div'>
-        <div class='g1' id='m1'></div><div class='g1' id='m2'></div><div class='g1' id='m3'></div><div class='g1' id='m4'></div>
-      </div>
-      <div class='g2div'>
-        <div class='g2' id='m5'></div><div class='g2' id='m6'></div><div class='g2' id='m7'></div>
-      </div>
-      <div class='g3div'>
-        <div class='g3' id='m8'></div><div class='g3' id='m9'></div>
-      </div>
-      <div class='g4div'>
-        <div class='g4' id='m10'></div>
-      </div>
-    </div>
+#m10,
+#m20,
+#m30,
+#m40,
+#m50,
+#m60,
+#m70,
+#m80, .e4 {
+  width: 125px;
+  height: 50px;
+  line-height: 46px;
+  border: 2px solid rgb(150, 150, 150);
+  float: left;
+  margin: 0px 10px 0px 10px;
+  box-sizing: border-box;
+}
 
-    <div id='guess2'>
-      <div class='g1div'>
-        <div class='g1' id='m11'></div><div class='g1' id='m12'></div><div class='g1' id='m13'></div><div class='g1' id='m14'></div>
-      </div>
-      <div class='g2div'>
-        <div class='g2' id='m15'></div><div class='g2' id='m16'></div><div class='g2' id='m17'></div>
-      </div>
-      <div class='g3div'>
-        <div class='g3' id='m18'></div><div class='g3' id='m19'></div>
-      </div>
-      <div class='g4div'>
-        <div class='g4' id='m20'></div>
-      </div>
-    </div>
+.g1div,
+.g2div,
+.g3div,
+.g4div
+{
+  height: 60px;
+  text-align: center;
+  line-height: 50px;
+  color: white;
+  font-size: 32px;
+  box-sizing: border-box;
+  margin-inline: auto;
+}
 
-    <div id='guess3'>
-      <div class='g1div'>
-        <div class='g1' id='m21'></div><div class='g1' id='m22'></div><div class='g1' id='m23'></div><div class='g1' id='m24'></div>
-      </div>
-      <div class='g2div'>
-        <div class='g2' id='m25'></div><div class='g2' id='m26'></div><div class='g2' id='m27'></div>
-      </div>
-      <div class='g3div'>
-        <div class='g3' id='m28'></div><div class='g3' id='m29'></div>
-      </div>
-      <div class='g4div'>
-        <div class='g4' id='m30'></div>
-      </div>
-    </div>
+.g1div {
+  width: 280px;
+}
 
-    <div id='guess4'>
-      <div class='g1div'>
-        <div class='g1' id='m31'></div><div class='g1' id='m32'></div><div class='g1' id='m33'></div><div class='g1' id='m34'></div>
-        </div>
-      <div class='g2div'>
-        <div class='g2' id='m35'></div><div class='g2' id='m36'></div><div class='g2' id='m37'></div>
-      </div>
-      <div class='g3div'>
-        <div class='g3' id='m38'></div><div class='g3' id='m39'></div>
-      </div>
-      <div class='g4div'>
-        <div class='g4' id='m40'></div>
-      </div>
-    </div>
-    </div><div id='row2'>
+.g2div {
+  width: 285px;
+}
 
-    <div id='guess5'>
-      <div class='g1div'>
-        <div class='g1' id='m41'></div><div class='g1' id='m42'></div><div class='g1' id='m43'></div><div class='g1' id='m44'></div>
-      </div>
-      <div class='g2div'>
-        <div class='g2' id='m45'></div><div class='g2' id='m46'></div><div class='g2' id='m47'></div>
-      </div>
-      <div class='g3div'>
-        <div class='g3' id='m48'></div><div class='g3' id='m49'></div>
-      </div>
-      <div class='g4div'>
-        <div class='g4' id='m50'></div>
-      </div>
-    </div>
+.g3div {
+  width: 240px;
+}
 
-    <div id='guess6'>
-      <div class='g1div'>
-        <div class='g1' id='m51'></div><div class='g1' id='m52'></div><div class='g1' id='m53'></div><div class='g1' id='m54'></div>
-      </div>
-      <div class='g2div'>
-        <div class='g2' id='m55'></div><div class='g2' id='m56'></div><div class='g2' id='m57'></div>
-      </div>
-      <div class='g3div'>
-        <div class='g3' id='m58'></div><div class='g3' id='m59'></div>
-      </div>
-      <div class='g4div'>
-        <div class='g4' id='m60'></div>
-      </div>
-    </div>
-      <div id='guess7'>
-        <div class='g1div'>
-          <div class='g1' id='m61'></div><div class='g1' id='m62'></div><div class='g1' id='m63'></div><div class='g1' id='m64'></div>
-        </div>
-        <div class='g2div'>
-          <div class='g2' id='m65'></div><div class='g2' id='m66'></div><div class='g2' id='m67'></div>
-        </div>
-        <div class='g3div'>
-          <div class='g3' id='m68'></div><div class='g3' id='m69'></div>
-        </div>
-        <div class='g4div'>
-          <div class='g4' id='m70'></div>
-        </div>
-      </div>
+.g4div {
+  width: 145px;
+}
 
-      <div id='guess8'>
-        <div class='g1div'>
-          <div class='g1' id='m71'></div><div class='g1' id='m72'></div><div class='g1' id='m73'></div><div class='g1' id='m74'></div>
-        </div>
-        <div class='g2div'>
-          <div class='g2' id='m75'></div><div class='g2' id='m76'></div><div class='g2' id='m77'></div>
-        </div>
-        <div class='g3div'>
-          <div class='g3' id='m78'></div><div class='g3' id='m79'></div>
-        </div>
-        <div class='g4div'>
-          <div class='g4' id='m80'></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div id='tutorial'>
+.e1div,
+.e2div,
+.e3div,
+.e4div
+{
+  height: 60px;
+  width: 1100px;
+  text-align: center;
+  line-height: 50px;
+  color: white;
+  font-size: 32px;  
+}
 
-  </div>
-  <div id='pop'>
+.e2div {
+  padding: 0px 1.25px; 
+}
 
-  </div>
+.e3div {
+  padding: 0px 25px;
+}
 
-  <div id='keys' oncontextmenu="return false">
-    <div class='krow'>
-    <div class='k' id='k1' onclick=k(1) oncontextmenu=kall(1)>2</div>
-    <div class='k' id='k2' onclick=k(2) oncontextmenu=kall(2)>3</div>
-    <div class='k' id='k3' onclick=k(3) oncontextmenu=kall(3)>5</div>
-    <div class='k' id='k4' onclick=k(4) oncontextmenu=kall(4)>7</div>
-    <div class='k' id='k5' onclick=k(5) oncontextmenu=kall(5)>11</div>
-    </div><div class='krow'>
-    <div class='k' id='k6' onclick=k(6) oncontextmenu=kall(6)>13</div>
-    <div class='k' id='k7' onclick=k(7) oncontextmenu=kall(7)>17</div>
-    <div class='k' id='k8' onclick=k(8) oncontextmenu=kall(8)>19</div>
-    <div class='k' id='k9' onclick=k(9) oncontextmenu=kall(9)>23</div>
-    <div class='k' id='k10' onclick=k(10) oncontextmenu=kall(10)>29</div>
-    </div><div class='krow'>
-    <div class='k' id='k11' onclick=k(11) oncontextmenu=kall(11)>31</div>
-    <div class='k' id='k12' onclick=k(12) oncontextmenu=kall(12)>37</div>
-    <div class='k' id='k13' onclick=k(13) oncontextmenu=kall(13)>41</div>
-    <div class='k' id='k14' onclick=k(14) oncontextmenu=kall(14)>43</div>
-    <div class='k' id='k15' onclick=k(15) oncontextmenu=kall(15)>47</div>
-    </div><div class='krow'>
-    <div class='k' id='k16' onclick=k(16) oncontextmenu=kall(16)>53</div>
-    <div class='k' id='k17' onclick=k(17) oncontextmenu=kall(17)>59</div>
-    <div class='k' id='k18' onclick=k(18) oncontextmenu=kall(18)>61</div>
-    <div class='k' id='k19' onclick=k(19) oncontextmenu=kall(19)>67</div>
-    <div class='k' id='k20' onclick=k(20) oncontextmenu=kall(20)>71</div>
-    </div><div class='krow'>
-    <div class='k' id='k21' onclick=k(21) oncontextmenu=kall(21)>73</div>
-    <div class='k' id='k22' onclick=k(22) oncontextmenu=kall(22)>79</div>
-    <div class='k' id='k23' onclick=k(23) oncontextmenu=kall(23)>83</div>
-    <div class='k' id='k24' onclick=k(24) oncontextmenu=kall(24)>89</div>
-    <div class='k' id='k25' onclick=k(25) oncontextmenu=kall(25)>97</div>
-    </div>
-  </div>
-  <div id='extra2'></div>
-  <script src="factordle.js"></script>
+.e4div {
+  padding: 0px 75px;
+}
 
-</body>
 
-</html>
+#e5 {
+  background-color: rgb(0, 175, 0);
+  color: white;
+}
+
+#e6 {
+  background-color: rgb(200, 200, 0);
+  color: white;
+}
+
+#e7 {
+  background-color: rgb(165, 165, 165);
+  color: white;
+}
+
+#e8 {
+  background-color: rgb(0,0,0);
+  color: white;
+}
+.g1,.g2,.g3,.g4,.e1,.e2,.e3,.e4 {
+  background-color: rgb(75,75,75);
+}
+#guess1,
+#guess2,
+#guess3,
+#guess4,
+#guess5,
+#guess6,
+#guess7,
+#guess8 {
+  float: left;
+  width: 300px;
+  height: 260px;
+  border: 1px solid rgb(150, 150, 150);
+  padding-top: 15px;
+  box-sizing: border-box;
+}
+#eg1 {
+  float: left;
+  width: 1280px;
+  height: 250px;
+  border: 1px solid rgb(150, 150, 150);
+  padding-left: 5px;
+  padding-top: 12.5px;
+  margin-bottom: 25px;
+}
+
+#main {
+  width: 1200px;
+  height: 520px;
+  margin-inline: auto;
+}
+
+#tutorial {
+  position: absolute;
+  width: 1300px;
+  top: 0px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  background-color: black;
+  z-index: 67;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  overflow-y: auto;
+  max-height: 100%;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  scrollbar-color: rgb(175,175,175) black;
+}
+
+#example {
+  width: 312.5px;
+  margin: auto;
+}
+#title {
+  -webkit-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+#title,
+#warning {
+  text-align: center;
+}
+
+#keys {
+  width: 1250px;
+  height: 50px;
+  padding-top: 20px;
+  display: block;
+  padding-right: 0px;
+  padding-left: 0px;
+  margin-inline: auto;
+}
+
+#bs {
+  width: 175px;
+}
+
+#ent {
+  width: 100px;
+}
+
+a {
+  color: rgb(0, 150, 250);
+  text-decoration: underline;
+}
+
+.px {
+  font-size: 32px;
+}
+
+
+/* Animation Classes */
+
+
+@keyframes flip0 {
+  0% {
+    background-color: rgb(75,75,75);
+    transform: (1, 1);
+    color: white;
+  }
+
+  49.99% {
+    transform: scale(1, 0);
+    background-color: rgb(75,75,75);
+    color: white;
+  }
+
+  50.01% {
+    transform: scale(1, 0);
+    background-color: rgb(165, 165, 165);
+    color: white;
+  }
+
+  100% {
+    background-color: rgb(165, 165, 165);
+    transform: (1, 1);
+    color: white;
+  }
+}
+
+@keyframes flip1 {
+  0% {
+    background-color: rgb(75,75,75);
+    transform: (1, 1);
+    color: white;
+  }
+
+  49.99% {
+    transform: scale(1, 0);
+    background-color: rgb(75,75,75);
+    color: white;
+  }
+
+  50.01% {
+    transform: scale(1, 0);
+    background-color: rgb(200, 200, 0);
+    color: white;
+  }
+
+  100% {
+    background-color: rgb(200, 200, 0);
+    transform: (1, 1);
+    color: white;
+  }
+}
+
+@keyframes flip2 {
+  0% {
+    background-color: rgb(75,75,75);
+    transform: (1, 1);
+    color: white;
+  }
+
+  49.99% {
+    transform: scale(1, 0);
+    background-color: rgb(75,75,75);
+    color: white;
+  }
+
+  50.01% {
+    transform: scale(1, 0);
+    background-color: rgb(0, 175, 0);
+    color: white;
+  }
+
+  100% {
+    background-color: rgb(0, 175, 0);
+    transform: (1, 1);
+    color: white;
+  }
+}
+
+@keyframes flip3 {
+  0% {
+    background-color: rgb(75,75,75);
+    transform: (1, 1);
+    color: white;
+  }
+
+  49.99% {
+    transform: scale(1, 0);
+    background-color: rgb(75,75,75);
+    color: white;
+  }
+
+  50.01% {
+    transform: scale(1, 0);
+    background-color: rgb(0, 100, 250);
+    color: white;
+  }
+
+  100% {
+    background-color: rgb(0, 100, 250);
+    transform: (1, 1);
+    color: white;
+  }
+}
+
+@keyframes flip6 {
+  0% {
+    background-color: rgb(75,75,75);
+    transform: (1, 1);
+    color: white;
+  }
+
+  49.99% {
+    transform: scale(1, 0);
+    background-color: rgb(75,75,75);
+    color: white;
+  }
+
+  50.01% {
+    transform: scale(1, 0);
+    background-color: rgb(0,0,0);
+    color: white;
+  }
+
+  100% {
+    background-color: rgb(0,0,0);
+    transform: (1, 1);
+    color: white;
+  }
+}
+@keyframes solve {
+  0% {
+    background-color: rgb(0, 100, 250);
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  50% {
+    background-color: rgb(0, 100, 250);
+    margin-top: -20px;
+    margin-bottom: 20px;
+  }
+
+  100% {
+    background-color: rgb(0, 100, 250);
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}
+@keyframes solve11 {
+  0% {
+    background-color: rgb(0,0,0);
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  50% {
+    background-color: rgb(0,0,0);
+    margin-top: -20px;
+    margin-bottom: 20px;
+  }
+
+  100% {
+    background-color: rgb(0,0,0);
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}
+.flip0 {
+  animation-duration: 0.3s;
+  animation-name: flip0;
+  animation-timing-function: linear;
+  background-color: rgb(150, 150, 150);
+  transform: (1, 1);
+  color: white;
+}
+
+.flip1 {
+  animation-duration: 0.3s;
+  animation-name: flip1;
+  animation-timing-function: linear;
+  background-color: rgb(200, 200, 0);
+  transform: (1, 1);
+  color: white;
+}
+
+.flip2 {
+  animation-duration: 0.3s;
+  animation-name: flip2;
+  animation-timing-function: linear;
+  background-color: rgb(0, 175, 0);
+  transform: (1, 1);
+  color: white;
+}
+
+.flip3 {
+  animation-duration: 0.3s;
+  animation-name: flip3;
+  animation-timing-function: linear;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color:white;
+}
+
+.flip6 {
+  animation-duration: 0.3s;
+  animation-name: flip6;
+  animation-timing-function: linear;
+  background-color: rgb(0, 0, 0);
+  transform: (1, 1);
+  color: white;
+}
+.solve1 {
+  animation-duration: 0.5s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve2 {
+  animation-duration: 0.5s;
+  animation-delay: 0.05s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve3 {
+  animation-duration: 0.5s;
+  animation-delay: 0.1s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve4 {
+  animation-duration: 0.5s;
+  animation-delay: 0.15s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve5 {
+  animation-duration: 0.5s;
+  animation-delay: 0.2s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve6 {
+  animation-duration: 0.5s;
+  animation-delay: 0.25s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve7 {
+  animation-duration: 0.5s;
+  animation-delay: 0.3s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve8 {
+  animation-duration: 0.5s;
+  animation-delay: 0.35s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve9 {
+  animation-duration: 0.5s;
+  animation-delay: 0.4s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve10 {
+  animation-duration: 0.5s;
+  animation-delay: 0.45s;
+  animation-name: solve;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0, 100, 250);
+  transform: (1, 1);
+  color: white;
+}
+.solve11 {
+  animation-duration: 0.5s;
+  animation-name: solve11;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0,0,0);
+  transform: (1, 1);
+  color: white;
+}
+.solve12 {
+  animation-duration: 0.5s;
+  animation-delay: 0.05s;
+  animation-name: solve11;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0,0,0);
+  transform: (1, 1);
+  color: white;
+}
+.solve13 {
+  animation-duration: 0.5s;
+  animation-delay: 0.1s;
+  animation-name: solve11;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0,0,0);
+  transform: (1, 1);
+  color: white;
+}
+.solve14 {
+  animation-duration: 0.5s;
+  animation-delay: 0.15s;
+  animation-name: solve11;
+  animation-timing-function: ease-in-out-quad;
+  background-color: rgb(0,0,0);
+  transform: (1, 1);
+  color: white;
+}
+#stats1, #stats2, #stats3, #stats4, #stats5, #stats6, #stats7, #stats8, #stats9 {
+  height: auto;
+  text-align: right;
+  color: white;
+  background-color: rgb(150,150,150);
+  float: left;
+  margin-top: 6.5px;
+}
+.stats {
+  height: auto;
+  float: left;
+  width: 37px;
+  margin-top: 6.5px !important;
+}
+#statsdiv {
+  width: 600px;
+  margin: auto;
+  padding-bottom: 10px;
+}
+.statsdivs {
+  width: 590px;
+  display: block;
+  height: 42px;
+}
+@keyframes popanim {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes popanim2 {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.popanim {
+  animation-duration: 2.5s;
+  animation-name: popanim;
+  animation-timing-function: ease-in-out;
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 10px 10px 10px 10px;
+  top: 75px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 69;
+  text-align: center;
+  color: white;
+  background-color: rgb(125,125,125);
+}
+.popanim2 {
+  animation-duration: 1s;
+  animation-name: popanim2;
+  animation-timing-function: ease-in-out;
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 10px 10px 10px 10px;
+  top: 75px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 69;
+  text-align: center;
+  color: white;
+  background-color: rgb(125,125,125);
+}
+.popanim3 {
+  animation-duration: 3s;
+  animation-name: popanim2;
+  animation-timing-function: ease-in-out;
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 0px 10px 0px 10px;
+  top: 75px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 69;
+  text-align: center;
+  color: white;
+  background-color: rgb(0,100,250) !important;
+  line-height: 12px;
+}
+#copystats {
+  transition-duration: 0.3s;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+  width: 250px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: rgb(0,100,250);
+  color: white;
+}
+#copystats:hover {
+  background-color: rgb(0,75,188);
+}
+.k {
+  float: left;
+  height: 50px;
+  width: 50px;
+  border: 3px solid rgb(150,150,150);
+  color: white;
+  background-color: black;
+  text-align: center;
+  line-height: 44px;
+  box-sizing: border-box;
+}
+#c0 {
+  color: rgb(150,150,150);
+}
+#c1 {
+  color: rgb(200,200,0);
+}
+#c2 {
+  color: rgb(0,175,0);
+}
+#c3 {
+  color: rgb(0,100,250);
+}
+/*New*/
+#c4 {
+  color: rgb(150,0,250);
+}
+/*Calculator Div Stuff*/
+.ckey {
+  width: 160px;
+  height: 60px;
+  border: 4px solid rgb(150,150,150);
+  text-align: center;
+  line-height: 52px;
+  float: left;
+  background-color: black;
+  color: white;
+  box-sizing: border-box;
+}
+.ckey:active {
+  background-color: rgb(150,150,150);
+  color: white;
+}
+.cdiv {
+  width: 480px;
+  height: 60px;
+  line-height: 52px;
+}
+#calcdiv {
+  width: 480px;
+  height: 471px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  position: absolute;
+  font-size: 28px;
+}
+#enter:active, #ans:active {
+  background-color: rgb(0,175,0);
+}
+#enter, #ans {
+  border: 4px solid rgb(0,175,0);
+}
+#factor {
+  border: 4px solid rgb(0,100,250);
+}
+#factor:active {
+  background-color: rgb(0,100,250);
+}
+#mult:active, #divide:active {
+  background-color: rgb(200,200,0);
+}
+#mult, #divide {
+  border: 4px solid rgb(200,200,0);
+}
+#cin, #cout {
+  border: 4px solid rgb(150,150,150);
+  width: 480px;
+  height: 60px;
+  box-sizing: border-box;
+  line-height: 52px;
+}
+#cin {
+  text-align: left;
+  padding-left: 10px;
+  max-width: 480px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+#cout {
+  text-align: right;
+  padding-right: 10px;
+  max-width: 480px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+#clear1:active,#clear2:active,#clear3:active {
+  background-color: rgb(200,0,0);
+}
+#clear1,#clear2,#clear3 {
+  border: 4px solid rgb(200,0,0);
+}
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+#px32 {
+  font-size: 32px;
+}
+.achs {
+  box-sizing: border-box;
+  outline: 2.5px solid white;
+  width: 800px;
+  height: 45px;
+  margin: auto;
+  line-height: 45px;
+}
+.achp {
+  height: 45px;
+  background-color: rgb(0,175,0);
+  float: left;
+  box-sizing: border-box;
+  z-index: 67;
+}
+.acht {
+  width: 800px;
+  height: 45px;
+  line-height: 45px;
+  box-sizing: border-box;
+  text-align: center !important;
+  position: absolute;
+  color: white;
+}
