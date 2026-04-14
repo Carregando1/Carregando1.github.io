@@ -253,11 +253,13 @@ html {
   text-align: center;
   padding-left: 10px;
   padding-right: 10px;
+  padding-bottom: 10px;
   overflow-y: auto;
   max-height: 100%;
   -webkit-user-select: text;
   -ms-user-select: text;
   user-select: text;
+  scrollbar-color: rgb(150,150,150) white;
 }
 
 #example {
@@ -391,32 +393,6 @@ a {
 
   100% {
     background-color: rgb(0, 175, 0);
-    transform: (1, 1);
-    color: white;
-  }
-}
-
-@keyframes flip3 {
-  0% {
-    background-color: white;
-    transform: (1, 1);
-    color: black;
-  }
-
-  49.99% {
-    transform: scale(1, 0);
-    background-color: white;
-    color: black;
-  }
-
-  50.01% {
-    transform: scale(1, 0);
-    background-color: rgb(0, 100, 250);
-    color: white;
-  }
-
-  100% {
-    background-color: rgb(0, 100, 250);
     transform: (1, 1);
     color: white;
   }
@@ -774,7 +750,7 @@ a {
   position: absolute;
   width: auto;
   height: auto;
-  padding: 10px 10px 10px 10px;
+  padding: 0px 10px 0px 10px;
   top: 75px;
   left: 50%;
   transform: translate(-50%, 0%);
@@ -782,6 +758,7 @@ a {
   text-align: center;
   color: white;
   background-color: rgb(0,100,250) !important;
+  line-height: 12px;
 }
 #copystats {
   transition-duration: 0.3s;
@@ -918,19 +895,21 @@ a {
 }
 .achs {
   box-sizing: border-box;
-  border: 3px solid black;
+  outline: 2.5px solid black;
   width: 800px;
-  height: 50px;
+  height: 45px;
   margin: auto;
-  line-height: 50px;
+  line-height: 45px;
 }
 .achp {
   height: 45px;
   background-color: rgb(0,175,0);
   float: left;
+  box-sizing: border-box;
+  z-index: 67;
 }
 .acht {
-  width: 796px;
+  width: 800px;
   height: 45px;
   line-height: 45px;
   box-sizing: border-box;
