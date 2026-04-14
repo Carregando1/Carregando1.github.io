@@ -216,8 +216,7 @@ var solutions = [7866, 3984, 7733, 1240, 1908, 4131, 4477, 1860, 6413, 1377, 488
   , 4964, 3204, 7095, 3216, 9028, 4104, 5945, 3055, 3854, 8214, 8437, 5049, 8125, 3540
   , 4674, 6716, 7654, 6708, 3528, 7104, 2890, 7567, 2145, 7448, 7138, 5203, 5976, 1836
   , 2352, 9246, 6816, 4187, 2553, 4361, 6534, 2800, 9971, 6764, 3344, 4094, 1608]
-//change
-var solution = solutions[(((Math.floor((new Date() - new Date(2026, 0, 1)) / 86400000)%3051)+6767)%3051)];
+var solution = solutions[(((Math.floor((new Date() - new Date(2026, 3, 14)) / 86400000)%3051)+676767)%3051)];
 
 if (((window.innerWidth > 0) ? window.innerWidth : screen.width) < 1300) {
   document.getElementById('all').innerHTML='Resize your screen to be wider than 1300px, then reload.'
@@ -233,11 +232,10 @@ var complete = false;
 var res;
 var kconst = 0;
 var sconst = 0;
-//change
 var cconst = 0;
 function convert(a) {
   if (a == 6) {
-    return 'rgb(0,0,0)'
+    return 'rgb(0,0,0)';
   } else if (a == 3) {
     return 'rgb(0,100,250)';
   } else if (a == 2) {
@@ -245,17 +243,14 @@ function convert(a) {
   } else if (a == 1) {
     return 'rgb(200,200,0)';
   } else {
-    return 'rgb(150,150,150)';
+    if (localStorage.getItem("dm") == 1) {
+      return 'rgb(165,165,165)';
+    } else {
+      return 'rgb(150,150,150)';
+    }
   }
 }
-//change
-if (localStorage.getItem("day") != ((((Math.floor((new Date() - new Date(2026, 0, 1)) / 86400000)%3051)+3051)%3051))) {
-  localStorage.setItem("day", ((((Math.floor((new Date() - new Date(2026, 0, 1)) / 86400000)%3051)+3051)%3051)));
-  localStorage.setItem("guesses", "");
-  localStorage.setItem("status", "");
-  localStorage.setItem("ks", "9999999999999999999999999");
-}
-if (localStorage.getItem("solve1") == null) {
+function reset() {
   localStorage.setItem("solve1", 0);
   localStorage.setItem("solve2", 0);
   localStorage.setItem("solve3", 0);
@@ -266,9 +261,6 @@ if (localStorage.getItem("solve1") == null) {
   localStorage.setItem("solve8", 0);
   localStorage.setItem("solve9", 0);
   localStorage.setItem("streak", 0);
-  tutorial();
-}
-if (localStorage.getItem("solve1h") == null) {
   localStorage.setItem("solve1h", 0);
   localStorage.setItem("solve2h", 0);
   localStorage.setItem("solve3h", 0);
@@ -278,40 +270,49 @@ if (localStorage.getItem("solve1h") == null) {
   localStorage.setItem("solve7h", 0);
   localStorage.setItem("solve8h", 0);
   localStorage.setItem("solve9h", 0);
-}
-if (localStorage.getItem("ks") == null) {
   localStorage.setItem("ks", "9999999999999999999999999");
-}
-if (localStorage.getItem("set1") == null) {
-  //change
   localStorage.setItem("set1", "a");
   localStorage.setItem("set2", "s");
   localStorage.setItem("set3", "d");
   localStorage.setItem("set4", "f");
   localStorage.setItem("setb", "g");
-}
-if (localStorage.getItem("h") == null) {
   localStorage.setItem("h", "0");
-}
-if (localStorage.getItem("kp") == null) {
   localStorage.setItem("kp", "0");
-}
-if (localStorage.getItem("maxstreak") == null) {
   localStorage.setItem("maxstreak", "0");
   localStorage.setItem("streak6", "0");
   localStorage.setItem("avg", "");
   localStorage.setItem("avgh", "");
-}
-if (localStorage.getItem('ravg') == null) {
   localStorage.setItem("ravg", 67);
   localStorage.setItem("ravgh", 67);
+  localStorage.setItem("daystreak", 0);
+  localStorage.setItem("maxdaystreak", 0);
+  localStorage.setItem("maxstreak6", 0);
+  localStorage.setItem("achset", "00000000000000000000");
+  localStorage.setItem("dm", 0);
 }
-//change
-if ((((Math.floor((new Date() - new Date(2026, 0, 1)) / 86400000)%3051)+3051)%3051) - localStorage.getItem("streakday") >= 2) {
+
+if (localStorage.getItem("dm") == null) {
+  reset();
+  tutorial();
+}
+var curtd = new Date().toString();
+var statd = new Date(2026, 3, 14).toString();
+var timediff = parseInt(statd.slice(statd.search('-')+1, statd.search('-')+3)) - parseInt(curtd.slice(curtd.search('-')+1, curtd.search('-')+3));
+if (localStorage.getItem("day") != ((((Math.floor((new Date() - new Date(2026, 3, 14) + 3600000*timediff) / 86400000)%3051)+3051)%3051))) {
+  localStorage.setItem("day", ((((Math.floor((new Date() - new Date(2026, 3, 14) + 3600000*timediff) / 86400000)%3051)+3051)%3051)));
+  localStorage.setItem("guesses", "");
+  localStorage.setItem("status", "");
+  localStorage.setItem("ks", "9999999999999999999999999");
+}
+if ((((Math.floor((new Date() - new Date(2026, 3, 14) + 3600000*timediff) / 86400000)%3051)+3051)%3051) - localStorage.getItem("streakday") >= 2) {
   localStorage.setItem("streak", 0);
+  localStorage.setItem("daystreak", 0);
 }
 document.getElementById("all").addEventListener("keyup", detect);
 function onload() {
+  if (localStorage.getItem("dm") == 1) {
+    document.getElementById('maincss').innerHTML="<link href='factordledm.css' rel='stylesheet' type='text/css' />";
+  }
   for (var i = 0; i < localStorage.getItem("guesses").length / 4; i++) {
     guesses = i;
     guess = [localStorage.getItem("guesses")[i * 4], localStorage.getItem("guesses")[i * 4 + 1], localStorage.getItem("guesses")[i * 4 + 2], localStorage.getItem("guesses")[i * 4 + 3]];
@@ -334,6 +335,7 @@ function onload() {
     if (localStorage.getItem("status")[localStorage.getItem("status").length - 2] != 3) {
       guesses = 9;
     }
+    achscan();
     stats();
   }
   for (var i = 1; i <= 25; i++) {
@@ -353,17 +355,19 @@ function onload() {
       document.getElementById('k'+i).style.backgroundColor = "rgb(0,100,250)";
       document.getElementById('k'+i).style.border = "3px solid rgb(0,100,250)";
       document.getElementById('k'+i).style.color = "white";
-      //change
     } else if (localStorage.getItem("ks")[i-1] == "4") {
       document.getElementById('k'+i).style.backgroundColor = "rgb(150,0,250)";
       document.getElementById('k'+i).style.border = "3px solid rgb(150,0,250)";
       document.getElementById('k'+i).style.color = "white";
     } 
   }
-  //change
-  document.getElementById('title').innerHTML = "Factordle #" + (((Math.floor((new Date() - new Date(2026, 0, 1)) / 86400000)%3051)+3051)%3051) + " (<a onclick=calc()>Calculator</a> | <a onclick=tutorial()>Tutorial</a> | <a onclick=stats()>Statistics</a> | <a onclick=settings()>Settings</a> | <a onclick=achievements()>Achievements</a> | <a onclick=window.open('https://forms.gle/6nB5CRGVzyTevC7BA')>Send Feedback</a>)";
+  document.getElementById('title').innerHTML = "Factordle #" + (((Math.floor((new Date() - new Date(2026, 3, 14) + 3600000*timediff) / 86400000)%3051)+3051)%3051) + " (<a onclick=calc()>Calculator</a> | <a onclick=tutorial()>Tutorial</a> | <a onclick=stats()>Statistics</a> | <a onclick=settings()>Settings</a> | <a onclick=achievements()>Achievements</a> | <a onclick=about()>About</a> | <a onclick=window.open('https://forms.gle/6nB5CRGVzyTevC7BA')>Send Feedback</a>)";
   if (localStorage.getItem("kp") == 1) {
-    document.getElementById('extracss').innerHTML="<link href='keypads.css' rel='stylesheet' type='text/css' />";
+    if (localStorage.getItem("dm") == 1) {
+      document.getElementById('extracss').innerHTML="<link href='keypadsdm.css' rel='stylesheet' type='text/css' />";
+    } else {
+      document.getElementById('extracss').innerHTML="<link href='keypads.css' rel='stylesheet' type='text/css' />";
+    }
     document.getElementById('extra1').innerHTML="<div id='kp1'><div class='kp1n' onclick='detect({key: \"1\"})'>1</div><div class='kp1n' onclick='detect({key: \"2\"})'>2</div><div class='kp1n' onclick='detect({key: \"3\"})'>3</div><div class='kp1n' onclick='detect({key: \"4\"})'>4</div><div class='kp1n' onclick='detect({key: \"5\"})'>5</div><div class='kp1n' onclick='detect({key: \"6\"})'>6</div><div class='kp1n' onclick='detect({key: \"7\"})'>7</div><div class='kp1n' onclick='detect({key: \"8\"})'>8</div><div class='kp1n' onclick='detect({key: \"9\"})'>9</div><div class='kp1n' onclick='detect({key: \"0\"})'>0</div><div class='kp1b' onclick='detect({key: \"Backspace\"})'>Backspace</div><div class='kp1e' onclick='detect({key: \"Enter\"})'>Enter</div></div>";
     document.getElementById('extra2').innerHTML="<div id='kp2'><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set1')+"\"})' id='kp2c1'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set2')+"\"})' id='kp2c2'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set3')+"\"})' id='kp2c3'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set4')+"\"})' id='kp2c4'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('setb')+"\"})' id='kp2c5'>Reset Color</div><div class='kp2c' onclick='kall(-1)' id='kp2c6'>Gray All</div></div>";
   } else {
@@ -372,10 +376,8 @@ function onload() {
     document.getElementById('extra2').innerHTML="";
   }
 }
-//change
 var keyset = ["Backspace", "Enter", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 function detect(e) {
-  //change for cconst: wrapping
   if (cconst == 0) {
     if (!(complete) && step == 0) {
       if (e.key == "Enter" && kconst == 0 && sconst == 0) {
@@ -391,7 +393,6 @@ function detect(e) {
           update(-(guess.length + 1));
         }
       }
-      //change
       if (keyset.slice(2).includes(e.key) && sconst == 0) {
         if (0 != kconst) {
           document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
@@ -437,15 +438,19 @@ function detect(e) {
         kconst = 0;
       }
       if (e.key == localStorage.getItem("setb") && kconst != 0 && !(complete)) {
-        document.getElementById('k'+kconst).style.backgroundColor = "white";
-        document.getElementById('k'+kconst).style.color = "black";
+        if (localStorage.getItem("dm") == 1) {
+          document.getElementById('k'+kconst).style.backgroundColor = "black";
+          document.getElementById('k'+kconst).style.color = "white";
+        } else {
+          document.getElementById('k'+kconst).style.backgroundColor = "white";
+          document.getElementById('k'+kconst).style.color = "black";
+        }
         document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
         localStorage.setItem("ks", localStorage.getItem("ks").substring(0,kconst-1) + "9" + localStorage.getItem("ks").substring(kconst));
         kconst = 0;
       }
     }
     if (sconst != 0) {
-      //change
       if (keyset.includes(e.key)) {
         popanim2("Number keys, Backspace, and Enter are reserved for inputting guesses");
         settings();
@@ -470,14 +475,12 @@ function detect(e) {
         sconst = 0;
         return;
       }
-      //change
       if (e.key == localStorage.getItem('set4') && sconst != 5) {
         popanim2("Key "+e.key+" is already used by Purple keybind");
         settings();
         sconst = 0;
         return;
       }
-      //change
       if (e.key == localStorage.getItem('setb') && sconst != 6) {
         popanim2("Key "+e.key+" is already used by Undo Coloring keybind");
         settings();
@@ -492,7 +495,6 @@ function detect(e) {
       sconst = 0;
       settings();
     }
-    //change
   } else if (cconst == 1) {
     if (keyset.slice(2).includes(e.key)) {
       cpush(e.key);
@@ -508,7 +510,6 @@ function detect(e) {
       cpush("c");
     } else if (e.key == "n") {
       cpush("ans");
-      //change for f
     } else if (e.key == "f") {
       cpush("f");
     } else if (e.key == "x" || e.key == "*") {
@@ -517,8 +518,8 @@ function detect(e) {
   }
 }
 var animpush = [];
-var avg50;
-var avg50h;
+var avg20;
+var avg20h;
 function push(a) {
   animpush = [];
   if (a.length != 4) {
@@ -542,18 +543,25 @@ function push(a) {
     } else {
       localStorage.setItem('solve' + ((guesses + 1)), parseInt(localStorage.getItem('solve' + ((guesses + 1)))) + 1);
     }
-    localStorage.setItem("streakday", (((Math.floor((new Date() - new Date(2026, 0, 1)) / 86400000)%3051)+3051)%3051));
+    localStorage.setItem("streakday", (((Math.floor((new Date() - new Date(2026, 3, 14)) / 86400000)%3051)+3051)%3051));
     localStorage.setItem("streak", parseInt(localStorage.getItem("streak")) + 1);
+    localStorage.setItem("daystreak", parseInt(localStorage.getItem("daystreak")) + 1);
     if (parseInt(localStorage.getItem("streak")) > parseInt(localStorage.getItem("maxstreak"))) {
       localStorage.setItem("maxstreak", parseInt(localStorage.getItem("streak")));
+    }
+    if (parseInt(localStorage.getItem("daystreak")) > parseInt(localStorage.getItem("maxdaystreak"))) {
+      localStorage.setItem("maxdaystreak", parseInt(localStorage.getItem("daystreak")));
     }
     if (guesses+1 > 6 && localStorage.getItem('streak6') < 12) {
       localStorage.setItem("streak6", 0);
     } else {
       localStorage.setItem("streak6", parseInt(localStorage.getItem("streak6"))+1);
+      if (parseInt(localStorage.getItem("streak6")) > parseInt(localStorage.getItem("maxstreak6"))) {
+        localStorage.setItem("maxstreak6", parseInt(localStorage.getItem("streak6")));
+      }
     }
     if (localStorage.getItem('h') == 1) {
-      if (localStorage.getItem('avgh').length >= 25) {
+      if (localStorage.getItem('avgh').length >= 20) {
         localStorage.setItem('avgh', localStorage.getItem('avgh').substring(1)+(guesses+1))
       } else {
         localStorage.setItem('avgh', localStorage.getItem('avgh')+(guesses+1))
@@ -565,36 +573,35 @@ function push(a) {
         localStorage.setItem('avg', localStorage.getItem('avg')+(guesses+1))
       }
     }
-    avg50 = 0;
-    avg50h = 0;
+    avg20 = 0;
+    avg20h = 0;
     for (var i = 0; i < localStorage.getItem('avg').length; i++) {
-      avg50 += parseInt(localStorage.getItem('avg').charAt(i));
+      avg20 += parseInt(localStorage.getItem('avg').charAt(i));
     }
     for (var i = 0; i < localStorage.getItem('avgh').length; i++) {
-      avg50h += parseInt(localStorage.getItem('avgh').charAt(i));
+      avg20h += parseInt(localStorage.getItem('avgh').charAt(i));
     }
-    if (localStorage.getItem('avg').length != 0) {
-      avg50 /= localStorage.getItem('avg').length;
-      avg50 = avg50.toFixed(2);
+    if (localStorage.getItem('avg').length == 20) {
+      avg20 /= 20;
+      avg20 = avg20.toFixed(2);
     } else {
-      avg50 = 9;
+      avg20 = 9;
     }
-    if (localStorage.getItem('avgh').length != 0) {
-      avg50h /= localStorage.getItem('avgh').length;
-      avg50h = avg50h.toFixed(2);
+    if (localStorage.getItem('avgh').length == 20) {
+      avg20h /= 20;
+      avg20h = avg20h.toFixed(2);
     } else {
-      avg50h = 9;
+      avg20h = 9;
     }
-    if (avg50 < parseFloat(localStorage.getItem('ravg'))) {
-      localStorage.setItem('ravg', avg50);
+    if (avg20 < parseFloat(localStorage.getItem('ravg')) && localStorage.getItem('avg').length == 20) {
+      localStorage.setItem('ravg', avg20);
     }
-    if (avg50h < parseFloat(localStorage.getItem('ravgh'))) {
-      localStorage.setItem('ravgh', avg50h);
+    if (avg20h < parseFloat(localStorage.getItem('ravgh')) && localStorage.getItem('avgh').length == 20) {
+      localStorage.setItem('ravgh', avg20h);
     }
   } else {
     for (i = 1; i < 11; i++) {
       document.getElementById('m' + (guesses * 10 + i)).innerHTML = parseInt(document.getElementById('m' + (guesses * 10 + i)).innerHTML);
-      //change hard mode
       if (i <= 4 && localStorage.getItem("h") == 1) {
         localStorage.setItem("status", localStorage.getItem("status") + '6');
         animpush.push(6);
@@ -610,11 +617,13 @@ function push(a) {
         localStorage.setItem('solve9', parseInt(localStorage.getItem('solve9')) + 1);
       }
       localStorage.setItem("streak", 0);
-      if (localStorage.getItem('streak6') < 12) {
-        localStorage.setItem("streak6", 0);
+      localStorage.setItem("daystreak", parseInt(localStorage.getItem("daystreak")) + 1);
+      if (parseInt(localStorage.getItem("daystreak")) > parseInt(localStorage.getItem("maxdaystreak"))) {
+        localStorage.setItem("maxdaystreak", parseInt(localStorage.getItem("daystreak")));
       }
+      localStorage.setItem("streak6", 0);
       if (localStorage.getItem('h') == 1) {
-        if (localStorage.getItem('avgh').length >= 25) {
+        if (localStorage.getItem('avgh').length >= 20) {
           localStorage.setItem('avgh', localStorage.getItem('avgh').substring(1)+"9")
         } else {
           localStorage.setItem('avgh', localStorage.getItem('avgh')+"9")
@@ -626,31 +635,31 @@ function push(a) {
           localStorage.setItem('avg', localStorage.getItem('avg')+"9");
         }
       }
-      avg50 = 0;
-      avg50h = 0;
+      avg20 = 0;
+      avg20h = 0;
       for (var i = 0; i < localStorage.getItem('avg').length; i++) {
-        avg50 += parseInt(localStorage.getItem('avg').charAt(i));
+        avg20 += parseInt(localStorage.getItem('avg').charAt(i));
       }
       for (var i = 0; i < localStorage.getItem('avgh').length; i++) {
-        avg50h += parseInt(localStorage.getItem('avgh').charAt(i));
+        avg20h += parseInt(localStorage.getItem('avgh').charAt(i));
       }
       if (localStorage.getItem('avg').length != 0) {
-        avg50 /= localStorage.getItem('avg').length;
-        avg50 = avg50.toFixed(2);
+        avg20 /= localStorage.getItem('avg').length;
+        avg20 = avg20.toFixed(2);
       } else {
-        avg50 = 9;
+        avg20 = 9;
       }
       if (localStorage.getItem('avgh').length != 0) {
-        avg50h /= localStorage.getItem('avgh').length;
-        avg50h = avg50h.toFixed(2);
+        avg20h /= localStorage.getItem('avgh').length;
+        avg20h = avg20h.toFixed(2);
       } else {
-        avg50h = 9;
+        avg20h = 9;
       }
-      if (avg50 < parseFloat(localStorage.getItem('ravg'))) {
-        localStorage.setItem('ravg', avg50);
+      if (avg20 < parseFloat(localStorage.getItem('ravg')) && localStorage.getItem('avg').length == 20) {
+        localStorage.setItem('ravg', avg20);
       }
-      if (avg50h < parseFloat(localStorage.getItem('ravgh'))) {
-        localStorage.setItem('ravgh', avg50h);
+      if (avg20h < parseFloat(localStorage.getItem('ravgh')) && localStorage.getItem('avgh').length == 20) {
+        localStorage.setItem('ravgh', avg20h);
       }
       complete = true;
     }
@@ -779,13 +788,20 @@ function convertstatus() {
   popanim2("Results copied to clipboard successfully!");
 }
 function tutorial() {
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Window</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 boxes with primes below all the guess cells to record the factors of the target number by changing their colors.<p><p>To change the color of the prime boxes, click on a box then press a key according to your keybinds in Settings. Clicking a box changes the color to gray by default.</p><p>Right clicking a prime box changes the color of itself and all white prime boxes to the right of it to gray.</p>"
+  if (localStorage.getItem("dm") == 1) {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Window</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>Use the 25 boxes below the guess interface to record the probable factors of the target number.</p><p>To change the color of these boxes, click on a box then press a key according to your keybinds in Settings. Clicking a box changes the color to gray by default.</p><p>Right clicking a box changes the color of itself and all black boxes to the right of it to gray.</p>"
+  } else {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Window</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>Use the 25 boxes below the guess interface to record the probable factors of the target number.</p><p>To change the color of these boxes, click on a box then press a key according to your keybinds in Settings. Clicking a box changes the color to gray by default.</p><p>Right clicking a box changes the color of itself and all white boxes to the right of it to gray.</p>"
+  }
   if (localStorage.getItem('kp') == 1) {
-    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Window</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 boxes with primes below all the guess cells to record the factors of the target number by changing their colors.<p><p>To change the color of the prime boxes, press on a box, then choose a color from the menu below the boxes if necessary. Pressing a box changes the color to gray by default.</p><p>Press the 'Gray All' option after selecting a box to change the color of the selected box and all white prime boxes to the right of it to gray.</p>"
+    if (localStorage.getItem("dm") == 1) {
+      document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Window</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>Use the 25 boxes below the guess interface to record the probable factors of the target number.</p><p>To change the color of the boxes, press on a box, then choose a color from the menu below the boxes if necessary. Pressing a box changes the color to gray by default.</p><p>Press the 'Gray All' option after selecting a box to change the color of the selected box and all black boxes to the right of it to gray.</p>"
+    } else {
+      document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Window</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>Use the 25 boxes below the guess interface to record the probable factors of the target number.</p><p>To change the color of the boxes, press on a box, then choose a color from the menu below the boxes if necessary. Pressing a box changes the color to gray by default.</p><p>Press the 'Gray All' option after selecting a box to change the color of the selected box and all white boxes to the right of it to gray.</p>"
+    }
   }
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
 }
-//change
 let timerupdate;
 function stats() {
   document.getElementById('tutorial').style.width = "1300px";
@@ -806,8 +822,7 @@ function stats() {
   if (maximum == 0) {
     maximum = 1;
   }
-  //change
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Your Factordle Statistics (<a onclick=closetutorial()>Close Window</a>)</p><p id='tp1'>You have played <span class='px'>" + total + "</span> total Factordles, and won <span class='px'>" + temp[0] + "%</span> of them.</p><p>You currently have a <span class='px'>" + localStorage.getItem('streak') + "</span> day streak.</p><div id='timer'></div><div id=statsdiv><div class='statsdivs'><div class='stats'>1</div><div id='stats1'>" + localStorage.getItem('solve1') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>2</div><div id='stats2'>" + localStorage.getItem('solve2') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>3</div><div id='stats3'>" + localStorage.getItem('solve3') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>4</div><div id='stats4'>" + localStorage.getItem('solve4') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>5</div><div id='stats5'>" + localStorage.getItem('solve5') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>6</div><div id='stats6'>" + localStorage.getItem('solve6') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>7</div><div id='stats7'>" + localStorage.getItem('solve7') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>8</div><div id='stats8'>" + localStorage.getItem('solve8') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>X</div><div id='stats9'>" + localStorage.getItem('solve9') + "&nbsp;&nbsp;</div></div></div>"
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Your Factordle Statistics, Normal Mode (<a onclick=closetutorial()>Close Window</a>)</p><p id='tp1'>You have played <span class='px'>" + total + "</span> total Factordles, and won <span class='px'>" + temp[0] + "%</span> of them.</p><p>You currently have played Factordle for <span class='px'>" + localStorage.getItem('daystreak') + "</span> consecutive days.</p><p>You currently have a <span class='px'>" + localStorage.getItem('streak') + "</span> day winstreak.</p><div id='timer'></div><div id=statsdiv><div class='statsdivs'><div class='stats'>1</div><div id='stats1'>" + localStorage.getItem('solve1') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>2</div><div id='stats2'>" + localStorage.getItem('solve2') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>3</div><div id='stats3'>" + localStorage.getItem('solve3') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>4</div><div id='stats4'>" + localStorage.getItem('solve4') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>5</div><div id='stats5'>" + localStorage.getItem('solve5') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>6</div><div id='stats6'>" + localStorage.getItem('solve6') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>7</div><div id='stats7'>" + localStorage.getItem('solve7') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>8</div><div id='stats8'>" + localStorage.getItem('solve8') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>X</div><div id='stats9'>" + localStorage.getItem('solve9') + "&nbsp;&nbsp;</div></div></div>"
   document.getElementById('stats1').style.width = (localStorage.getItem('solve1') * 500 / maximum + 35) + "px";
   document.getElementById('stats2').style.width = (localStorage.getItem('solve2') * 500 / maximum + 35) + "px";
   document.getElementById('stats3').style.width = (localStorage.getItem('solve3') * 500 / maximum + 35) + "px";
@@ -819,7 +834,6 @@ function stats() {
   document.getElementById('stats9').style.width = (localStorage.getItem('solve9') * 500 / maximum + 35) + "px";
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
     if (localStorage.getItem('h') == 1) {
-      //change
       document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Your Factordle Statistics, Hard Mode (<a onclick=closetutorial()>Close Window</a>)</p><p id='tp1'>You have played <span class='px'>" + total + "</span> total hard mode Factordles, and won <span class='px'>" + temp[0] + "%</span> of them.</p><p>You currently have a <span class='px'>" + localStorage.getItem('streak') + "</span> day streak.</p><div id='timer'></div><div id=statsdiv><div class='statsdivs'><div class='stats'>1</div><div id='stats1'>" + localStorage.getItem('solve1h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>2</div><div id='stats2'>" + localStorage.getItem('solve2h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>3</div><div id='stats3'>" + localStorage.getItem('solve3h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>4</div><div id='stats4'>" + localStorage.getItem('solve4h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>5</div><div id='stats5'>" + localStorage.getItem('solve5h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>6</div><div id='stats6'>" + localStorage.getItem('solve6h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>7</div><div id='stats7'>" + localStorage.getItem('solve7h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>8</div><div id='stats8'>" + localStorage.getItem('solve8h') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>X</div><div id='stats9'>" + localStorage.getItem('solve9h') + "&nbsp;&nbsp;</div></div></div>"
       document.getElementById('stats1').style.width = (localStorage.getItem('solve1h') * 500 / maximum + 35) + "px";
       document.getElementById('stats2').style.width = (localStorage.getItem('solve2h') * 500 / maximum + 35) + "px";
@@ -834,7 +848,6 @@ function stats() {
   if (complete) {
     document.getElementById('stats' + guesses).style.backgroundColor = "rgb(0, 100, 250)";
     document.getElementById('tutorial').innerHTML += "<div id='copystats' onclick=convertstatus()>Share Results!</div>";
-    //change
     document.getElementById('timer').innerHTML="<p>The next daily Factordle will be available in <span class='px' id='hrs'>0</span> hour<span id='hrp'>s</span>, <span class='px' id='mins'>0</span> minute<span id='minp'>s</span>, and <span class='px' id='secs'>0</span> second<span id='secp'>s</span>.</p>";
     timerupdate = setInterval(timeupdate, 10);
 
@@ -846,14 +859,14 @@ function closetutorial() {
   document.getElementById('tutorial').style.width = "1300px";
   document.getElementById('tutorial').style.height = "auto";
   sconst = 0;
-  //change
   cconst = 0;
   clearInterval(timerupdate);
 }
 function resetstats() {
-  localStorage.removeItem("solve1");
-  localStorage.setItem("day", -2);
-  localStorage.setItem("ks", "9999999999999999999999999");
+  if (confirm("Are you sure you want to reset your Factordle Daily statistics?") && prompt("To reset your Factordle Daily statistics, type \"Clear my stats!\" in the confirmation box.\nRESETTING YOUR STATS IS AN IRREVERSIBLE ACTION.\nType anything else to cancel.") == "Clear my stats!") {
+    reset();
+    window.location.reload();
+  }
 }
 
 //JS Animation Controls
@@ -886,7 +899,6 @@ function anim(a, b) {
     document.getElementById('m' + (animguesses * 10 + 9)).classList.add("flip" + animreceived[8]);
   } else if (step == 10) {
     document.getElementById('m' + (animguesses * 10 + 10)).classList.add("flip" + animreceived[9]);
-    //change
   } else if (step == 11 && animreceived[9] == 3) {
     document.getElementById('m' + (animguesses * 10 + 1)).classList.remove("flip" + animreceived[0]);
     document.getElementById('m' + (animguesses * 10 + 2)).classList.remove("flip" + animreceived[1]);
@@ -898,7 +910,6 @@ function anim(a, b) {
     document.getElementById('m' + (animguesses * 10 + 8)).classList.remove("flip" + animreceived[7]);
     document.getElementById('m' + (animguesses * 10 + 9)).classList.remove("flip" + animreceived[8]);
     document.getElementById('m' + (animguesses * 10 + 10)).classList.remove("flip" + animreceived[9]);
-    //change hard mode
     if (localStorage.getItem("h") == 1) {
       document.getElementById('m' + (animguesses * 10 + 1)).classList.add("solve11");
       document.getElementById('m' + (animguesses * 10 + 2)).classList.add("solve12");
@@ -923,6 +934,7 @@ function anim(a, b) {
       document.getElementById('k'+i).style.color = "white";
     }
     popanim(stringify(guesses));
+    animreceived = -1;
   } else if (step == 11 && guesses >= 8) {
     stringy = true;
     popanim('The number was ' + solution);
@@ -939,6 +951,7 @@ function anim(a, b) {
     document.getElementById('pop').classList.remove("popanim3");
     document.getElementById('pop').innerHTML = '';
     if (stringy) {
+      achscan();
       stats();
     }
     stringy = false;
@@ -1029,7 +1042,6 @@ function k(a) {
         document.getElementById('k'+kconst).style.border = "3px solid rgb(0,175,0)";
       } else if (localStorage.getItem("ks")[kconst-1] == "3") {
         document.getElementById('k'+kconst).style.border = "3px solid rgb(0,100,250)";
-        //change
       } else if (localStorage.getItem("ks")[kconst-1] == "4") {
         document.getElementById('k'+kconst).style.border = "3px solid rgb(150,0,250)";
       } else {
@@ -1038,7 +1050,6 @@ function k(a) {
     }
     kconst = a;
     document.getElementById('k'+kconst).style.border = "3px solid rgb(200,0,0)";
-    //change
     if (kconst != 0 && !(complete)) {
       document.getElementById('k'+kconst).style.backgroundColor = "rgb(150,150,150)";
       document.getElementById('k'+kconst).style.color = "white";
@@ -1071,20 +1082,25 @@ function kall(a) {
   }
 }
 function settings() {
-  //change
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Window</a>)</p><hr><p>Keybinds for Prime Boxes</p><p>Clicking a prime box turns it gray by default.</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('set1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('set2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('set3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for <span id='c4'>Purple</span> color: <span id=set4>"+localStorage.getItem('set4')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p><p>Current keybind for resetting color to White: <span id=setb>"+localStorage.getItem('setb')+"</span> (<a onclick='set(6)'>Click to Change</a>)</p><p>For more information on prime boxes, see the Tutorial.</p><hr><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p><i>Hard mode disables all information about the target number from the first four cells, the single digit numbers.</i><p><p>Enable Keypads: <span id='kpstatus'>Off</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i><p>"
+  if (localStorage.getItem("dm") == 1) {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Window</a>)</p><hr><p>Keybinds for Boxes</p><p>Clicking a box turns it gray by default.</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('set1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('set2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('set3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for <span id='c4'>Purple</span> color: <span id=set4>"+localStorage.getItem('set4')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p><p>Current keybind for resetting color to Black: <span id=setb>"+localStorage.getItem('setb')+"</span> (<a onclick='set(6)'>Click to Change</a>)</p><p>For more information on boxes, see the Tutorial.</p><hr><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p><i>Hard mode disables all information about the target number from the first four cells, the single digit numbers.</i><p><p>Enable Keypads: <span id='kpstatus'>Off</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i></p><p>Dark Mode: <span id='dmstatus'>Off</span> (<a onclick=setdm()>Click To Change</a>)</p><hr><a onclick=resetstats()>Reset Statistics</a>"
+  } else {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Window</a>)</p><hr><p>Keybinds for Boxes</p><p>Clicking a box turns it gray by default.</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('set1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('set2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('set3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for <span id='c4'>Purple</span> color: <span id=set4>"+localStorage.getItem('set4')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p><p>Current keybind for resetting color to White: <span id=setb>"+localStorage.getItem('setb')+"</span> (<a onclick='set(6)'>Click to Change</a>)</p><p>For more information on boxes, see the Tutorial.</p><hr><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p><i>Hard mode disables all information about the target number from the first four cells, the single digit numbers.</i><p><p>Enable Keypads: <span id='kpstatus'>Off</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i></p><p>Dark Mode: <span id='dmstatus'>Off</span> (<a onclick=setdm()>Click To Change</a>)</p><hr><a onclick=resetstats()>Reset Statistics</a>"
+  }
   if (localStorage.getItem("kp") == 1) {
-    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Window</a>)</p><hr><p>Keybinds for Prime Boxes</p><p>To enable Keybinds, disable the Enable Keypads option.</p><p>For more information on prime boxes, see the Tutorial.</p><hr><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p><i>Hard mode disables all information about the target number from the first four cells, the single digit numbers.</i><p><p>Enable Keypads: <span id='kpstatus'>On</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i><p>"
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Window</a>)</p><hr><p>Keybinds for Boxes</p><p>To enable Keybinds, disable the Enable Keypads option.</p><p>For more information on boxes, see the Tutorial.</p><hr><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p><i>Hard mode disables all information about the target number from the first four cells, the single digit numbers.</i><p><p>Enable Keypads: <span id='kpstatus'>On</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i></p><p>Dark Mode: <span id='dmstatus'>Off</span> (<a onclick=setdm()>Click To Change</a>)</p><hr><a onclick=resetstats()>Reset Statistics</a>"
   }
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
   if (localStorage.getItem("h") == 1) {
     document.getElementById('hstatus').innerHTML = "On";
   }
+  if (localStorage.getItem("dm") == 1) {
+    document.getElementById('dmstatus').innerHTML = "On";
+  }
 }
 function set(a) {
   if (sconst == 0) {
     sconst = a;
-    //change
     if (sconst != 6) {
       document.getElementById('set'+(sconst-1)).innerHTML="[Press Key]";
     } else {
@@ -1114,9 +1130,33 @@ function setkp() {
     document.getElementById('extra2').innerHTML="";
   } else if (localStorage.getItem("kp") == 0) {
     localStorage.setItem("kp", 1);
-    document.getElementById('extracss').innerHTML="<link href='keypads.css' rel='stylesheet' type='text/css' />";
+    if (localStorage.getItem("dm") == 1) {
+      document.getElementById('extracss').innerHTML="<link href='keypadsdm.css' rel='stylesheet' type='text/css' />";
+    } else {
+      document.getElementById('extracss').innerHTML="<link href='keypads.css' rel='stylesheet' type='text/css' />";
+    }
     document.getElementById('extra1').innerHTML="<div id='kp1'><div class='kp1n' onclick='detect({key: \"1\"})'>1</div><div class='kp1n' onclick='detect({key: \"2\"})'>2</div><div class='kp1n' onclick='detect({key: \"3\"})'>3</div><div class='kp1n' onclick='detect({key: \"4\"})'>4</div><div class='kp1n' onclick='detect({key: \"5\"})'>5</div><div class='kp1n' onclick='detect({key: \"6\"})'>6</div><div class='kp1n' onclick='detect({key: \"7\"})'>7</div><div class='kp1n' onclick='detect({key: \"8\"})'>8</div><div class='kp1n' onclick='detect({key: \"9\"})'>9</div><div class='kp1n' onclick='detect({key: \"0\"})'>0</div><div class='kp1b' onclick='detect({key: \"Backspace\"})'>Backspace</div><div class='kp1e' onclick='detect({key: \"Enter\"})'>Enter</div></div>";
     document.getElementById('extra2').innerHTML="<div id='kp2'><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set1')+"\"})' id='kp2c1'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set2')+"\"})' id='kp2c2'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set3')+"\"})' id='kp2c3'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('set4')+"\"})' id='kp2c4'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('setb')+"\"})' id='kp2c5'>Reset Color</div><div class='kp2c' onclick='kall(-1)' id='kp2c6'>Gray All</div></div>";
+  }
+  settings();
+}
+function setdm() {
+  if (localStorage.getItem("dm") == 1) {
+    localStorage.setItem("dm", 0);
+    document.getElementById('maincss').innerHTML="<link href='factordle.css' rel='stylesheet' type='text/css' />";
+    for (var i = 0; i < localStorage.getItem("status").length; i++) {
+      document.getElementById('m' + (i + 1)).style.backgroundColor = convert(localStorage.getItem("status")[i]);
+      document.getElementById('m' + (i + 1)).style.color = 'white';
+      document.getElementById('m'+(i+1)).innerHTML = parseInt(document.getElementById('m'+(i+1)).innerHTML);
+    }
+  } else if (localStorage.getItem("dm") == 0) {
+    localStorage.setItem("dm", 1);
+    document.getElementById('maincss').innerHTML="<link href='factordledm.css' rel='stylesheet' type='text/css' />";
+    for (var i = 0; i < localStorage.getItem("status").length; i++) {
+      document.getElementById('m' + (i + 1)).style.backgroundColor = convert(localStorage.getItem("status")[i]);
+      document.getElementById('m' + (i + 1)).style.color = 'white';
+      document.getElementById('m'+(i+1)).innerHTML = parseInt(document.getElementById('m'+(i+1)).innerHTML);
+    }
   }
   settings();
 }
@@ -1126,9 +1166,7 @@ var cops = []
 var cinstring = "";
 var cout = 0;
 function calc() {
-  //change
   cconst = 1;
-  //change for underlines and factor key
   document.getElementById('tutorial').innerHTML="<p id='ttitle'>Calculator (Supports Keyboard Input) (<a onclick=closetutorial()>Close Window</a>)</p><div id='calcdiv'><div class='cdiv' id='cin'></div><div class='cdiv' id='cout'></div><div class='cdiv'><div class='ckey' onclick=cpush('ac') id='clear1'><u>A</u>C</div><div class='ckey' onclick=cpush('c') id='clear2'><u>C</u></div><div class='ckey' onclick=cpush('bc') id='clear3'><u>B</u>ackspace</div></div><div class='cdiv'><div class='ckey' onclick=cpush('1')>1</div><div class='ckey' onclick=cpush('2')>2</div><div class='ckey' onclick=cpush('3')>3</div></div><div class='cdiv'><div class='ckey' onclick=cpush('4')>4</div><div class='ckey' onclick=cpush('5')>5</div><div class='ckey' onclick=cpush('6')>6</div></div><div class='cdiv'><div class='ckey' onclick=cpush('7')>7</div><div class='ckey' onclick=cpush('8')>8</div><div class='ckey' onclick=cpush('9')>9</div></div><div class='cdiv'><div class='ckey' id='mult' onclick=cpush('×')>×</div><div class='ckey' onclick=cpush('0')>0</div><div class='ckey' id='ans' onclick=cpush('ans')>A<u>n</u>s</div></div><div class='cdiv'><div class='ckey' id='divide' onclick=cpush('÷')>÷</div><div class='ckey' id='factor' onclick=cpush('f')><u>F</u>actor</div><div class='ckey' id='enter' onclick=cpush('=')>=</div></div></div>";
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
   document.getElementById('tutorial').style.width = "800px";
@@ -1140,35 +1178,34 @@ function calc() {
       cinstring += " × ";
     } else if (i < cops.length && cops[i] == "d") {
       cinstring += " ÷ ";
-      //change
     } else if (i < cops.length && cops[i] == "f") {
       cinstring += "Factor ";
     }
   }
   document.getElementById('cin').innerHTML = cinstring;
-  document.getElementById('cin').style.color = "rgb(0,0,0)";
+  if (localStorage.getItem("dm") == 1) {
+    document.getElementById('cin').style.color = "rgb(255,255,255)";
+  } else {
+    document.getElementById('cin').style.color = "rgb(0,0,0)";
+  }
   document.getElementById('cout').innerHTML = cout;
 }
 function cpush(str) {
   cinstring = "";
-  //change
   if (str != "=" && str != "×" && str != "bc" && str != "c" && str != "ac" && str != "ans" && str != "÷" && str != "f") {
     cin[cin.length - 1] += str;
   } else if (str == "×") {
-    //change
     if (cin.length == 1 && cin[0] == "") {
       cin[cin.length - 1] += "a";
     }
     cin.push("");
     cops.push("m");
   } else if (str == "÷") {
-    //change
     if (cin.length == 1 && cin[0] == "") {
       cin[cin.length - 1] += "a";
     }
     cin.push("");
     cops.push("d");
-    //change for factor
   } else if (str == "f") {
     cin.push("");
     cops.push("f");
@@ -1190,7 +1227,6 @@ function cpush(str) {
   } else {
     res = 1;
     for (var i = 0; i < cin.length; i++) {
-      //change
       if (cops[0] == "f" && i == 0) {
         if (cin[0] != "") {
           res = "Syntax Error";
@@ -1204,28 +1240,24 @@ function cpush(str) {
         } else {
           res /= cout;
         }
-        //change for cops f
       } else if ((cin[i] == "" && cops[0] != "f") || parseInt(cin[i]).toString() != cin[i]) {
         res = "Syntax Error";
         break;
       } else {
         if (i == 0 || cops[i-1] == "m" || (i == 1 && cops[0] == "f")) {
           res *= parseInt(cin[i]);
-          //change
         } else if (cops[i-1] == "d") {
           res /= parseInt(cin[i]);
         }
       }
     }
     cout = res.toString();
-    //change
     if (cout == "NaN") {
       cout = "Argument Error";
     }
     if (cout == "Infinity") {
       cout = "Division by 0 Error";
     }
-    //change
     if (cops[0] == "f") {
       cout = factor(res);
     }
@@ -1237,20 +1269,22 @@ function cpush(str) {
       cinstring += " × ";
     } else if (i < cops.length && cops[i] == "d") {
       cinstring += " ÷ ";
-      //change
     } else if (i < cops.length && cops[i] == "f") {
       cinstring += "Factor ";
     }
   }
   document.getElementById('cin').innerHTML = cinstring;
-  document.getElementById('cin').style.color = "rgb(0,0,0)";
+  if (localStorage.getItem("dm") == 1) {
+    document.getElementById('cin').style.color = "rgb(255,255,255)";
+  } else {
+    document.getElementById('cin').style.color = "rgb(0,0,0)";
+  }
   if (str == "=") {
     cin = [""];
     cops = [];
     document.getElementById('cin').style.color = "rgb(150,150,150)";
   }
 }
-//change
 var arrayres = [];
 var primes = [2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97];
 function factor(a) {
@@ -1270,7 +1304,7 @@ function factor(a) {
   }
   loop:
   for (i = 0; i < 67; i++) {
-    for (j = 0; j < 24; j++) {
+    for (j = 0; j <= 24; j++) {
       if (a % primes[j] == 0) {
         a /= primes[j];
         arrayres.push(primes[j]);
@@ -1284,7 +1318,6 @@ function factor(a) {
     return arrayres.toString().replaceAll(",", " × ");
   }
 }
-//change
 var hrs;
 var mins;
 var secs;
@@ -1326,20 +1359,26 @@ function timeupdate() {
   }
 }
 //Achievements
-ach1set = [5, 9, 14, 20, 27, 35, 44, 54, 65, 77, 90]
-ach2set = [1, 3, 6, 10, 15, 21, 28, 36]
-ach3set = [3, 5, 8, 12, 17, 23, 30, 38, 47, 57, 67]
-ach4set = [6.0, 5.8, 5.6, 5.4, 5.2, 5.0, 4.8, 4.6, 4.4, 4.2, 4.0, 3.8]
-ach5set = [6.7, 6.5, 6.3, 6.1, 5.9, 5.7, 5.5, 5.3, 5.1, 4.9, 4.7, 4.5, 4.3]
-function achievements() {
-  var atotal = parseInt(localStorage.getItem('solve1')) + parseInt(localStorage.getItem('solve2')) + parseInt(localStorage.getItem('solve3')) + parseInt(localStorage.getItem('solve4')) + parseInt(localStorage.getItem('solve5')) + parseInt(localStorage.getItem('solve6')) + parseInt(localStorage.getItem('solve7')) + parseInt(localStorage.getItem('solve8')) + parseInt(localStorage.getItem('solve9'));
-  var atotalh = parseInt(localStorage.getItem('solve1h')) + parseInt(localStorage.getItem('solve2h')) + parseInt(localStorage.getItem('solve3h')) + parseInt(localStorage.getItem('solve4h')) + parseInt(localStorage.getItem('solve5h')) + parseInt(localStorage.getItem('solve6h')) + parseInt(localStorage.getItem('solve7h')) + parseInt(localStorage.getItem('solve8h')) + parseInt(localStorage.getItem('solve9h'));
-  var atotal3 = parseInt(localStorage.getItem('solve1')) + parseInt(localStorage.getItem('solve2')) + parseInt(localStorage.getItem('solve3'))+parseInt(localStorage.getItem('solve1h')) + parseInt(localStorage.getItem('solve2h')) + parseInt(localStorage.getItem('solve3h'));
-  var atotal2 = parseInt(localStorage.getItem('solve1')) + parseInt(localStorage.getItem('solve2')) + parseInt(localStorage.getItem('solve1h')) + parseInt(localStorage.getItem('solve2h'));
-  var atotal4h = parseInt(localStorage.getItem('solve1h')) + parseInt(localStorage.getItem('solve2h')) + parseInt(localStorage.getItem('solve3h')) + parseInt(localStorage.getItem('solve4h'));
-  var atotal2h = parseInt(localStorage.getItem('solve1h')) + parseInt(localStorage.getItem('solve2h'));
-  var avg20 = 0;
-  var avg20h = 0;
+ach1set = [2, 3, 5, 9, 14, 20, 27, 35, 44, 54, 65, 77, 90, 100] 
+ach2set = [1, 4, 9, 15, 22, 30, 39, 50]
+ach3set = [3, 6, 10, 16, 23, 31, 40, 51, 64]
+ach4set = [2, 3, 5, 8, 12, 17, 24, 32]
+ach5set = [2, 4, 7, 10, 14, 19, 25]
+ach6set = [1, 3, 5, 8, 12, 18, 25]
+ach7set = [1, 2, 3]
+ach8set = [1, 3, 6, 11, 17, 25]
+ach9set = [6.0, 5.8, 5.6, 5.4, 5.2, 5.0, 4.8, 4.6, 4.4, 4.2, 4.0, 3.8]
+ach10set = [6.9, 6.7, 6.5, 6.3, 6.1, 5.9, 5.7, 5.5, 5.3, 5.1, 4.9, 4.7, 4.5, 4.3]
+var atotal,atotalh,atotal3,atotal2,atotal4h,avg20,avg20h,achstat,achprevstat;
+var achstrs = ["Endurant", "Challenger", "Frequenter", "Dedicated", "Wordlelike", "Speedrunner", "Deucer", "Ultimate Speedrunner", "Perfectionist", "Overdrive"];
+function achscan() {
+  atotal = parseInt(localStorage.getItem('solve1')) + parseInt(localStorage.getItem('solve2')) + parseInt(localStorage.getItem('solve3')) + parseInt(localStorage.getItem('solve4')) + parseInt(localStorage.getItem('solve5')) + parseInt(localStorage.getItem('solve6')) + parseInt(localStorage.getItem('solve7')) + parseInt(localStorage.getItem('solve8')) + parseInt(localStorage.getItem('solve9'));
+  atotalh = parseInt(localStorage.getItem('solve1h')) + parseInt(localStorage.getItem('solve2h')) + parseInt(localStorage.getItem('solve3h')) + parseInt(localStorage.getItem('solve4h')) + parseInt(localStorage.getItem('solve5h')) + parseInt(localStorage.getItem('solve6h')) + parseInt(localStorage.getItem('solve7h')) + parseInt(localStorage.getItem('solve8h')) + parseInt(localStorage.getItem('solve9h'));
+  atotal3 = parseInt(localStorage.getItem('solve1')) + parseInt(localStorage.getItem('solve2')) + parseInt(localStorage.getItem('solve3'))+parseInt(localStorage.getItem('solve1h')) + parseInt(localStorage.getItem('solve2h')) + parseInt(localStorage.getItem('solve3h'));
+  atotal2 = parseInt(localStorage.getItem('solve1')) + parseInt(localStorage.getItem('solve2')) + parseInt(localStorage.getItem('solve1h')) + parseInt(localStorage.getItem('solve2h'));
+  atotal4h = parseInt(localStorage.getItem('solve1h')) + parseInt(localStorage.getItem('solve2h')) + parseInt(localStorage.getItem('solve3h')) + parseInt(localStorage.getItem('solve4h'));
+  avg20 = 0;
+  avg20h = 0;
   for (var i = 0; i < localStorage.getItem('avg').length; i++) {
     avg20 += parseInt(localStorage.getItem('avg').charAt(i));
   }
@@ -1348,136 +1387,242 @@ function achievements() {
   }
   if (localStorage.getItem('avg').length != 0) {
     avg20 /= localStorage.getItem('avg').length;
-    avg20 = avg20.toFixed(3);
+    avg20 = avg20.toFixed(2);
   } else {
     avg20 = "N/A";
   }
   if (localStorage.getItem('avgh').length != 0) {
     avg20h /= localStorage.getItem('avgh').length;
-    avg20h = avg20h.toFixed(3);
+    avg20h = avg20h.toFixed(2);
   } else {
     avg20h = "N/A";
   }
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Achievements (<a onclick=closetutorial()>Close Window</a>)</p><hr><p>Ranked Achievements</p><p>Slow and Steady (Rank <span id='ach1'>1</span>):  Play a total of <span id='ach1d'>5</span> Factordles.</p><div class='achs'><div class='achp' id='ach1p'></div><div class='acht' id='ach1t'>0/5</div></div><p>Challenger (Rank <span id='ach2'>1</span>):  Play a total of <span id='ach2d'>1</span> Hard Mode Factordle(s).</p><div class='achs'><div class='achp' id='ach2p'></div><div class='acht' id='ach2t'>0/1</div></div><p>Dedicated (Rank <span id='ach3'>1</span>):  Obtain a <span id='ach3d'>3</span> day winstreak.</p><div class='achs'><div class='achp' id='ach3p'></div><div class='acht' id='ach3t'>0/3</div></div><p>Perfectionist (Rank <span id='ach4'>1</span>):  Over your last 20 Normal Mode Factordle plays, win in an average of <span id='ach4d'>5.5</span> guesses.</p><div class='achs'><div class='achp' id='ach4p'></div><div class='acht' id='ach4t'>Current Average: 67</div></div><p>Overdrive (Rank <span id='ach5'>1</span>):  Over your last 20 Hard Mode Factordle plays, win in an average of <span id='ach5d'>6.0</span> guesses.</p><div class='achs'><div class='achp' id='ach5p'></div><div class='acht' id='ach5t'>Current Average: 67</div></div><p><i>A loss is considered to be 9 guesses for the two achievements above.</i></p><hr><p>Unranked Achievements</p><p>Wordlelike:  Win 12 Factordles in a row in 6 guesses or less.</p><div class='achs'><div class='achp' id='ach6p'></div><div class='acht' id='ach6t'>0/12</div></div><p>Speedrunner:  Win 12 Factordles in 3 guesses or less.</p><div class='achs'><div class='achp' id='ach7p'></div><div class='acht' id='ach7t'>0/12</div></div><p>Deucer:  Win 2 Factordles in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach8p'></div><div class='acht' id='ach8t'>0/2</div></div><p>Ultimate Speedrunner:  Win 12 Hard Mode Factordles in 4 guesses or less.</p><div class='achs'><div class='achp' id='ach9p'></div><div class='acht' id='ach9t'>0/12</div></div><p>Actually, Not Hard At All:  Win a Hard Mode Factordle in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach10p'></div><div class='acht' id='ach10t'>0/1</div></div><br>"
+  achstat = [gauge(atotal + atotalh, ach1set, '>').toString(),
+  gauge(atotalh, ach2set, '>').toString(),
+  gauge(localStorage.getItem('maxdaystreak'), ach3set, '>').toString(),
+  gauge(localStorage.getItem('maxstreak'), ach4set, '>').toString(),
+  gauge(localStorage.getItem('maxstreak6'), ach5set, '>').toString(),
+  gauge(atotal3, ach6set, '>').toString(),
+  gauge(atotal2, ach7set, '>').toString(),
+  gauge(atotal4h, ach8set, '>').toString(),
+  gauge(localStorage.getItem('ravg'), ach9set, '<').toString(),
+  gauge(localStorage.getItem('ravgh'), ach10set, '<').toString()];
+  achprevstat = [
+    localStorage.getItem('achset').slice(0,2), 
+    localStorage.getItem('achset').slice(2,4), 
+    localStorage.getItem('achset').slice(4,6), 
+    localStorage.getItem('achset').slice(6,8), 
+    localStorage.getItem('achset').slice(8,10), 
+    localStorage.getItem('achset').slice(10,12), 
+    localStorage.getItem('achset').slice(12,14), 
+    localStorage.getItem('achset').slice(14,16), 
+    localStorage.getItem('achset').slice(16,18), 
+    localStorage.getItem('achset').slice(18,20)];
+  var achstring = "";
+  for (var i = 0; i < 10; i++) {
+    if (parseInt(achprevstat[i]) < parseInt(achstat[i])) {
+      if (parseInt(achprevstat[i]) + 1 == parseInt(achstat[i])) {
+        achstring += "<p>"+(achstrs[i] + ", Rank "+(parseInt(achprevstat[i])+1))+"</p>";
+      } else {
+        achstring += "<p>"+(achstrs[i] + ", Ranks "+(parseInt(achprevstat[i])+1)+"-"+parseInt(achstat[i]))+"</p>";
+      }
+    }
+  }
+  if (achstring != "") {
+    if (achstring.slice(3).search(/<p>/i) != -1) {
+      popanim3("<p>You have earned the following achievements:</p>"+achstring);
+    } else {
+      popanim3("<p>You have earned the following achievement:</p>"+achstring);
+    }
+  }
+  achstring = "";
+  for (var i = 0; i < 10; i++) {
+    achstring += achstat[i].padStart(2, "0");
+  }
+  localStorage.setItem("achset", achstring);
+}
+function achievements() {
+  achscan();
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Achievements (<a onclick=closetutorial()>Close Window</a>)</p><hr><div class='achs'><div class='achp' id='achprogp'></div><div class='acht' id='aprog'><span id='aprog1'>0</span>/88 Achievement Ranks (<span id='aprog2'>0% Complete</span>)</div></div><hr><p>Endurant <span id='ach1r'>(Rank <span id='ach1'>1</span>/14)</span>:  Play a total of <span id='ach1d'>2</span> Factordles.</p><div class='achs'><div class='achp' id='ach1p'></div><div class='acht' id='ach1t'>0/2</div></div><p>Challenger <span id='ach2r'>(Rank <span id='ach2'>1</span>/8)</span>:  Play a total of <span id='ach2d'>1</span> Hard Mode Factordle(s).</p><div class='achs'><div class='achp' id='ach2p'></div><div class='acht' id='ach2t'>0/1</div></div><p>Frequenter <span id='ach3r'>(Rank <span id='ach3'>1</span>/9)</span>:  Play Factordle for <span id='ach3d'>3</span> days in a row.</p><div class='achs'><div class='achp' id='ach3p'></div><div class='acht' id='ach3t'>0/3</div></div><p>Dedicated <span id='ach4r'>(Rank <span id='ach4'>1</span>/8)</span>:  Obtain a <span id='ach4d'>2</span> day winstreak.</p><div class='achs'><div class='achp' id='ach4p'></div><div class='acht' id='ach4t'>0/2</div></div><p>Wordlelike <span id='ach5r'>(Rank <span id='ach5'>1</span>/7)</span>:  Win <span id='ach5d'>2</span> Factordles in a row in 6 guesses or less.</p><div class='achs'><div class='achp' id='ach5p'></div><div class='acht' id='ach5t'>0/2</div></div><p>Speedrunner <span id='ach6r'>(Rank <span id='ach6'>1</span>/7)</span>:  Win <span id='ach6d'>1</span> Factordle(s) in 3 guesses or less.</p><div class='achs'><div class='achp' id='ach6p'></div><div class='acht' id='ach6t'>0/1</div></div><p>Deucer <span id='ach7r'>(Rank <span id='ach7'>1</span>/3)</span>:  Win <span id='ach7d'>1</span> Factordle(s) in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach7p'></div><div class='acht' id='ach7t'>0/1</div></div><p>Ultimate Speedrunner <span id='ach8r'>(Rank <span id='ach8'>1</span>/6)</span>:  Win <span id='ach8d'>1</span> Hard Mode Factordle(s) in 4 guesses or less.</p><div class='achs'><div class='achp' id='ach8p'></div><div class='acht' id='ach8t'>0/1</div></div><p>Perfectionist <span id='ach9r'>(Rank <span id='ach9'>1</span>/12)</span>:  Over your last 20 Normal Mode Factordle plays, win in an average of <span id='ach9d'>6.0</span> guesses.</p><div class='achs'><div class='achp' id='ach9p'></div><div class='acht' id='ach9t'>Current Average: 67</div></div><p>Overdrive <span id='ach10r'>(Rank <span id='ach10'>1</span>/14)</span>:  Over your last 20 Hard Mode Factordle plays, win in an average of <span id='ach10d'>6.9</span> guesses.</p><div class='achs'><div class='achp' id='ach10p'></div><div class='acht' id='ach10t'>Current Average: 67</div></div><p><i>A loss is considered to be 9 guesses for the two achievements above.</i></p>";
+  var achprog = parseInt(achstat[0])+parseInt(achstat[1])+parseInt(achstat[2])+parseInt(achstat[3])+parseInt(achstat[4])+parseInt(achstat[5])+parseInt(achstat[6])+parseInt(achstat[7])+parseInt(achstat[8])+parseInt(achstat[9]);
+  document.getElementById('aprog1').innerHTML=achprog;
+  if (achprog == 88) {
+    document.getElementById('aprog2').innerHTML="100% Complete!";
+    document.getElementById('achprogp').style.backgroundColor = 'rgb(0, 100, 250)';
+    document.getElementById('achprogp').style.width = '800px';
+  } else {
+    document.getElementById('achprogp').style.backgroundColor = 'rgb('+(-200*Math.abs((achprog/88)-0.5)-200*(achprog/88)+300)+', '+(-225*Math.abs((achprog/88)-0.5)+175*(achprog/88)+112.5)+', 0)';
+    document.getElementById('aprog2').innerHTML=Math.round(achprog/88*100)+"% Complete";
+    document.getElementById('achprogp').style.width = 800*(achprog/88)+'px';
+  }
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
-  var ach1stat = gauge(atotal + atotalh, ach1set, '>').toString();
-  var ach2stat = gauge(atotalh, ach2set, '>').toString();
-  var ach3stat = gauge(localStorage.getItem('maxstreak'), ach3set, '>').toString();
-  var ach4stat = gauge(localStorage.getItem('ravg'), ach4set, '<').toString();
-  var ach5stat = gauge(localStorage.getItem('ravgh'), ach5set, '<').toString();
-  if (ach1stat == "12") {
-    document.getElementById('ach1').innerHTML = '11';
-    document.getElementById('ach1d').innerHTML = '90';
+  //Simplify using loops later.
+  if (achstat[0] == "14") {
+    document.getElementById('ach1').innerHTML = '14';
+    document.getElementById('ach1d').innerHTML = '100';
     document.getElementById('ach1p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach1p').style.width = '796px';
+    document.getElementById('ach1p').style.width = '800px';
     document.getElementById('ach1t').innerHTML = 'Completed!';
     document.getElementById('ach1t').style.color = 'white';
+    document.getElementById('ach1r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach1').innerHTML = (1+parseInt(ach1stat));
-    document.getElementById('ach1d').innerHTML = ach1set[parseInt(ach1stat)];
-    document.getElementById('ach1p').style.width = (796*(atotal + atotalh)/ach1set[parseInt(ach1stat)])+'px';
-    document.getElementById('ach1t').innerHTML = (atotal+atotalh)+"/"+ach1set[parseInt(ach1stat)];
+    document.getElementById('ach1').innerHTML = (1+parseInt(achstat[0]));
+    document.getElementById('ach1d').innerHTML = ach1set[parseInt(achstat[0])];
+    document.getElementById('ach1p').style.width = (800*(atotal + atotalh)/ach1set[parseInt(achstat[0])])+'px';
+    document.getElementById('ach1t').innerHTML = (atotal+atotalh)+"/"+ach1set[parseInt(achstat[0])];
+    document.getElementById('ach1r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[0])/14)-0.5)-200*(parseInt(achstat[0])/14)+300)+', '+(-225*Math.abs((parseInt(achstat[0])/14)-0.5)+175*(parseInt(achstat[0])/14)+112.5)+', 0)';
   }
-  if (ach2stat == "9") {
+  if (achstat[1] == "8") {
     document.getElementById('ach2').innerHTML = '8';
-    document.getElementById('ach2d').innerHTML = '36';
+    document.getElementById('ach2d').innerHTML = '50';
     document.getElementById('ach2p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach2p').style.width = '796px';
+    document.getElementById('ach2p').style.width = '800px';
     document.getElementById('ach2t').innerHTML = 'Completed!';
     document.getElementById('ach2t').style.color = 'white';
+    document.getElementById('ach2r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach2').innerHTML = (1+parseInt(ach2stat));
-    document.getElementById('ach2d').innerHTML = ach2set[parseInt(ach2stat)];
-    document.getElementById('ach2p').style.width = (796*(atotalh)/ach2set[parseInt(ach2stat)])+'px';
-    document.getElementById('ach2t').innerHTML = (atotalh)+"/"+ach2set[parseInt(ach2stat)];
+    document.getElementById('ach2').innerHTML = (1+parseInt(achstat[1]));
+    document.getElementById('ach2d').innerHTML = ach2set[parseInt(achstat[1])];
+    document.getElementById('ach2p').style.width = (800*(atotalh)/ach2set[parseInt(achstat[1])])+'px';
+    document.getElementById('ach2t').innerHTML = (atotalh)+"/"+ach2set[parseInt(achstat[1])];
+    document.getElementById('ach2r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[1])/14)-0.5)-200*(parseInt(achstat[1])/14)+300)+', '+(-225*Math.abs((parseInt(achstat[1])/14)-0.5)+175*(parseInt(achstat[1])/14)+112.5)+', 0)';
   }
-  if (ach3stat == "12") {
-    document.getElementById('ach3').innerHTML = '11';
-    document.getElementById('ach3d').innerHTML = '67';
+  if (achstat[2] == "9") {
+    document.getElementById('ach3').innerHTML = '9';
+    document.getElementById('ach3d').innerHTML = '64';
     document.getElementById('ach3p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach3p').style.width = '796px';
+    document.getElementById('ach3p').style.width = '800px';
     document.getElementById('ach3t').innerHTML = 'Completed!';
     document.getElementById('ach3t').style.color = 'white';
+    document.getElementById('ach3r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach3').innerHTML = (1+parseInt(ach3stat));
-    document.getElementById('ach3d').innerHTML = ach3set[parseInt(ach3stat)];
-    document.getElementById('ach3p').style.width = (796*(localStorage.getItem('streak'))/ach3set[parseInt(ach3stat)])+'px';
-    document.getElementById('ach3t').innerHTML = (localStorage.getItem('streak'))+"/"+ach3set[parseInt(ach3stat)];
+    document.getElementById('ach3').innerHTML = (1+parseInt(achstat[2]));
+    document.getElementById('ach3d').innerHTML = ach3set[parseInt(achstat[2])];
+    document.getElementById('ach3p').style.width = (800*(localStorage.getItem('daystreak'))/ach3set[parseInt(achstat[2])])+'px';
+    document.getElementById('ach3t').innerHTML = (localStorage.getItem('daystreak'))+"/"+ach3set[parseInt(achstat[2])];
+    document.getElementById('ach3r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[2])/9)-0.5)-200*(parseInt(achstat[2])/9)+300)+', '+(-225*Math.abs((parseInt(achstat[2])/9)-0.5)+175*(parseInt(achstat[2])/9)+112.5)+', 0)';
   }
-  if (localStorage.getItem('avg').length != 20) {
-    document.getElementById('ach4t').innerHTML = "Current average: "+avg20+" based on "+localStorage.getItem('avg').length+" game(s), target: 5.5";
-    document.getElementById('ach4p').style.width = '0px';
-  } else if (ach4stat == "13") {
-    document.getElementById('ach4').innerHTML = '12';
-    document.getElementById('ach4d').innerHTML = '3.8';
-    document.getElementById('ach4p').style.backgroundColor = 'rgb(0, 100, 250)'
-    document.getElementById('ach4p').style.width = '796px';
+  if (achstat[3] == "8") {
+    document.getElementById('ach4').innerHTML = '8';
+    document.getElementById('ach4d').innerHTML = '32';
+    document.getElementById('ach4p').style.backgroundColor = 'rgb(0, 100, 250)';
+    document.getElementById('ach4p').style.width = '800px';
     document.getElementById('ach4t').innerHTML = 'Completed!';
     document.getElementById('ach4t').style.color = 'white';
-  } else  {
-    document.getElementById('ach4').innerHTML = (1+parseInt(ach4stat));
-    document.getElementById('ach4d').innerHTML = ach4set[parseInt(ach4stat)];
-    document.getElementById('ach4p').style.width = 796*(8-avg20)/(8-ach4set[parseInt(ach4stat)])+'px';
-    document.getElementById('ach4t').innerHTML = "Current average: "+avg20+", target: "+ach4set[parseInt(ach4stat)];
+    document.getElementById('ach4r').style.color = 'rgb(0, 100, 250)';
+  } else {
+    document.getElementById('ach4').innerHTML = (1+parseInt(achstat[3]));
+    document.getElementById('ach4d').innerHTML = ach4set[parseInt(achstat[3])];
+    document.getElementById('ach4p').style.width = (800*(localStorage.getItem('streak'))/ach4set[parseInt(achstat[3])])+'px';
+    document.getElementById('ach4t').innerHTML = (localStorage.getItem('streak'))+"/"+ach4set[parseInt(achstat[3])];
+    document.getElementById('ach4r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[3])/8)-0.5)-200*(parseInt(achstat[3])/8)+300)+', '+(-225*Math.abs((parseInt(achstat[3])/8)-0.5)+175*(parseInt(achstat[3])/8)+112.5)+', 0)';
   }
-  if (localStorage.getItem('avgh').length != 20) {
-    document.getElementById('ach5t').innerHTML = "Current average: "+avg20h+" based on "+localStorage.getItem('avgh').length+" game(s), target: 6.0";
-    document.getElementById('ach5p').style.width = '0px';
-  } else if (ach5stat == "14") {
-    document.getElementById('ach5').innerHTML = '13';
-    document.getElementById('ach5d').innerHTML = '4.3';
-    document.getElementById('ach5p').style.backgroundColor = 'rgb(0, 100, 250)'
-    document.getElementById('ach5p').style.width = '796px';
+  if (achstat[4] == "7") {
+    document.getElementById('ach5').innerHTML = '7';
+    document.getElementById('ach5d').innerHTML = '25';
+    document.getElementById('ach5p').style.backgroundColor = 'rgb(0, 100, 250)';
+    document.getElementById('ach5p').style.width = '800px';
     document.getElementById('ach5t').innerHTML = 'Completed!';
     document.getElementById('ach5t').style.color = 'white';
-  } else  {
-    document.getElementById('ach5').innerHTML = (1+parseInt(ach5stat));
-    document.getElementById('ach5d').innerHTML = ach5set[parseInt(ach5stat)];
-    document.getElementById('ach5p').style.width = 796*(8-avg20h)/(8-ach5set[parseInt(ach5stat)])+'px';
-    document.getElementById('ach5t').innerHTML = "Current average: "+avg20h+", target: "+ach5set[parseInt(ach5stat)];
+    document.getElementById('ach5r').style.color = 'rgb(0, 100, 250)';
+  } else {
+    document.getElementById('ach5').innerHTML = (1+parseInt(achstat[4]));
+    document.getElementById('ach5d').innerHTML = ach5set[parseInt(achstat[4])];
+    document.getElementById('ach5p').style.width = (800*(localStorage.getItem('streak6'))/ach5set[parseInt(achstat[4])])+'px';
+    document.getElementById('ach5t').innerHTML = (localStorage.getItem('streak6'))+"/"+ach5set[parseInt(achstat[4])];
+    document.getElementById('ach5r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[4])/7)-0.5)-200*(parseInt(achstat[4])/7)+300)+', '+(-225*Math.abs((parseInt(achstat[4])/7)-0.5)+175*(parseInt(achstat[4])/7)+112.5)+', 0)';
   }
-  //add code for record streaks so that not all progress is lost when streak resets, add code for achs 4,5,6
-  if (localStorage.getItem('streak6') >= 12) {
+  if (achstat[5] == "7") {
+    document.getElementById('ach6').innerHTML = '7';
+    document.getElementById('ach6d').innerHTML = '20';
     document.getElementById('ach6p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach6p').style.width = '796px';
+    document.getElementById('ach6p').style.width = '800px';
     document.getElementById('ach6t').innerHTML = 'Completed!';
     document.getElementById('ach6t').style.color = 'white';
+    document.getElementById('ach6r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach6p').style.width = (796*localStorage.getItem('streak6')/12)+'px';
-    document.getElementById('ach6t').innerHTML = (localStorage.getItem('streak6'))+"/12";
+    document.getElementById('ach6').innerHTML = (1+parseInt(achstat[5]));
+    document.getElementById('ach6d').innerHTML = ach6set[parseInt(achstat[5])];
+    document.getElementById('ach6p').style.width = (800*(atotal3)/ach6set[parseInt(achstat[5])])+'px';
+    document.getElementById('ach6t').innerHTML = (atotal3)+"/"+ach6set[parseInt(achstat[5])];
+    document.getElementById('ach6r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[5])/7)-0.5)-200*(parseInt(achstat[5])/7)+300)+', '+(-225*Math.abs((parseInt(achstat[5])/7)-0.5)+175*(parseInt(achstat[5])/7)+112.5)+', 0)';
   }
-  if (atotal3 >= 12) {
+  if (achstat[6] == "3") {
+    document.getElementById('ach7').innerHTML = '3';
+    document.getElementById('ach7d').innerHTML = '3';
     document.getElementById('ach7p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach7p').style.width = '796px';
+    document.getElementById('ach7p').style.width = '800px';
     document.getElementById('ach7t').innerHTML = 'Completed!';
     document.getElementById('ach7t').style.color = 'white';
+    document.getElementById('ach7r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach7p').style.width = (796*atotal3/12)+'px';
-    document.getElementById('ach7t').innerHTML = (atotal3)+"/12";
+    document.getElementById('ach7').innerHTML = (1+parseInt(achstat[6]));
+    document.getElementById('ach7d').innerHTML = ach7set[parseInt(achstat[6])];
+    document.getElementById('ach7p').style.width = (800*(atotal2)/ach7set[parseInt(achstat[6])])+'px';
+    document.getElementById('ach7t').innerHTML = (atotal2)+"/"+ach7set[parseInt(achstat[6])];
+    document.getElementById('ach7r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[6])/3)-0.5)-200*(parseInt(achstat[6])/3)+300)+', '+(-225*Math.abs((parseInt(achstat[6])/3)-0.5)+175*(parseInt(achstat[6])/3)+112.5)+', 0)';
   }
-  if (atotal2 >= 2) {
+  if (achstat[7] == "6") {
+    document.getElementById('ach8').innerHTML = '6';
+    document.getElementById('ach8d').innerHTML = '25';
     document.getElementById('ach8p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach8p').style.width = '796px';
+    document.getElementById('ach8p').style.width = '800px';
     document.getElementById('ach8t').innerHTML = 'Completed!';
     document.getElementById('ach8t').style.color = 'white';
+    document.getElementById('ach8r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach8p').style.width = (796*atotal2/2)+'px';
-    document.getElementById('ach8t').innerHTML = (atotal2)+"/2";
+    document.getElementById('ach8').innerHTML = (1+parseInt(achstat[7]));
+    document.getElementById('ach8d').innerHTML = ach8set[parseInt(achstat[7])];
+    document.getElementById('ach8p').style.width = (800*(atotal4h)/ach8set[parseInt(achstat[7])])+'px';
+    document.getElementById('ach8t').innerHTML = (atotal4h)+"/"+ach8set[parseInt(achstat[7])];
+    document.getElementById('ach8r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[7])/6)-0.5)-200*(parseInt(achstat[7])/6)+300)+', '+(-225*Math.abs((parseInt(achstat[7])/6)-0.5)+175*(parseInt(achstat[7])/6)+112.5)+', 0)';
   }
-  if (atotal4h >= 12) {
-    document.getElementById('ach9p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach9p').style.width = '796px';
-    document.getElementById('ach9t').innerHTML = 'Completed!';
+  if (localStorage.getItem('avg').length != 20) {
+    document.getElementById('ach9t').innerHTML = "Current average: "+avg20+" based on "+localStorage.getItem('avg').length+" game(s), target: 6.0";
+    document.getElementById('ach9p').style.width = '0px';
+    if (localStorage.getItem('dm') == 1) {
+      document.getElementById('ach9r').style.color = 'rgb(255, 255, 255)';
+    } else {
+      document.getElementById('ach9r').style.color = 'rgb(0, 0, 0)';
+    }
+  } else if (achstat[8] == "12") {
+    document.getElementById('ach9').innerHTML = '12';
+    document.getElementById('ach9d').innerHTML = '3.8';
+    document.getElementById('ach9p').style.backgroundColor = 'rgb(0, 100, 250)'
+    document.getElementById('ach9p').style.width = '800px';
+    document.getElementById('ach9t').innerHTML = 'Completed! (Current average: '+avg20h+', record average: '+localStorage.getItem('ravgh')+')';
     document.getElementById('ach9t').style.color = 'white';
-  } else {
-    document.getElementById('ach9p').style.width = (796*atotal4h/12)+'px';
-    document.getElementById('ach9t').innerHTML = (atotal4h)+"/12";
+    document.getElementById('ach9r').style.color = 'rgb(0, 100, 250)';
+  } else  {
+    document.getElementById('ach9').innerHTML = (1+parseInt(achstat[8]));
+    document.getElementById('ach9d').innerHTML = ach9set[parseInt(achstat[8])];
+    document.getElementById('ach9p').style.width = 800*(8-avg20)/(8-ach9set[parseInt(achstat[8])])+'px';
+    document.getElementById('ach9t').innerHTML = "Current average: "+avg20+", target: "+ach9set[parseInt(achstat[8])];
+    document.getElementById('ach9r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[8])/12)-0.5)-200*(parseInt(achstat[8])/12)+300)+', '+(-225*Math.abs((parseInt(achstat[8])/12)-0.5)+175*(parseInt(achstat[8])/12)+112.5)+', 0)';
   }
-  if (atotal2h >= 1) {
-    document.getElementById('ach10p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach10p').style.width = '796px';
-    document.getElementById('ach10t').innerHTML = 'Completed!';
+  if (localStorage.getItem('avgh').length != 20) {
+    document.getElementById('ach10t').innerHTML = "Current average: "+avg20h+" based on "+localStorage.getItem('avgh').length+" game(s), target: 6.9";
+    document.getElementById('ach10p').style.width = '0px';
+    if (localStorage.getItem('dm') == 1) {
+      document.getElementById('ach10r').style.color = 'rgb(255, 255, 255)';
+    } else {
+      document.getElementById('ach10r').style.color = 'rgb(0, 0, 0)';
+    }
+  } else if (achstat[9] == "14") {
+    document.getElementById('ach10').innerHTML = '14';
+    document.getElementById('ach10d').innerHTML = '4.3';
+    document.getElementById('ach10p').style.backgroundColor = 'rgb(0, 100, 250)'
+    document.getElementById('ach10p').style.width = '800px';
+    document.getElementById('ach10t').innerHTML = 'Completed! (Current average: '+avg20h+', record average: '+localStorage.getItem('ravgh')+')';
     document.getElementById('ach10t').style.color = 'white';
+    document.getElementById('ach10r').style.color = 'rgb(0, 100, 250)';
+  } else  {
+    document.getElementById('ach10').innerHTML = (1+parseInt(achstat[9]));
+    document.getElementById('ach10d').innerHTML = ach10set[parseInt(achstat[9])];
+    document.getElementById('ach10p').style.width = 800*(8-avg20h)/(8-ach10set[parseInt(achstat[9])])+'px';
+    document.getElementById('ach10t').innerHTML = "Current average: "+avg20h+", target: "+ach10set[parseInt(achstat[9])];
+    document.getElementById('ach10r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[9])/14)-0.5)-200*(parseInt(achstat[9])/14)+300)+', '+(-225*Math.abs((parseInt(achstat[9])/14)-0.5)+175*(parseInt(achstat[9])/14)+112.5)+', 0)';
+    
   }
 }
 function gauge(stat, statset, fun) {
@@ -1486,11 +1631,16 @@ function gauge(stat, statset, fun) {
       return i;
     }
   }
-  return i+1;
+  return i;
 }
 function popanim3(a) {
   document.getElementById('pop').classList.remove("popanim3");
   document.getElementById('pop').innerHTML = '';
   document.getElementById('pop').innerHTML = a;
   document.getElementById('pop').classList.add("popanim3");
+}
+
+function about() {
+  document.getElementById('tutorial').style.height = "600px";
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>About (<a onclick=closetutorial()>Close Window</a>)</p><hr><p>Factordle is a web-based Wordle-like game created by <a onclick=window.open('https://github.com/Carregando1')>Carregando1</a>.</p><p>Current version: In beta</p><p>Mobile devices are not supported yet; a mobile layout will be implemented soon.</p><p>Comments or questions? Use <a onclick=window.open('https://forms.gle/6nB5CRGVzyTevC7BA')>this link</a> for sending feedback.</p><hr><p>The game is currently being algorithmically analyzed; currently, it is possible to solve both Normal Mode and Hard Mode within 7 guesses.</p><p>Current optimal guess averages are 3.751 guesses in normal mode and 4.271 guesses in hard mode.</p>"
 }
