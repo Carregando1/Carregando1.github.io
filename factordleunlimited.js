@@ -243,49 +243,41 @@ if (a == 6) {
 } else if (a == 1) {
   return 'rgb(200,200,0)';
 } else {
-  return 'rgb(150,150,150)';
+  if (localStorage.getItem("udm") == 1) {
+      return 'rgb(165,165,165)';
+    } else {
+      return 'rgb(150,150,150)';
+    }
 }
 }
-if (localStorage.getItem("usolve1") == null) {
-localStorage.setItem("usolve1", 0);
-localStorage.setItem("usolve2", 0);
-localStorage.setItem("usolve3", 0);
-localStorage.setItem("usolve4", 0);
-localStorage.setItem("usolve5", 0);
-localStorage.setItem("usolve6", 0);
-localStorage.setItem("usolve7", 0);
-localStorage.setItem("usolve8", 0);
-localStorage.setItem("usolve9", 0);
-}
-if (localStorage.getItem("usolve1h") == null) {
-localStorage.setItem("usolve1h", 0);
-localStorage.setItem("usolve2h", 0);
-localStorage.setItem("usolve3h", 0);
-localStorage.setItem("usolve4h", 0);
-localStorage.setItem("usolve5h", 0);
-localStorage.setItem("usolve6h", 0);
-localStorage.setItem("usolve7h", 0);
-localStorage.setItem("usolve8h", 0);
-localStorage.setItem("usolve9h", 0);
-}
-if (localStorage.getItem("uks") == null) {
-localStorage.setItem("uks", "9999999999999999999999999");
-}
-if (localStorage.getItem("uset1") == null) {
-localStorage.setItem("uset1", "a");
-localStorage.setItem("uset2", "s");
-localStorage.setItem("uset3", "d");
-localStorage.setItem("uset4", "f");
-localStorage.setItem("usetb", "g");
-}
-if (localStorage.getItem("uh") == null) {
-localStorage.setItem("uh", "0");
-localStorage.setItem("ustatus", "");
-}
-if (localStorage.getItem("ukp") == null) {
-localStorage.setItem("ukp", "0");
-}
-if (localStorage.getItem("umaxstreak") == null) {
+function reset() {
+  localStorage.setItem("usolve1", 0);
+  localStorage.setItem("usolve2", 0);
+  localStorage.setItem("usolve3", 0);
+  localStorage.setItem("usolve4", 0);
+  localStorage.setItem("usolve5", 0);
+  localStorage.setItem("usolve6", 0);
+  localStorage.setItem("usolve7", 0);
+  localStorage.setItem("usolve8", 0);
+  localStorage.setItem("usolve9", 0);
+  localStorage.setItem("usolve1h", 0);
+  localStorage.setItem("usolve2h", 0);
+  localStorage.setItem("usolve3h", 0);
+  localStorage.setItem("usolve4h", 0);
+  localStorage.setItem("usolve5h", 0);
+  localStorage.setItem("usolve6h", 0);
+  localStorage.setItem("usolve7h", 0);
+  localStorage.setItem("usolve8h", 0);
+  localStorage.setItem("usolve9h", 0);
+  localStorage.setItem("uks", "9999999999999999999999999");
+  localStorage.setItem("uset1", "a");
+  localStorage.setItem("uset2", "s");
+  localStorage.setItem("uset3", "d");
+  localStorage.setItem("uset4", "f");
+  localStorage.setItem("usetb", "g");
+  localStorage.setItem("uh", "0");
+  localStorage.setItem("ustatus", "");
+  localStorage.setItem("ukp", "0");
   localStorage.setItem("ustreak", "0");
   localStorage.setItem("umaxstreak", "0");
   localStorage.setItem("ustreak6", "0");
@@ -293,81 +285,96 @@ if (localStorage.getItem("umaxstreak") == null) {
   localStorage.setItem("uavgh", "");
   localStorage.setItem("uravg", 67);
   localStorage.setItem("uravgh", 67);
+  localStorage.setItem("uachset", "00000000000000000000");
+  localStorage.setItem("udm", 0);
+  localStorage.setItem("umaxstreak6", 0);
+}
+if (localStorage.getItem('udm') == null) {
+  reset();
+  tutorial();
 }
 document.getElementById("all").addEventListener("keyup", detect);
 function onload() {
-if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 2] == 3 || localStorage.getItem("ustatus").length == 80) {
-  complete = true;
-}
-if (complete || localStorage.getItem("ustatus") == 0) {
-  complete = false;
-  localStorage.setItem("ustatus", "");
-  localStorage.setItem("uguesses", "");
-  solution = solutions[Math.floor(Math.random()*3051)];
-  localStorage.setItem("usolution", solution);
-  localStorage.setItem("uks", "9999999999999999999999999");
-} else {
-  solution = localStorage.getItem("usolution");
-}
-for (var i = 1; i <= 25; i++) {
-  if (localStorage.getItem("uks")[i-1] == "0") {
-    document.getElementById('k'+i).style.backgroundColor = "rgb(150,150,150)";
-    document.getElementById('k'+i).style.border = "3px solid rgb(150,150,150)";
-    document.getElementById('k'+i).style.color = "white";
-  } else if (localStorage.getItem("uks")[i-1] == "1") {
-    document.getElementById('k'+i).style.backgroundColor = "rgb(200,200,0)";
-    document.getElementById('k'+i).style.border = "3px solid rgb(200,200,0)";
-    document.getElementById('k'+i).style.color = "white";
-  } else if (localStorage.getItem("uks")[i-1] == "2") {
-    document.getElementById('k'+i).style.backgroundColor = "rgb(0,175,0)";
-    document.getElementById('k'+i).style.border = "3px solid rgb(0,175,0)";
-     document.getElementById('k'+i).style.color = "white";
-  } else if (localStorage.getItem("uks")[i-1] == "3") {
-    document.getElementById('k'+i).style.backgroundColor = "rgb(0,100,250)";
-    document.getElementById('k'+i).style.border = "3px solid rgb(0,100,250)";
-    document.getElementById('k'+i).style.color = "white";
-  } else if (localStorage.getItem("uks")[i-1] == "4") {
-    document.getElementById('k'+i).style.backgroundColor = "rgb(150,0,250)";
-    document.getElementById('k'+i).style.border = "3px solid rgb(150,0,250)";
-    document.getElementById('k'+i).style.color = "white";
-  }   
-}
-for (var i = 0; i < localStorage.getItem("uguesses").length / 4; i++) {
-  guesses = i;
-  guess = [localStorage.getItem("uguesses")[i * 4], localStorage.getItem("uguesses")[i * 4 + 1], localStorage.getItem("uguesses")[i * 4 + 2], localStorage.getItem("uguesses")[i * 4 + 3]];
-  update(1);
-  update(2);
-  update(3);
-  update(4);
-  guess = [];
-}
-for (var i = 0; i < localStorage.getItem("ustatus").length; i++) {
-  document.getElementById('m' + (i + 1)).style.backgroundColor = convert(localStorage.getItem("ustatus")[i]);
-  document.getElementById('m' + (i + 1)).style.color = 'white';
-  document.getElementById('m'+(i+1)).innerHTML = parseInt(document.getElementById('m'+(i+1)).innerHTML);
-}
-if (localStorage.getItem("uguesses").length != 0) {
-  guesses++;
-}
-if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 1] == 3 || guesses == 8) {
-  complete = true;
-  if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 1] != 3) {
-    guesses = 9;
+  if (localStorage.getItem("udm") == 1) {
+    document.getElementById('maincss').innerHTML="<link href='factordledm.css' rel='stylesheet' type='text/css' />";
   }
-  stats();
-} else {
-  closetutorial();
-}
-document.getElementById('title').innerHTML = "Factordle Unlimited (<a onclick=calc()>Calculator</a> | <a onclick=tutorial()>Tutorial</a> | <a onclick=stats()>Statistics</a> | <a onclick=settings()>Settings</a> | <a onclick=achievements()>Achievements</a> | <a onclick=window.open('https://forms.gle/6nB5CRGVzyTevC7BA')>Send Feedback</a>)";
-if (localStorage.getItem("ukp") == 1) {
-  document.getElementById('extracss').innerHTML="<link href='keypads.css' rel='stylesheet' type='text/css' />";
-  document.getElementById('extra1').innerHTML="<div id='kp1'><div class='kp1n' onclick='detect({key: \"1\"})'>1</div><div class='kp1n' onclick='detect({key: \"2\"})'>2</div><div class='kp1n' onclick='detect({key: \"3\"})'>3</div><div class='kp1n' onclick='detect({key: \"4\"})'>4</div><div class='kp1n' onclick='detect({key: \"5\"})'>5</div><div class='kp1n' onclick='detect({key: \"6\"})'>6</div><div class='kp1n' onclick='detect({key: \"7\"})'>7</div><div class='kp1n' onclick='detect({key: \"8\"})'>8</div><div class='kp1n' onclick='detect({key: \"9\"})'>9</div><div class='kp1n' onclick='detect({key: \"0\"})'>0</div><div class='kp1b' onclick='detect({key: \"Backspace\"})'>Backspace</div><div class='kp1e' onclick='detect({key: \"Enter\"})'>Enter</div></div>";
-  document.getElementById('extra2').innerHTML="<div id='kp2'><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset1')+"\"})' id='kp2c1'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset2')+"\"})' id='kp2c2'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset3')+"\"})' id='kp2c3'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset4')+"\"})' id='kp2c4'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('usetb')+"\"})' id='kp2c5'>Reset Color</div><div class='kp2c' onclick='kall(-1)' id='kp2c6'>Gray All</div></div>";
-} else {
-  document.getElementById('extracss').innerHTML="";
-  document.getElementById('extra1').innerHTML="";
-  document.getElementById('extra2').innerHTML="";
-}
+  if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 2] == 3 || localStorage.getItem("ustatus").length == 80) {
+    complete = true;
+  }
+  if (complete || localStorage.getItem("ustatus") == 0) {
+    complete = false;
+    localStorage.setItem("ustatus", "");
+    localStorage.setItem("uguesses", "");
+    solution = solutions[Math.floor(Math.random()*3051)];
+    localStorage.setItem("usolution", solution);
+    localStorage.setItem("uks", "9999999999999999999999999");
+  } else {
+    solution = localStorage.getItem("usolution");
+  }
+  for (var i = 1; i <= 25; i++) {
+    if (localStorage.getItem("uks")[i-1] == "0") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(150,150,150)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(150,150,150)";
+      document.getElementById('k'+i).style.color = "white";
+    } else if (localStorage.getItem("uks")[i-1] == "1") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(200,200,0)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(200,200,0)";
+      document.getElementById('k'+i).style.color = "white";
+    } else if (localStorage.getItem("uks")[i-1] == "2") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(0,175,0)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(0,175,0)";
+      document.getElementById('k'+i).style.color = "white";
+    } else if (localStorage.getItem("uks")[i-1] == "3") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(0,100,250)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(0,100,250)";
+      document.getElementById('k'+i).style.color = "white";
+    } else if (localStorage.getItem("uks")[i-1] == "4") {
+      document.getElementById('k'+i).style.backgroundColor = "rgb(150,0,250)";
+      document.getElementById('k'+i).style.border = "3px solid rgb(150,0,250)";
+      document.getElementById('k'+i).style.color = "white";
+    }   
+  }
+  for (var i = 0; i < localStorage.getItem("uguesses").length / 4; i++) {
+    guesses = i;
+    guess = [localStorage.getItem("uguesses")[i * 4], localStorage.getItem("uguesses")[i * 4 + 1], localStorage.getItem("uguesses")[i * 4 + 2], localStorage.getItem("uguesses")[i * 4 + 3]];
+    update(1);
+    update(2);
+    update(3);
+    update(4);
+    guess = [];
+  }
+  for (var i = 0; i < localStorage.getItem("ustatus").length; i++) {
+    document.getElementById('m' + (i + 1)).style.backgroundColor = convert(localStorage.getItem("ustatus")[i]);
+    document.getElementById('m' + (i + 1)).style.color = 'white';
+    document.getElementById('m'+(i+1)).innerHTML = parseInt(document.getElementById('m'+(i+1)).innerHTML);
+  }
+  if (localStorage.getItem("uguesses").length != 0) {
+    guesses++;
+  }
+  if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 1] == 3 || guesses == 8) {
+    complete = true;
+    if (localStorage.getItem("ustatus")[localStorage.getItem("ustatus").length - 1] != 3) {
+      guesses = 9;
+    }
+    achscan();
+    stats();
+  } else {
+    closetutorial();
+  }
+  document.getElementById('title').innerHTML = "Factordle Unlimited (<a onclick=calc()>Calculator</a> | <a onclick=tutorial()>Tutorial</a> | <a onclick=stats()>Statistics</a> | <a onclick=settings()>Settings</a> | <a onclick=achievements()>Achievements</a> | <a onclick=about()>About</a> | <a onclick=window.open('https://forms.gle/6nB5CRGVzyTevC7BA')>Send Feedback</a>)";
+  if (localStorage.getItem("ukp") == 1) {
+    if (localStorage.getItem("udm") == 1) {
+      document.getElementById('extracss').innerHTML="<link href='keypadsdm.css' rel='stylesheet' type='text/css' />";
+    } else {
+      document.getElementById('extracss').innerHTML="<link href='keypads.css' rel='stylesheet' type='text/css' />";
+    }
+    document.getElementById('extra1').innerHTML="<div id='kp1'><div class='kp1n' onclick='detect({key: \"1\"})'>1</div><div class='kp1n' onclick='detect({key: \"2\"})'>2</div><div class='kp1n' onclick='detect({key: \"3\"})'>3</div><div class='kp1n' onclick='detect({key: \"4\"})'>4</div><div class='kp1n' onclick='detect({key: \"5\"})'>5</div><div class='kp1n' onclick='detect({key: \"6\"})'>6</div><div class='kp1n' onclick='detect({key: \"7\"})'>7</div><div class='kp1n' onclick='detect({key: \"8\"})'>8</div><div class='kp1n' onclick='detect({key: \"9\"})'>9</div><div class='kp1n' onclick='detect({key: \"0\"})'>0</div><div class='kp1b' onclick='detect({key: \"Backspace\"})'>Backspace</div><div class='kp1e' onclick='detect({key: \"Enter\"})'>Enter</div></div>";
+    document.getElementById('extra2').innerHTML="<div id='kp2'><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset1')+"\"})' id='kp2c1'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset2')+"\"})' id='kp2c2'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset3')+"\"})' id='kp2c3'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset4')+"\"})' id='kp2c4'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('usetb')+"\"})' id='kp2c5'>Reset Color</div><div class='kp2c' onclick='kall(-1)' id='kp2c6'>Gray All</div></div>";
+  } else {
+    document.getElementById('extracss').innerHTML="";
+    document.getElementById('extra1').innerHTML="";
+    document.getElementById('extra2').innerHTML="";
+  }
 }
 var keyset = ["Backspace", "Enter", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 function detect(e) {
@@ -431,8 +438,13 @@ if (cconst == 0) {
       kconst = 0;
     }
     if (e.key == localStorage.getItem('usetb') && kconst != 0 && !(complete) && sconst == 0) {
-      document.getElementById('k'+kconst).style.backgroundColor = "white";
-      document.getElementById('k'+kconst).style.color = "black";
+      if (localStorage.getItem("udm") == 1) {
+        document.getElementById('k'+kconst).style.backgroundColor = "black";
+        document.getElementById('k'+kconst).style.color = "white";
+      } else {
+        document.getElementById('k'+kconst).style.backgroundColor = "white";
+        document.getElementById('k'+kconst).style.color = "black";
+      }
       document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
       localStorage.setItem("uks", localStorage.getItem("uks").substring(0,kconst-1) + "9" + localStorage.getItem("uks").substring(kconst));
       kconst = 0;
@@ -539,6 +551,9 @@ if ((1000 * a[0] + 100 * a[1] + 10 * a[2] + a[3]) == solution) {
     localStorage.setItem("ustreak6", 0);
   } else {
     localStorage.setItem("ustreak6", parseInt(localStorage.getItem("ustreak6"))+1);
+    if (parseInt(localStorage.getItem("ustreak6")) > parseInt(localStorage.getItem("umaxstreak6"))) {
+      localStorage.setItem("umaxstreak6", parseInt(localStorage.getItem("ustreak6")));
+    }
   }
   if (localStorage.getItem('uh') == 1) {
     if (localStorage.getItem('uavgh').length >= 50) {
@@ -573,10 +588,10 @@ if ((1000 * a[0] + 100 * a[1] + 10 * a[2] + a[3]) == solution) {
   } else {
     avg50h = 9;
   }
-  if (avg50 < parseFloat(localStorage.getItem('uravg'))) {
+  if (avg50 < parseFloat(localStorage.getItem('uravg')) && localStorage.getItem('uavg').length == 50) {
     localStorage.setItem('uravg', avg50);
   }
-  if (avg50h < parseFloat(localStorage.getItem('uravgh'))) {
+  if (avg50h < parseFloat(localStorage.getItem('uravgh')) && localStorage.getItem('uavgh').length == 50) {
     localStorage.setItem('uravgh', avg50h);
   }
 } else {
@@ -630,10 +645,10 @@ if ((1000 * a[0] + 100 * a[1] + 10 * a[2] + a[3]) == solution) {
       } else {
         avg50h = 9;
       }
-      if (avg50 < parseFloat(localStorage.getItem('uravg'))) {
+      if (avg50 < parseFloat(localStorage.getItem('uravg')) && localStorage.getItem('uavg').length == 50) {
         localStorage.setItem('uravg', avg50);
       }
-      if (avg50h < parseFloat(localStorage.getItem('uravgh'))) {
+      if (avg50h < parseFloat(localStorage.getItem('uravgh')) && localStorage.getItem('uavgh').length == 50) {
         localStorage.setItem('uravgh', avg50h);
       }
     } else {
@@ -721,11 +736,19 @@ if (a == 1) {
 }
 }
 function tutorial() {
-document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 boxes with primes below all the guess cells to record which primes are factors of the target number. To change the color of the prime boxes, click on a box then press a key according to your keybinds in Settings.</p><p>Right clicking a prime box changes the color of itself and all white prime boxes to the right of it to gray.</p>"
-if (localStorage.getItem('ukp') == 1) {
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 boxes with primes below all the guess cells to record the factors of the target number by changing their colors.<p><p>To change the color of the prime boxes, press on a box, then choose a color from the menu below the boxes if necessary. Pressing a box changes the color to gray by default.</p><p>Press the 'Gray All' option after selecting a box to change the color of the selected box and all white prime boxes to the right of it to gray.</p>"
-}
-document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+  if (localStorage.getItem("udm") == 1) {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 boxes with primes below all the guess cells to record which primes are factors of the target number. To change the color of the prime boxes, click on a box then press a key according to your keybinds in Settings.</p><p>Right clicking a prime box changes the color of itself and all black prime boxes to the right of it to gray.</p>"
+  } else {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 boxes with primes below all the guess cells to record which primes are factors of the target number. To change the color of the prime boxes, click on a box then press a key according to your keybinds in Settings.</p><p>Right clicking a prime box changes the color of itself and all white prime boxes to the right of it to gray.</p>"
+  }
+  if (localStorage.getItem('ukp') == 1) {
+    if (localStorage.getItem("udm") == 1) {
+      document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 boxes with primes below all the guess cells to record the factors of the target number by changing their colors.<p><p>To change the color of the prime boxes, press on a box, then choose a color from the menu below the boxes if necessary. Pressing a box changes the color to gray by default.</p><p>Press the 'Gray All' option after selecting a box to change the color of the selected box and all black prime boxes to the right of it to gray.</p>"
+    } else {
+      document.getElementById('tutorial').innerHTML = "<p id='ttitle'>How To Play Factordle (<a onclick=closetutorial()>Close Tutorial</a>)</p><p id='tp1'>Guess the 4-digit target number within 8 tries. The target number's largest prime factor is always less than 100.</p><p id='tp2'>Each guess must be a 4-digit number between 1000 and 9999.</p><p>Use the number keys and Backspace to modify your guess and Enter to input it. When you input a guess, the color of the 10 guess cells will change to show information about the <u>factors</u> of the target number.</p><p>Examples:<p><div id='eg1'><div class='e1div'><div class='e1'>1</div><div class='e1'>2</div><div class='e1'>3</div><div class='e1' id='e8' >4</div><div class='extext'>No information is given. This color only occurs in hard mode.</div></div><div class='e2div'><div class='e2'>12</div><div class='e2' id='e5'>23</div><div class='e2'>34</div><div class='extext'>23 is a factor of the target number.</div></div><div class='e3div'><div class='e3'>123</div><div class='e3' id='e6'>234</div><div class='extext'>234 and the target number share a factor.</div></div><div class='e4div'><div class='e4' id='e7'>1234</div><div class='extext'>1234 and the target number don't share any factors.</div></div></div><div><p>You can use the 25 boxes with primes below all the guess cells to record the factors of the target number by changing their colors.<p><p>To change the color of the prime boxes, press on a box, then choose a color from the menu below the boxes if necessary. Pressing a box changes the color to gray by default.</p><p>Press the 'Gray All' option after selecting a box to change the color of the selected box and all white prime boxes to the right of it to gray.</p>"
+    }
+  }
+  document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
 }
 function stats() {
   document.getElementById('tutorial').style.width = "1300px";
@@ -747,7 +770,7 @@ if (localStorage.getItem("uh") == 1) {
 if (maximum == 0) {
   maximum = 1;
 }
-document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Your Factordle Statistics (<a onclick=closetutorial()>Close Statistics Window</a>)</p><p id='tp1'>You have played <span class='px'>" + total + "</span> total Factordles, and won <span class='px'>" + temp[0] + "%</span> of them.</p><div id=statsdiv><div class='statsdivs'><div class='stats'>1</div><div id='stats1'>" + localStorage.getItem('usolve1') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>2</div><div id='stats2'>" + localStorage.getItem('usolve2') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>3</div><div id='stats3'>" + localStorage.getItem('usolve3') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>4</div><div id='stats4'>" + localStorage.getItem('usolve4') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>5</div><div id='stats5'>" + localStorage.getItem('usolve5') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>6</div><div id='stats6'>" + localStorage.getItem('usolve6') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>7</div><div id='stats7'>" + localStorage.getItem('usolve7') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>8</div><div id='stats8'>" + localStorage.getItem('usolve8') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>X</div><div id='stats9'>" + localStorage.getItem('usolve9') + "&nbsp;&nbsp;</div></div></div>"
+document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Your Factordle Statistics, Normal Mode (<a onclick=closetutorial()>Close Statistics Window</a>)</p><p id='tp1'>You have played <span class='px'>" + total + "</span> total Factordles, and won <span class='px'>" + temp[0] + "%</span> of them.</p><div id=statsdiv><div class='statsdivs'><div class='stats'>1</div><div id='stats1'>" + localStorage.getItem('usolve1') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>2</div><div id='stats2'>" + localStorage.getItem('usolve2') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>3</div><div id='stats3'>" + localStorage.getItem('usolve3') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>4</div><div id='stats4'>" + localStorage.getItem('usolve4') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>5</div><div id='stats5'>" + localStorage.getItem('usolve5') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>6</div><div id='stats6'>" + localStorage.getItem('usolve6') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>7</div><div id='stats7'>" + localStorage.getItem('usolve7') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>8</div><div id='stats8'>" + localStorage.getItem('usolve8') + "&nbsp;&nbsp;</div></div><div class='statsdivs'><div class='stats'>X</div><div id='stats9'>" + localStorage.getItem('usolve9') + "&nbsp;&nbsp;</div></div></div>"
 document.getElementById('stats1').style.width = (localStorage.getItem('usolve1') * 500 / maximum + 35) + "px";
 document.getElementById('stats2').style.width = (localStorage.getItem('usolve2') * 500 / maximum + 35) + "px";
 document.getElementById('stats3').style.width = (localStorage.getItem('usolve3') * 500 / maximum + 35) + "px";
@@ -784,8 +807,10 @@ sconst = 0;
 cconst = 0;
 }
 function resetstats() {
-localStorage.removeItem("usolve1");
-localStorage.setItem("uks", "9999999999999999999999999");
+  if (confirm("Are you sure you want to reset your Factordle Unlimited statistics?") && prompt("To reset your Factordle Unlimited statistics, type \"Clear my stats!\" in the confirmation box.\nRESETTING YOUR STATS IS AN IRREVERSIBLE ACTION.\nType anything else to cancel.") == "Clear my stats!") {
+    reset();
+    window.location.reload();
+  }
 }
 
 //JS Animation Controls
@@ -868,52 +893,53 @@ if (a.animationName == 'popanim' || a.animationName == 'popanim2') {
   document.getElementById('pop').classList.remove("popanim2");
   document.getElementById('pop').innerHTML = '';
   if (stringy) {
+    achscan();
     stats();
   }
   stringy = false;
 }
 }
 function updatenotes() {
-guesstemp = parseInt(localStorage.getItem('uguesses').slice(localStorage.getItem('uguesses').length - 4));
-guessstatus = localStorage.getItem('ustatus').slice(localStorage.getItem('ustatus').length - 10);
-guessarr = [Math.floor(guesstemp/1000), Math.floor(guesstemp/100)%10, Math.floor(guesstemp/10)%10, guesstemp%10, Math.floor(guesstemp/100), Math.floor(guesstemp/10)%100, guesstemp%100, Math.floor(guesstemp/10), guesstemp%1000, guesstemp];
-primearray = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
-loop:
-for (var i = 0; i < 10; i++) {
-  for (var j = 0; j < 25; j++) {
-    if (guessstatus.charAt(i) == '6') {
-      continue loop;
-    } else if (guessstatus.charAt(i) == '0') {
-      if (guessarr[i] % primearray[j] == 0 && guessarr[i] != 0) {
-        document.getElementById('k'+(j+1)).style.backgroundColor = "rgb(150,150,150)";
-        document.getElementById('k'+(j+1)).style.color = "white";
-        document.getElementById('k'+(j+1)).style.border = "3px solid rgb(150,150,150)";
-        localStorage.setItem("uks", localStorage.getItem("uks").substring(0,j) + "0" + localStorage.getItem("uks").substring(j+1));
-      }
-    } else if (guessstatus.charAt(i) == '2') {
-      if (guessarr[i] % primearray[j] == 0 && localStorage.getItem('uks').charAt(j) != '3' && localStorage.getItem('uks').charAt(j) != '4') {
-        document.getElementById('k'+(j+1)).style.backgroundColor = "rgb(0,175,0)";
-        document.getElementById('k'+(j+1)).style.color = "white";
-        document.getElementById('k'+(j+1)).style.border = "3px solid rgb(0,175,0)";
-        localStorage.setItem("uks", localStorage.getItem("uks").substring(0,j) + "2" + localStorage.getItem("uks").substring(j+1));
-      }
-    } else if (guessstatus.charAt(i) == '1') {
-      if (guessarr[i] % primearray[j] == 0 && (localStorage.getItem('uks').charAt(j) == '9' || localStorage.getItem('uks').charAt(j) == '1')) {
-        if ([guessarr[i]/Math.pow(primearray[j], 2), guessarr[i]/Math.pow(primearray[j], 3), guessarr[i]/Math.pow(primearray[j], 4), guessarr[i]/Math.pow(primearray[j], 5), guessarr[i]/Math.pow(primearray[j], 6), guessarr[i]/Math.pow(primearray[j], 7), guessarr[i]/Math.pow(primearray[j], 8), guessarr[i]/Math.pow(primearray[j], 9), guessarr[i]/Math.pow(primearray[j], 10)].includes(1)) {
+  guesstemp = parseInt(localStorage.getItem('uguesses').slice(localStorage.getItem('uguesses').length - 4));
+  guessstatus = localStorage.getItem('ustatus').slice(localStorage.getItem('ustatus').length - 10);
+  guessarr = [Math.floor(guesstemp/1000), Math.floor(guesstemp/100)%10, Math.floor(guesstemp/10)%10, guesstemp%10, Math.floor(guesstemp/100), Math.floor(guesstemp/10)%100, guesstemp%100, Math.floor(guesstemp/10), guesstemp%1000, guesstemp];
+  primearray = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
+  loop:
+  for (var i = 0; i < 10; i++) {
+    for (var j = 0; j < 25; j++) {
+      if (guessstatus.charAt(i) == '6') {
+        continue loop;
+      } else if (guessstatus.charAt(i) == '0') {
+        if (guessarr[i] % primearray[j] == 0 && guessarr[i] != 0) {
+          document.getElementById('k'+(j+1)).style.backgroundColor = "rgb(150,150,150)";
+          document.getElementById('k'+(j+1)).style.color = "white";
+          document.getElementById('k'+(j+1)).style.border = "3px solid rgb(150,150,150)";
+          localStorage.setItem("uks", localStorage.getItem("uks").substring(0,j) + "0" + localStorage.getItem("uks").substring(j+1));
+        }
+      } else if (guessstatus.charAt(i) == '2') {
+        if (guessarr[i] % primearray[j] == 0 && localStorage.getItem('uks').charAt(j) != '3' && localStorage.getItem('uks').charAt(j) != '4') {
           document.getElementById('k'+(j+1)).style.backgroundColor = "rgb(0,175,0)";
           document.getElementById('k'+(j+1)).style.color = "white";
           document.getElementById('k'+(j+1)).style.border = "3px solid rgb(0,175,0)";
           localStorage.setItem("uks", localStorage.getItem("uks").substring(0,j) + "2" + localStorage.getItem("uks").substring(j+1));
-        } else {
-          document.getElementById('k'+(j+1)).style.backgroundColor = "rgb(200,200,0)";
-          document.getElementById('k'+(j+1)).style.color = "white";
-          document.getElementById('k'+(j+1)).style.border = "3px solid rgb(200,200,0)";
-          localStorage.setItem("uks", localStorage.getItem("uks").substring(0,j) + "1" + localStorage.getItem("uks").substring(j+1));
+        }
+      } else if (guessstatus.charAt(i) == '1') {
+        if (guessarr[i] % primearray[j] == 0 && (localStorage.getItem('uks').charAt(j) == '9' || localStorage.getItem('uks').charAt(j) == '1')) {
+          if ([guessarr[i]/Math.pow(primearray[j], 2), guessarr[i]/Math.pow(primearray[j], 3), guessarr[i]/Math.pow(primearray[j], 4), guessarr[i]/Math.pow(primearray[j], 5), guessarr[i]/Math.pow(primearray[j], 6), guessarr[i]/Math.pow(primearray[j], 7), guessarr[i]/Math.pow(primearray[j], 8), guessarr[i]/Math.pow(primearray[j], 9), guessarr[i]/Math.pow(primearray[j], 10)].includes(1)) {
+            document.getElementById('k'+(j+1)).style.backgroundColor = "rgb(0,175,0)";
+            document.getElementById('k'+(j+1)).style.color = "white";
+            document.getElementById('k'+(j+1)).style.border = "3px solid rgb(0,175,0)";
+            localStorage.setItem("uks", localStorage.getItem("uks").substring(0,j) + "2" + localStorage.getItem("uks").substring(j+1));
+          } else {
+            document.getElementById('k'+(j+1)).style.backgroundColor = "rgb(200,200,0)";
+            document.getElementById('k'+(j+1)).style.color = "white";
+            document.getElementById('k'+(j+1)).style.border = "3px solid rgb(200,200,0)";
+            localStorage.setItem("uks", localStorage.getItem("uks").substring(0,j) + "1" + localStorage.getItem("uks").substring(j+1));
+          }
         }
       }
     }
   }
-}
 }
 function popanim(a) {
 document.getElementById('pop').classList.remove("popanim");
@@ -945,7 +971,6 @@ let timeout;
 function k(a) {
 if (!(complete) && sconst == 0) {
   if (kconst != 0) {
-    //change
     if (a == kconst) {
       document.getElementById('k'+kconst).style.border = "3px solid rgb(150,150,150)";
       kconst = 0;
@@ -997,14 +1022,21 @@ if (!(complete) && sconst == 0) {
 }
 }
 function settings() {
-document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><p>Keybinds for Notes</p><p>Clicking a box turns it gray by default.</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('uset1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('uset2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('uset3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for <span id='c4'>Purple</span> color: <span id=set4>"+localStorage.getItem('uset4')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p><p>Current keybind for Undo Coloring: <span id=setb>"+localStorage.getItem('usetb')+"</span> (<a onclick='set(6)'>Click to Change</a>)</p><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p>Enable Keypads: <span id='kpstatus'>Off</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i><p>"
-if (localStorage.getItem("ukp") == 1) {
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><hr><p>Keybinds for Prime Boxes</p><p>To enable Keybinds, disable the Enable Keypads option.</p><p>For more information on prime boxes, see the Tutorial.</p><hr><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p><i>Hard mode disables all information about the target number from the first four cells, the single digit numbers.</i><p><p>Enable Keypads: <span id='kpstatus'>On</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i><p>"
-}
-document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
-if (localStorage.getItem("uh") == 1) {
-  document.getElementById('hstatus').innerHTML = "On";
-}
+  if (localStorage.getItem("udm") == 1) {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><p>Keybinds for Notes</p><p>Clicking a box turns it gray by default.</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('uset1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('uset2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('uset3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for <span id='c4'>Purple</span> color: <span id=set4>"+localStorage.getItem('uset4')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p><p>Current keybind for resetting color to Black: <span id=setb>"+localStorage.getItem('usetb')+"</span> (<a onclick='set(6)'>Click to Change</a>)</p><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p>Enable Keypads: <span id='kpstatus'>Off</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i></p><p>Dark Mode: <span id='dmstatus'>Off</span> (<a onclick=setdm()>Click To Change</a>)</p><hr><a onclick=resetstats()>Reset Statistics</a>"
+  } else {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><p>Keybinds for Notes</p><p>Clicking a box turns it gray by default.</p><p>Current keybind for <span id='c1'>Yellow</span> color: <span id=set1>"+localStorage.getItem('uset1')+"</span> (<a onclick='set(2)'>Click to Change</a>)</p><p>Current keybind for <span id='c2'>Green</span> color: <span id=set2>"+localStorage.getItem('uset2')+"</span> (<a onclick='set(3)'>Click to Change</a>)</p><p>Current keybind for <span id='c3'>Blue</span> color: <span id=set3>"+localStorage.getItem('uset3')+"</span> (<a onclick='set(4)'>Click to Change</a>)</p><p>Current keybind for <span id='c4'>Purple</span> color: <span id=set4>"+localStorage.getItem('uset4')+"</span> (<a onclick='set(5)'>Click to Change</a>)</p><p>Current keybind for resetting color to White: <span id=setb>"+localStorage.getItem('usetb')+"</span> (<a onclick='set(6)'>Click to Change</a>)</p><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p>Enable Keypads: <span id='kpstatus'>Off</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i></p><p>Dark Mode: <span id='dmstatus'>Off</span> (<a onclick=setdm()>Click To Change</a>)</p><hr><a onclick=resetstats()>Reset Statistics</a>"
+  }
+  if (localStorage.getItem("ukp") == 1) {
+    document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Settings (<a onclick=closetutorial()>Close Settings</a>)</p><hr><p>Keybinds for Prime Boxes</p><p>To enable Keybinds, disable the Enable Keypads option.</p><p>For more information on prime boxes, see the Tutorial.</p><hr><p>Hard Mode: <span id='hstatus'>Off</span> (<a onclick=sethm()>Click To Change</a>)</p><p><i>Hard mode disables all information about the target number from the first four cells, the single digit numbers.</i><p><p>Enable Keypads: <span id='kpstatus'>On</span> (<a onclick=setkp()>Click To Change</a>)</p><p><i>Required for non-mobile devices without a keyboard.</i></p><p>Dark Mode: <span id='dmstatus'>Off</span> (<a onclick=setdm()>Click To Change</a>)</p><hr><a onclick=resetstats()>Reset Statistics</a>"
+  }
+  document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
+  if (localStorage.getItem("uh") == 1) {
+    document.getElementById('hstatus').innerHTML = "On";
+  }
+  if (localStorage.getItem("udm") == 1) {
+    document.getElementById('dmstatus').innerHTML = "On";
+  }
 }
 function set(a) {
 if (sconst == 0) {
@@ -1038,11 +1070,35 @@ if (localStorage.getItem("ukp") == 1) {
   document.getElementById('extra2').innerHTML="";
 } else if (localStorage.getItem("ukp") == 0) {
   localStorage.setItem("ukp", 1);
-  document.getElementById('extracss').innerHTML="<link href='keypads.css' rel='stylesheet' type='text/css' />";
+  if (localStorage.getItem("udm") == 1) {
+      document.getElementById('extracss').innerHTML="<link href='keypadsdm.css' rel='stylesheet' type='text/css' />";
+    } else {
+      document.getElementById('extracss').innerHTML="<link href='keypads.css' rel='stylesheet' type='text/css' />";
+    }
   document.getElementById('extra1').innerHTML="<div id='kp1'><div class='kp1n' onclick='detect({key: \"1\"})'>1</div><div class='kp1n' onclick='detect({key: \"2\"})'>2</div><div class='kp1n' onclick='detect({key: \"3\"})'>3</div><div class='kp1n' onclick='detect({key: \"4\"})'>4</div><div class='kp1n' onclick='detect({key: \"5\"})'>5</div><div class='kp1n' onclick='detect({key: \"6\"})'>6</div><div class='kp1n' onclick='detect({key: \"7\"})'>7</div><div class='kp1n' onclick='detect({key: \"8\"})'>8</div><div class='kp1n' onclick='detect({key: \"9\"})'>9</div><div class='kp1n' onclick='detect({key: \"0\"})'>0</div><div class='kp1b' onclick='detect({key: \"Backspace\"})'>Backspace</div><div class='kp1e' onclick='detect({key: \"Enter\"})'>Enter</div></div>";
   document.getElementById('extra2').innerHTML="<div id='kp2'><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset1')+"\"})' id='kp2c1'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset2')+"\"})' id='kp2c2'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset3')+"\"})' id='kp2c3'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('uset4')+"\"})' id='kp2c4'>&nbsp;</div><div class='kp2c' onclick='detect({key: \""+localStorage.getItem('usetb')+"\"})' id='kp2c5'>Reset Color</div><div class='kp2c' onclick='kall(-1)' id='kp2c6'>Gray All</div></div>";
 }
 settings();
+}
+function setdm() {
+  if (localStorage.getItem("udm") == 1) {
+    localStorage.setItem("udm", 0);
+    document.getElementById('maincss').innerHTML="<link href='factordle.css' rel='stylesheet' type='text/css' />";
+    for (var i = 0; i < localStorage.getItem("ustatus").length; i++) {
+      document.getElementById('m' + (i + 1)).style.backgroundColor = convert(localStorage.getItem("ustatus")[i]);
+      document.getElementById('m' + (i + 1)).style.color = 'white';
+      document.getElementById('m'+(i+1)).innerHTML = parseInt(document.getElementById('m'+(i+1)).innerHTML);
+    }
+  } else if (localStorage.getItem("udm") == 0) {
+    localStorage.setItem("udm", 1);
+    document.getElementById('maincss').innerHTML="<link href='factordledm.css' rel='stylesheet' type='text/css' />";
+    for (var i = 0; i < localStorage.getItem("ustatus").length; i++) {
+      document.getElementById('m' + (i + 1)).style.backgroundColor = convert(localStorage.getItem("ustatus")[i]);
+      document.getElementById('m' + (i + 1)).style.color = 'white';
+      document.getElementById('m'+(i+1)).innerHTML = parseInt(document.getElementById('m'+(i+1)).innerHTML);
+    }
+  }
+  settings();
 }
 //Calculator stuff
 var cin = [""];
@@ -1068,7 +1124,11 @@ for (var i = 0; i < cin.length; i++) {
   }
 }
 document.getElementById('cin').innerHTML = cinstring;
-document.getElementById('cin').style.color = "rgb(0,0,0)";
+if (localStorage.getItem("udm") == 1) {
+    document.getElementById('cin').style.color = "rgb(255,255,255)";
+  } else {
+    document.getElementById('cin').style.color = "rgb(0,0,0)";
+  }
 document.getElementById('cout').innerHTML = cout;
 }
 function cpush(str) {
@@ -1159,7 +1219,11 @@ for (var i = 0; i < cin.length; i++) {
   }
 }
 document.getElementById('cin').innerHTML = cinstring;
-document.getElementById('cin').style.color = "rgb(0,0,0)";
+if (localStorage.getItem("udm") == 1) {
+    document.getElementById('cin').style.color = "rgb(255,255,255)";
+  } else {
+    document.getElementById('cin').style.color = "rgb(0,0,0)";
+  }
 if (str == "=") {
   cin = [""];
   cops = [];
@@ -1201,19 +1265,27 @@ for (i = 0; i < 67; i++) {
 }
 }
 //Achievements
-ach1set = [10, 20, 32, 50, 80, 120, 180, 250, 330, 420, 500, 600, 700, 800, 900, 1000]
-ach2set = [5, 9, 18, 30, 48, 70, 100, 135, 175, 234, 300, 370, 430, 500]
-ach4set = [5.5, 5.4, 5.3, 5.2, 5.1, 5.0, 4.9, 4.8, 4.7, 4.6, 4.5, 4.4, 4.3, 4.2, 4.1, 4.0, 3.9, 3.8]
-ach5set = [6.0, 5.9, 5.8, 5.7, 5.6, 5.5, 5.4, 5.3, 5.2, 5.1, 5.0, 4.9, 4.8, 4.7, 4.6, 4.5, 4.4, 4.3]
-function achievements() {
-  var atotal = parseInt(localStorage.getItem('usolve1')) + parseInt(localStorage.getItem('usolve2')) + parseInt(localStorage.getItem('usolve3')) + parseInt(localStorage.getItem('usolve4')) + parseInt(localStorage.getItem('usolve5')) + parseInt(localStorage.getItem('usolve6')) + parseInt(localStorage.getItem('usolve7')) + parseInt(localStorage.getItem('usolve8')) + parseInt(localStorage.getItem('usolve9'));
-  var atotalh = parseInt(localStorage.getItem('usolve1h')) + parseInt(localStorage.getItem('usolve2h')) + parseInt(localStorage.getItem('usolve3h')) + parseInt(localStorage.getItem('usolve4h')) + parseInt(localStorage.getItem('usolve5h')) + parseInt(localStorage.getItem('usolve6h')) + parseInt(localStorage.getItem('usolve7h')) + parseInt(localStorage.getItem('usolve8h')) + parseInt(localStorage.getItem('usolve9h'));
-  var atotal3 = parseInt(localStorage.getItem('usolve1')) + parseInt(localStorage.getItem('usolve2')) + parseInt(localStorage.getItem('usolve3'))+ parseInt(localStorage.getItem('usolve1h')) + parseInt(localStorage.getItem('usolve2h')) + parseInt(localStorage.getItem('usolve3h'));
-  var atotal2 = parseInt(localStorage.getItem('usolve1')) + parseInt(localStorage.getItem('usolve2')) + parseInt(localStorage.getItem('usolve1h')) + parseInt(localStorage.getItem('usolve2h'));
-  var atotal4h = parseInt(localStorage.getItem('usolve1h')) + parseInt(localStorage.getItem('usolve2h')) + parseInt(localStorage.getItem('usolve3h')) + parseInt(localStorage.getItem('usolve4h'));
-  var atotal2h = parseInt(localStorage.getItem('usolve1h')) + parseInt(localStorage.getItem('usolve2h'));
-  var avg50 = 0;
-  var avg50h = 0;
+ach1set = [2, 3, 5, 9, 14, 20, 27, 35, 44, 54, 65, 77, 90, 104, 119, 135, 152, 170, 189, 208, 228, 249, 271, 293, 316, 340, 365, 391, 418, 446, 470, 500] 
+ach2set = [1, 4, 9, 15, 22, 30, 39, 50, 63, 78, 92, 117, 133, 150, 168, 187, 207, 228, 250]
+ach3set = [2, 3, 5, 8, 12, 17, 24, 32, 41, 50, 61, 73, 86, 100, 115, 131, 153, 176, 200]
+ach4set = [1, 3, 5, 8, 12, 18, 25, 36, 45, 55, 66, 78, 90]
+ach5set = [2, 4, 7, 10, 14, 19, 25, 32, 40, 50, 61, 73, 86, 100, 114, 128]
+ach6set = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+ach7set = [1, 3, 6, 11, 17, 25, 35, 47, 60, 75, 82, 100]
+ach8set = [1, 2]
+ach9set = [6.0, 5.9, 5.8, 5.7, 5.6, 5.5, 5.4, 5.3, 5.2, 5.1, 5.0, 4.9, 4.8, 4.7, 4.6, 4.5, 4.4, 4.3, 4.2, 4.1, 4.0, 3.9, 3.8]
+ach10set = [6.5, 6.4, 6.3, 6.2, 6.1, 6.0, 5.9, 5.8, 5.7, 5.6, 5.5, 5.4, 5.3, 5.2, 5.1, 5.0, 4.9, 4.8, 4.7, 4.6, 4.5, 4.4, 4.3]
+var atotal,atotalh,atotal3,atotal2,atotal4h,avg50,avg50h,achstat,achprevstat,atotal2h;
+var achstrs = ["Endurant", "Challenger", "Dedicated", "Wordlelike", "Speedrunner", "Deucer", "Ultimate Speedrunner", "Actually, Not Hard At All", "Perfectionist", "Overdrive"];
+function achscan() {
+  atotal = parseInt(localStorage.getItem('usolve1')) + parseInt(localStorage.getItem('usolve2')) + parseInt(localStorage.getItem('usolve3')) + parseInt(localStorage.getItem('usolve4')) + parseInt(localStorage.getItem('usolve5')) + parseInt(localStorage.getItem('usolve6')) + parseInt(localStorage.getItem('usolve7')) + parseInt(localStorage.getItem('usolve8')) + parseInt(localStorage.getItem('usolve9'));
+  atotalh = parseInt(localStorage.getItem('usolve1h')) + parseInt(localStorage.getItem('usolve2h')) + parseInt(localStorage.getItem('usolve3h')) + parseInt(localStorage.getItem('usolve4h')) + parseInt(localStorage.getItem('usolve5h')) + parseInt(localStorage.getItem('usolve6h')) + parseInt(localStorage.getItem('usolve7h')) + parseInt(localStorage.getItem('usolve8h')) + parseInt(localStorage.getItem('usolve9h'));
+  atotal3 = parseInt(localStorage.getItem('usolve1')) + parseInt(localStorage.getItem('usolve2')) + parseInt(localStorage.getItem('usolve3'))+parseInt(localStorage.getItem('usolve1h')) + parseInt(localStorage.getItem('usolve2h')) + parseInt(localStorage.getItem('usolve3h'));
+  atotal2 = parseInt(localStorage.getItem('usolve1')) + parseInt(localStorage.getItem('usolve2')) + parseInt(localStorage.getItem('usolve1h')) + parseInt(localStorage.getItem('usolve2h'));
+  atotal4h = parseInt(localStorage.getItem('usolve1h')) + parseInt(localStorage.getItem('usolve2h')) + parseInt(localStorage.getItem('usolve3h')) + parseInt(localStorage.getItem('usolve4h'));
+  atotal2h = parseInt(localStorage.getItem('usolve1h')) + parseInt(localStorage.getItem('usolve2h'));
+  avg50 = 0;
+  avg50h = 0;
   for (var i = 0; i < localStorage.getItem('uavg').length; i++) {
     avg50 += parseInt(localStorage.getItem('uavg').charAt(i));
   }
@@ -1232,126 +1304,232 @@ function achievements() {
   } else {
     avg50h = "N/A";
   }
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Achievements (<a onclick=closetutorial()>Close Window</a>)</p><hr><p>Ranked Achievements</p><p>Slow and Steady (Rank <span id='ach1'>1</span>):  Play a total of <span id='ach1d'>10</span> Factordles.</p><div class='achs'><div class='achp' id='ach1p'></div><div class='acht' id='ach1t'>0/10</div></div><p>Challenger (Rank <span id='ach2'>1</span>):  Play a total of <span id='ach2d'>5</span> Hard Mode Factordles.</p><div class='achs'><div class='achp' id='ach2p'></div><div class='acht' id='ach2t'>0/5</div></div><p>Dedicated (Rank <span id='ach3'>1</span>):  Obtain a <span id='ach3d'>5</span> game winstreak.</p><div class='achs'><div class='achp' id='ach3p'></div><div class='acht' id='ach3t'>0/5</div></div><p>Perfectionist (Rank <span id='ach4'>1</span>):  Over your last 50 Factordle plays, win in an average of <span id='ach4d'>5.5</span> guesses.</p><div class='achs'><div class='achp' id='ach4p'></div><div class='acht' id='ach4t'>Current Average: 67</div></div><p>Overdrive (Rank <span id='ach5'>1</span>):  Over your last 50 Hard Mode Factordle plays, win in an average of <span id='ach5d'>6.0</span> guesses.</p><div class='achs'><div class='achp' id='ach5p'></div><div class='acht' id='ach5t'>Current Average: 67</div></div><p><i>A loss is considered to be 9 guesses for the two achievements above.</i></p><hr><p>Unranked Achievements</p><p>Wordlelike:  Win 50 Factordles in a row in 6 guesses or less.</p><div class='achs'><div class='achp' id='ach6p'></div><div class='acht' id='ach6t'>0/50</div></div><p>Speedrunner:  Win 32 Factordles in 3 guesses or less.</p><div class='achs'><div class='achp' id='ach7p'></div><div class='acht' id='ach7t'>0/32</div></div><p>Deucer:  Win 5 Factordles in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach8p'></div><div class='acht' id='ach8t'>0/5</div></div><p>Ultimate Speedrunner:  Win 32 Hard Mode Factordles in 4 guesses or less.</p><div class='achs'><div class='achp' id='ach9p'></div><div class='acht' id='ach9t'>0/32</div></div><p>Actually, Not Hard At All:  Win a Hard Mode Factordle in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach10p'></div><div class='acht' id='ach10t'>0/1</div></div><br>"
+  achstat = [gauge(atotal + atotalh, ach1set, '>').toString(),
+  gauge(atotalh, ach2set, '>').toString(),
+  gauge(localStorage.getItem('umaxstreak'), ach3set, '>').toString(),
+  gauge(localStorage.getItem('umaxstreak6'), ach4set, '>').toString(),
+  gauge(atotal3, ach5set, '>').toString(),
+  gauge(atotal2, ach6set, '>').toString(),
+  gauge(atotal4h, ach7set, '>').toString(),
+  gauge(atotal2h, ach8set, '>').toString(),
+  gauge(localStorage.getItem('uravg'), ach9set, '<').toString(),
+  gauge(localStorage.getItem('uravgh'), ach10set, '<').toString()];
+  achprevstat = [
+    localStorage.getItem('uachset').slice(0,2), 
+    localStorage.getItem('uachset').slice(2,4), 
+    localStorage.getItem('uachset').slice(4,6), 
+    localStorage.getItem('uachset').slice(6,8), 
+    localStorage.getItem('uachset').slice(8,10), 
+    localStorage.getItem('uachset').slice(10,12), 
+    localStorage.getItem('uachset').slice(12,14), 
+    localStorage.getItem('uachset').slice(14,16), 
+    localStorage.getItem('uachset').slice(16,18), 
+    localStorage.getItem('uachset').slice(18,20)];
+  var achstring = "";
+  for (var i = 0; i < 10; i++) {
+    if (parseInt(achprevstat[i]) < parseInt(achstat[i])) {
+      if (parseInt(achprevstat[i]) + 1 == parseInt(achstat[i])) {
+        achstring += "<p>"+(achstrs[i] + ", Rank "+(parseInt(achprevstat[i])+1))+"</p>";
+      } else {
+        achstring += "<p>"+(achstrs[i] + ", Ranks "+(parseInt(achprevstat[i])+1)+"-"+parseInt(achstat[i]))+"</p>";
+      }
+    }
+  }
+  if (achstring != "") {
+    if (achstring.slice(3).search(/<p>/i) != -1) {
+      popanim3("<p>You have earned the following achievements:</p>"+achstring);
+    } else {
+      popanim3("<p>You have earned the following achievement:</p>"+achstring);
+    }
+  }
+  achstring = "";
+  for (var i = 0; i < 10; i++) {
+    achstring += achstat[i].padStart(2, "0");
+  }
+  localStorage.setItem("uachset", achstring);
+}
+function achievements() {
+  achscan();
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Achievements (<a onclick=closetutorial()>Close Window</a>)</p><hr><div class='achs'><div class='achp' id='achprogp'></div><div class='acht' id='aprog'><span id='aprog1'>0</span>/169 Achievement Ranks (<span id='aprog2'>0% Complete</span>)</div></div><hr><p>Endurant <span id='ach1r'>(Rank <span id='ach1'>1</span>/32)</span>:  Play a total of <span id='ach1d'>2</span> Factordles.</p><div class='achs'><div class='achp' id='ach1p'></div><div class='acht' id='ach1t'>0/2</div></div><p>Challenger <span id='ach2r'>(Rank <span id='ach2'>1</span>/19)</span>:  Play a total of <span id='ach2d'>1</span> Hard Mode Factordle(s).</p><div class='achs'><div class='achp' id='ach2p'></div><div class='acht' id='ach2t'>0/1</div></div><p>Dedicated <span id='ach3r'>(Rank <span id='ach3'>1</span>/19)</span>:  Win <span id='ach3d'>2</span> Factordles in a row.</p><div class='achs'><div class='achp' id='ach3p'></div><div class='acht' id='ach3t'>0/2</div></div><p>Wordlelike <span id='ach4r'>(Rank <span id='ach4'>1</span>/13)</span>:  Win <span id='ach4d'>2</span> Factordles in a row in 6 guesses or less.</p><div class='achs'><div class='achp' id='ach4p'></div><div class='acht' id='ach4t'>0/2</div></div><p>Speedrunner <span id='ach5r'>(Rank <span id='ach5'>1</span>/16)</span>:  Win <span id='ach5d'>1</span> Factordle(s) in 3 guesses or less.</p><div class='achs'><div class='achp' id='ach5p'></div><div class='acht' id='ach5t'>0/1</div></div><p>Deucer <span id='ach6r'>(Rank <span id='ach6'>1</span>/10)</span>:  Win <span id='ach6d'>1</span> Factordle(s) in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach6p'></div><div class='acht' id='ach6t'>0/1</div></div><p>Ultimate Speedrunner <span id='ach7r'>(Rank <span id='ach7'>1</span>/12)</span>:  Win <span id='ach7d'>1</span> Hard Mode Factordle(s) in 4 guesses or less.</p><div class='achs'><div class='achp' id='ach7p'></div><div class='acht' id='ach7t'>0/1</div></div><p>Actually, Not Hard At All <span id='ach8r'>(Rank <span id='ach8'>1</span>/2)</span>:  Win <span id='ach8d'>1</span> Hard Mode Factordle(s) in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach8p'></div><div class='acht' id='ach8t'>0/1</div></div><p>Perfectionist <span id='ach9r'>(Rank <span id='ach9'>1</span>/23)</span>:  Over your last 20 Normal Mode Factordle plays, win in an average of <span id='ach9d'>6.0</span> guesses.</p><div class='achs'><div class='achp' id='ach9p'></div><div class='acht' id='ach9t'>Current Average: 67</div></div><p>Overdrive <span id='ach10r'>(Rank <span id='ach10'>1</span>/23)</span>:  Over your last 20 Hard Mode Factordle plays, win in an average of <span id='ach10d'>6.9</span> guesses.</p><div class='achs'><div class='achp' id='ach10p'></div><div class='acht' id='ach10t'>Current Average: 67</div></div><p><i>A loss is considered to be 9 guesses for the two achievements above.</i></p>";
+  var achprog = parseInt(achstat[0])+parseInt(achstat[1])+parseInt(achstat[2])+parseInt(achstat[3])+parseInt(achstat[4])+parseInt(achstat[5])+parseInt(achstat[6])+parseInt(achstat[7])+parseInt(achstat[8])+parseInt(achstat[9]);
+  document.getElementById('aprog1').innerHTML=achprog;
+  if (achprog == 169) {
+    document.getElementById('aprog2').innerHTML="100% Complete!";
+    document.getElementById('achprogp').style.backgroundColor = 'rgb(0, 100, 250)';
+    document.getElementById('achprogp').style.width = '800px';
+  } else {
+    document.getElementById('achprogp').style.backgroundColor = 'rgb('+(-200*Math.abs((achprog/169)-0.5)-200*(achprog/169)+300)+', '+(-225*Math.abs((achprog/169)-0.5)+175*(achprog/169)+112.5)+', 0)';
+    document.getElementById('aprog2').innerHTML=Math.round(achprog/169*100)+"% Complete";
+    document.getElementById('achprogp').style.width = 800*(achprog/169)+'px';
+  }
   document.getElementById('tutorial').style.border = "2px solid rgb(150,150,150)";
-  var ach1stat = gauge(atotal + atotalh, ach1set, '>').toString();
-  var ach2stat = gauge(atotalh, ach2set, '>').toString();
-  var ach3stat = gauge(localStorage.getItem('umaxstreak'), ach2set, '>').toString();
-  var ach4stat = gauge(localStorage.getItem('uravg'), ach4set, '<').toString();
-  var ach5stat = gauge(localStorage.getItem('uravgh'), ach5set, '<').toString();
-  if (ach1stat == "17") {
-    document.getElementById('ach1').innerHTML = '16';
-    document.getElementById('ach1d').innerHTML = '1000';
+  //Simplify this part using loops later.
+  if (achstat[0] == "32") {
+    document.getElementById('ach1').innerHTML = '32';
+    document.getElementById('ach1d').innerHTML = '500';
     document.getElementById('ach1p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach1p').style.width = '796px';
+    document.getElementById('ach1p').style.width = '800px';
     document.getElementById('ach1t').innerHTML = 'Completed!';
     document.getElementById('ach1t').style.color = 'white';
+    document.getElementById('ach1r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach1').innerHTML = (1+parseInt(ach1stat));
-    document.getElementById('ach1d').innerHTML = ach1set[parseInt(ach1stat)];
-    document.getElementById('ach1p').style.width = (796*(atotal + atotalh)/ach1set[parseInt(ach1stat)])+'px';
-    document.getElementById('ach1t').innerHTML = (atotal+atotalh)+"/"+ach1set[parseInt(ach1stat)];
+    document.getElementById('ach1').innerHTML = (1+parseInt(achstat[0]));
+    document.getElementById('ach1d').innerHTML = ach1set[parseInt(achstat[0])];
+    document.getElementById('ach1p').style.width = (800*(atotal + atotalh)/ach1set[parseInt(achstat[0])])+'px';
+    document.getElementById('ach1t').innerHTML = (atotal+atotalh)+"/"+ach1set[parseInt(achstat[0])];
+    document.getElementById('ach1r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[0])/32)-0.5)-200*(parseInt(achstat[0])/32)+300)+', '+(-225*Math.abs((parseInt(achstat[0])/32)-0.5)+175*(parseInt(achstat[0])/32)+112.5)+', 0)';
   }
-  if (ach2stat == "15") {
-    document.getElementById('ach2').innerHTML = '14';
-    document.getElementById('ach2d').innerHTML = '500';
+  if (achstat[1] == "19") {
+    document.getElementById('ach2').innerHTML = '19';
+    document.getElementById('ach2d').innerHTML = '250';
     document.getElementById('ach2p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach2p').style.width = '796px';
+    document.getElementById('ach2p').style.width = '800px';
     document.getElementById('ach2t').innerHTML = 'Completed!';
     document.getElementById('ach2t').style.color = 'white';
+    document.getElementById('ach2r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach2').innerHTML = (1+parseInt(ach2stat));
-    document.getElementById('ach2d').innerHTML = ach2set[parseInt(ach2stat)];
-    document.getElementById('ach2p').style.width = (796*(atotalh)/ach2set[parseInt(ach2stat)])+'px';
-    document.getElementById('ach2t').innerHTML = (atotalh)+"/"+ach2set[parseInt(ach2stat)];
+    document.getElementById('ach2').innerHTML = (1+parseInt(achstat[1]));
+    document.getElementById('ach2d').innerHTML = ach2set[parseInt(achstat[1])];
+    document.getElementById('ach2p').style.width = (800*(atotalh)/ach2set[parseInt(achstat[1])])+'px';
+    document.getElementById('ach2t').innerHTML = (atotalh)+"/"+ach2set[parseInt(achstat[1])];
+    document.getElementById('ach2r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[1])/19)-0.5)-200*(parseInt(achstat[1])/19)+300)+', '+(-225*Math.abs((parseInt(achstat[1])/19)-0.5)+175*(parseInt(achstat[1])/19)+112.5)+', 0)';
   }
-  if (ach3stat == "15") {
-    document.getElementById('ach3').innerHTML = '14';
-    document.getElementById('ach3d').innerHTML = '500';
+  if (achstat[2] == "19") {
+    document.getElementById('ach3').innerHTML = '19';
+    document.getElementById('ach3d').innerHTML = '200';
     document.getElementById('ach3p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach3p').style.width = '796px';
+    document.getElementById('ach3p').style.width = '800px';
     document.getElementById('ach3t').innerHTML = 'Completed!';
     document.getElementById('ach3t').style.color = 'white';
+    document.getElementById('ach3r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach3').innerHTML = (1+parseInt(ach3stat));
-    document.getElementById('ach3d').innerHTML = ach2set[parseInt(ach3stat)];
-    document.getElementById('ach3p').style.width = (796*(localStorage.getItem('ustreak'))/ach2set[parseInt(ach3stat)])+'px';
-    document.getElementById('ach3t').innerHTML = (localStorage.getItem('ustreak'))+"/"+ach2set[parseInt(ach3stat)];
+    document.getElementById('ach3').innerHTML = (1+parseInt(achstat[2]));
+    document.getElementById('ach3d').innerHTML = ach3set[parseInt(achstat[2])];
+    document.getElementById('ach3p').style.width = (800*(localStorage.getItem('ustreak'))/ach3set[parseInt(achstat[2])])+'px';
+    document.getElementById('ach3t').innerHTML = (localStorage.getItem('ustreak'))+"/"+ach3set[parseInt(achstat[2])];
+    document.getElementById('ach3r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[2])/19)-0.5)-200*(parseInt(achstat[2])/19)+300)+', '+(-225*Math.abs((parseInt(achstat[2])/19)-0.5)+175*(parseInt(achstat[2])/19)+112.5)+', 0)';
   }
-  if (localStorage.getItem('uavg').length != 50) {
-    document.getElementById('ach4t').innerHTML = "Current average: "+avg50+" based on "+localStorage.getItem('uavg').length+" game(s), target: 5.5";
-    document.getElementById('ach4p').style.width = '0px';
-  } else if (ach4stat == "19") {
-    document.getElementById('ach4').innerHTML = '18';
-    document.getElementById('ach4d').innerHTML = '3.8';
-    document.getElementById('ach4p').style.backgroundColor = 'rgb(0, 100, 250)'
-    document.getElementById('ach4p').style.width = '796px';
-    document.getElementById('ach4t').innerHTML = 'Completed! (Current average: '+avg50+'; record average: '+localStorage.getItem('uravg')+")";
+  if (achstat[3] == "13") {
+    document.getElementById('ach4').innerHTML = '13';
+    document.getElementById('ach4d').innerHTML = '90';
+    document.getElementById('ach4p').style.backgroundColor = 'rgb(0, 100, 250)';
+    document.getElementById('ach4p').style.width = '800px';
+    document.getElementById('ach4t').innerHTML = 'Completed!';
     document.getElementById('ach4t').style.color = 'white';
+    document.getElementById('ach4r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach4').innerHTML = (1+parseInt(ach4stat));
-    document.getElementById('ach4d').innerHTML = ach4set[parseInt(ach4stat)];
-    document.getElementById('ach4p').style.width = 796*(8-avg50)/(8-ach4set[parseInt(ach4stat)])+'px';
-    document.getElementById('ach4t').innerHTML = "Current average: "+avg50+", target: "+ach4set[parseInt(ach4stat)]+", record: "+localStorage.getItem('uravg');
+    document.getElementById('ach4').innerHTML = (1+parseInt(achstat[3]));
+    document.getElementById('ach4d').innerHTML = ach4set[parseInt(achstat[3])];
+    document.getElementById('ach4p').style.width = (800*(localStorage.getItem('ustreak6'))/ach4set[parseInt(achstat[3])])+'px';
+    document.getElementById('ach4t').innerHTML = (localStorage.getItem('ustreak6'))+"/"+ach4set[parseInt(achstat[3])];
+    document.getElementById('ach4r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[3])/16)-0.5)-200*(parseInt(achstat[3])/16)+300)+', '+(-225*Math.abs((parseInt(achstat[3])/16)-0.5)+175*(parseInt(achstat[3])/16)+112.5)+', 0)';
   }
-  if (localStorage.getItem('uavgh').length != 50) {
-    document.getElementById('ach5t').innerHTML = "Current average: "+avg50h+" based on "+localStorage.getItem('uavgh').length+" game(s), target: 6.0";
-    document.getElementById('ach5p').style.width = '0px';
-  } else if (ach5stat == "19") {
-    document.getElementById('ach5').innerHTML = '18';
-    document.getElementById('ach5d').innerHTML = '4.3';
-    document.getElementById('ach5p').style.backgroundColor = 'rgb(0, 100, 250)'
-    document.getElementById('ach5p').style.width = '796px';
-    document.getElementById('ach5t').innerHTML = 'Completed! (Current average: '+avg50h+'; record average: '+localStorage.getItem('uravgh')+")";
+  if (achstat[4] == "16") {
+    document.getElementById('ach5').innerHTML = '16';
+    document.getElementById('ach5d').innerHTML = '128';
+    document.getElementById('ach5p').style.backgroundColor = 'rgb(0, 100, 250)';
+    document.getElementById('ach5p').style.width = '800px';
+    document.getElementById('ach5t').innerHTML = 'Completed!';
     document.getElementById('ach5t').style.color = 'white';
-  } else  {
-    document.getElementById('ach5').innerHTML = (1+parseInt(ach5stat));
-    document.getElementById('ach5d').innerHTML = ach5set[parseInt(ach5stat)];
-    document.getElementById('ach5p').style.width = 796*(8-avg50h)/(8-ach5set[parseInt(ach5stat)])+'px';
-    document.getElementById('ach5t').innerHTML = "Current average: "+avg50h+", target: "+ach5set[parseInt(ach5stat)]+", record: "+localStorage.getItem('uravgh');
+    document.getElementById('ach5r').style.color = 'rgb(0, 100, 250)';
+  } else {
+    document.getElementById('ach5').innerHTML = (1+parseInt(achstat[4]));
+    document.getElementById('ach5d').innerHTML = ach5set[parseInt(achstat[4])];
+    document.getElementById('ach5p').style.width = (800*(atotal3)/ach5set[parseInt(achstat[4])])+'px';
+    document.getElementById('ach5t').innerHTML = (atotal3)+"/"+ach5set[parseInt(achstat[4])];
+    document.getElementById('ach5r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[4])/13)-0.5)-200*(parseInt(achstat[4])/13)+300)+', '+(-225*Math.abs((parseInt(achstat[4])/13)-0.5)+175*(parseInt(achstat[4])/13)+112.5)+', 0)';
   }
-  //add code for record streaks so that not all progress is lost when streak resets, add code for achs 4,5,6
-  if (localStorage.getItem('ustreak6') >= 50) {
+  if (achstat[5] == "10") {
+    document.getElementById('ach6').innerHTML = '10';
+    document.getElementById('ach6d').innerHTML = '10';
     document.getElementById('ach6p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach6p').style.width = '796px';
+    document.getElementById('ach6p').style.width = '800px';
     document.getElementById('ach6t').innerHTML = 'Completed!';
     document.getElementById('ach6t').style.color = 'white';
+    document.getElementById('ach6r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach6p').style.width = (796*localStorage.getItem('ustreak6')/50)+'px';
-    document.getElementById('ach6t').innerHTML = (localStorage.getItem('ustreak6'))+"/50";
+    document.getElementById('ach6').innerHTML = (1+parseInt(achstat[5]));
+    document.getElementById('ach6d').innerHTML = ach6set[parseInt(achstat[5])];
+    document.getElementById('ach6p').style.width = (800*(atotal2)/ach6set[parseInt(achstat[5])])+'px';
+    document.getElementById('ach6t').innerHTML = (atotal2)+"/"+ach6set[parseInt(achstat[5])];
+    document.getElementById('ach6r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[5])/16)-0.5)-200*(parseInt(achstat[5])/16)+300)+', '+(-225*Math.abs((parseInt(achstat[5])/16)-0.5)+175*(parseInt(achstat[5])/16)+112.5)+', 0)';
   }
-  if (atotal3 >= 32) {
+  if (achstat[6] == "12") {
+    document.getElementById('ach7').innerHTML = '12';
+    document.getElementById('ach7d').innerHTML = '100';
     document.getElementById('ach7p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach7p').style.width = '796px';
+    document.getElementById('ach7p').style.width = '800px';
     document.getElementById('ach7t').innerHTML = 'Completed!';
     document.getElementById('ach7t').style.color = 'white';
+    document.getElementById('ach7r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach7p').style.width = (796*atotal3/32)+'px';
-    document.getElementById('ach7t').innerHTML = (atotal3)+"/32";
+    document.getElementById('ach7').innerHTML = (1+parseInt(achstat[6]));
+    document.getElementById('ach7d').innerHTML = ach7set[parseInt(achstat[6])];
+    document.getElementById('ach7p').style.width = (800*(atotal4h)/ach7set[parseInt(achstat[6])])+'px';
+    document.getElementById('ach7t').innerHTML = (atotal4h)+"/"+ach7set[parseInt(achstat[6])];
+    document.getElementById('ach7r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[6])/12)-0.5)-200*(parseInt(achstat[6])/12)+300)+', '+(-225*Math.abs((parseInt(achstat[6])/12)-0.5)+175*(parseInt(achstat[6])/12)+112.5)+', 0)';
   }
-  if (atotal2 >= 5) {
+  if (achstat[7] == "2") {
+    document.getElementById('ach8').innerHTML = '2';
+    document.getElementById('ach8d').innerHTML = '2';
     document.getElementById('ach8p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach8p').style.width = '796px';
+    document.getElementById('ach8p').style.width = '800px';
     document.getElementById('ach8t').innerHTML = 'Completed!';
     document.getElementById('ach8t').style.color = 'white';
+    document.getElementById('ach8r').style.color = 'rgb(0, 100, 250)';
   } else {
-    document.getElementById('ach8p').style.width = (796*atotal2/5)+'px';
-    document.getElementById('ach8t').innerHTML = (atotal2)+"/5";
+    document.getElementById('ach8').innerHTML = (1+parseInt(achstat[7]));
+    document.getElementById('ach8d').innerHTML = ach8set[parseInt(achstat[7])];
+    document.getElementById('ach8p').style.width = (800*(atotal2h)/ach8set[parseInt(achstat[7])])+'px';
+    document.getElementById('ach8t').innerHTML = (atotal2h)+"/"+ach8set[parseInt(achstat[7])];
+    document.getElementById('ach8r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[7])/2)-0.5)-200*(parseInt(achstat[7])/2)+300)+', '+(-225*Math.abs((parseInt(achstat[7])/2)-0.5)+175*(parseInt(achstat[7])/2)+112.5)+', 0)';
   }
-  if (atotal4h >= 32) {
-    document.getElementById('ach9p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach9p').style.width = '796px';
-    document.getElementById('ach9t').innerHTML = 'Completed!';
+  if (localStorage.getItem('uavg').length != 50) {
+    document.getElementById('ach9t').innerHTML = "Current average: "+avg50+" based on "+localStorage.getItem('uavg').length+" game(s), target: 6.0";
+    document.getElementById('ach9p').style.width = '0px';
+    if (localStorage.getItem('udm') == 1) {
+      document.getElementById('ach9r').style.color = 'rgb(255, 255, 255)';
+    } else {
+      document.getElementById('ach9r').style.color = 'rgb(0, 0, 0)';
+    }
+  } else if (achstat[8] == "23") {
+    document.getElementById('ach9').innerHTML = '23';
+    document.getElementById('ach9d').innerHTML = '3.8';
+    document.getElementById('ach9p').style.backgroundColor = 'rgb(0, 100, 250)'
+    document.getElementById('ach9p').style.width = '800px';
+    document.getElementById('ach9t').innerHTML = 'Completed! (Current average: '+avg50+', record average: '+localStorage.getItem('uravg')+')';
     document.getElementById('ach9t').style.color = 'white';
-  } else {
-    document.getElementById('ach9p').style.width = (796*atotal4h/32)+'px';
-    document.getElementById('ach9t').innerHTML = (atotal4h)+"/32";
+    document.getElementById('ach9r').style.color = 'rgb(0, 100, 250)';
+  } else  {
+    document.getElementById('ach9').innerHTML = (1+parseInt(achstat[8]));
+    document.getElementById('ach9d').innerHTML = ach9set[parseInt(achstat[8])];
+    document.getElementById('ach9p').style.width = 800*(8-avg50)/(8-ach9set[parseInt(achstat[8])])+'px';
+    document.getElementById('ach9t').innerHTML = "Current average: "+avg50+", target: "+ach9set[parseInt(achstat[8])];
+    document.getElementById('ach9r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[8])/23)-0.5)-200*(parseInt(achstat[8])/23)+300)+', '+(-225*Math.abs((parseInt(achstat[8])/23)-0.5)+175*(parseInt(achstat[8])/23)+112.5)+', 0)';
   }
-  if (atotal2h >= 1) {
-    document.getElementById('ach10p').style.backgroundColor = 'rgb(0, 100, 250)';
-    document.getElementById('ach10p').style.width = '796px';
-    document.getElementById('ach10t').innerHTML = 'Completed!';
+  if (localStorage.getItem('uavgh').length != 50) {
+    document.getElementById('ach10t').innerHTML = "Current average: "+avg50h+" based on "+localStorage.getItem('uavgh').length+" game(s), target: 6.9";
+    document.getElementById('ach10p').style.width = '0px';
+    if (localStorage.getItem('udm') == 1) {
+      document.getElementById('ach10r').style.color = 'rgb(255, 255, 255)';
+    } else {
+      document.getElementById('ach10r').style.color = 'rgb(0, 0, 0)';
+    }
+  } else if (achstat[9] == "23") {
+    document.getElementById('ach10').innerHTML = '23';
+    document.getElementById('ach10d').innerHTML = '4.3';
+    document.getElementById('ach10p').style.backgroundColor = 'rgb(0, 100, 250)'
+    document.getElementById('ach10p').style.width = '800px';
+    document.getElementById('ach10t').innerHTML = 'Completed! (Current average: '+avg50h+', record average: '+localStorage.getItem('uravgh')+')';
     document.getElementById('ach10t').style.color = 'white';
+    document.getElementById('ach10r').style.color = 'rgb(0, 100, 250)';
+  } else  {
+    document.getElementById('ach10').innerHTML = (1+parseInt(achstat[9]));
+    document.getElementById('ach10d').innerHTML = ach10set[parseInt(achstat[9])];
+    document.getElementById('ach10p').style.width = 800*(8-avg50h)/(8-ach10set[parseInt(achstat[9])])+'px';
+    document.getElementById('ach10t').innerHTML = "Current average: "+avg50h+", target: "+ach10set[parseInt(achstat[9])];
+    document.getElementById('ach10r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[9])/23)-0.5)-200*(parseInt(achstat[9])/23)+300)+', '+(-225*Math.abs((parseInt(achstat[9])/23)-0.5)+175*(parseInt(achstat[9])/23)+112.5)+', 0)';
+    
   }
 }
 function gauge(stat, statset, fun) {
@@ -1360,6 +1538,15 @@ function gauge(stat, statset, fun) {
       return i;
     }
   }
-  return i+1;
+  return i;
 }
-//Fix uravg stat
+function popanim3(a) {
+  document.getElementById('pop').classList.remove("popanim3");
+  document.getElementById('pop').innerHTML = '';
+  document.getElementById('pop').innerHTML = a;
+  document.getElementById('pop').classList.add("popanim3");
+}
+function about() {
+  document.getElementById('tutorial').style.height = "600px";
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>About (<a onclick=closetutorial()>Close Window</a>)</p><hr><p>Factordle Unlimited is a web-based Wordle-like game created by <a onclick=window.open('https://github.com/Carregando1')>Carregando1</a> as a complement to Factordle.</p><p>Current version: In beta</p><p>Mobile devices are not supported yet; a mobile layout will be implemented soon.</p><p>Comments or questions? Use <a onclick=window.open('https://forms.gle/6nB5CRGVzyTevC7BA')>this link</a> for sending feedback.</p><hr><p>Enjoying Factordle Unlimited? Try <a onclick=window.open('https://carregando1.github.io/factordle.html')>Factordle</a>.</p><hr><p>The game is currently being algorithmically analyzed; currently, it is possible to solve both Normal Mode and Hard Mode within 7 guesses.</p><p>Current optimal guess averages are 3.751 guesses in normal mode and 4.271 guesses in hard mode.</p>"
+}
