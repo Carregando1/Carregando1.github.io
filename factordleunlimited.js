@@ -547,9 +547,9 @@ if ((1000 * a[0] + 100 * a[1] + 10 * a[2] + a[3]) == solution) {
   if (parseInt(localStorage.getItem("ustreak")) > parseInt(localStorage.getItem("umaxstreak"))) {
     localStorage.setItem("umaxstreak", parseInt(localStorage.getItem("ustreak")));
   }
-  if (guesses+1 > 6 && localStorage.getItem('ustreak6') < 50) {
+  if (guesses+1 > 6 && localStorage.getItem('ustreak6') < 90 && localStorage.getItem('uh') == 0) {
     localStorage.setItem("ustreak6", 0);
-  } else {
+  } else if (localStorage.getItem('uh') == 0) {
     localStorage.setItem("ustreak6", parseInt(localStorage.getItem("ustreak6"))+1);
     if (parseInt(localStorage.getItem("ustreak6")) > parseInt(localStorage.getItem("umaxstreak6"))) {
       localStorage.setItem("umaxstreak6", parseInt(localStorage.getItem("ustreak6")));
@@ -608,8 +608,11 @@ if ((1000 * a[0] + 100 * a[1] + 10 * a[2] + a[3]) == solution) {
   if (guesses == 7) {
     if (localStorage.getItem('uh') == 1) {
       localStorage.setItem('usolve9h', parseInt(localStorage.getItem('usolve9h')) + 1);
-      localStorage.setItem("ustreak", 0);
-      if (localStorage.getItem('ustreak6') < 50) {
+    } else {
+      localStorage.setItem('usolve9', parseInt(localStorage.getItem('usolve9')) + 1);
+    }
+    localStorage.setItem("ustreak", 0);
+      if (localStorage.getItem('ustreak6') < 90 && localStorage.getItem('uh') == 0) {
         localStorage.setItem("ustreak6", 0);
       }
       if (localStorage.getItem('uh') == 1) {
@@ -651,9 +654,6 @@ if ((1000 * a[0] + 100 * a[1] + 10 * a[2] + a[3]) == solution) {
       if (avg50h < parseFloat(localStorage.getItem('uravgh')) && localStorage.getItem('uavgh').length == 50) {
         localStorage.setItem('uravgh', avg50h);
       }
-    } else {
-      localStorage.setItem('usolve9', parseInt(localStorage.getItem('usolve9')) + 1);
-    }
     complete = true;
   }
   anim(guesses, animpush);
@@ -887,10 +887,11 @@ if (step == 1) {
   step = 0;
   updatenotes();
 }
-if (a.animationName == 'popanim' || a.animationName == 'popanim2') {
+if (a.animationName == 'popanim' || a.animationName == 'popanim2' || a.animationName == 'popanim3') {
   step = 0;
   document.getElementById('pop').classList.remove("popanim");
   document.getElementById('pop').classList.remove("popanim2");
+  document.getElementById('pop').classList.remove("popanim3");
   document.getElementById('pop').innerHTML = '';
   if (stringy) {
     achscan();
@@ -1350,7 +1351,7 @@ function achscan() {
 }
 function achievements() {
   achscan();
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Achievements (<a onclick=closetutorial()>Close Window</a>)</p><hr><div class='achs'><div class='achp' id='achprogp'></div><div class='acht' id='aprog'><span id='aprog1'>0</span>/169 Achievement Ranks (<span id='aprog2'>0% Complete</span>)</div></div><hr><p>Endurant <span id='ach1r'>(Rank <span id='ach1'>1</span>/32)</span>:  Play a total of <span id='ach1d'>2</span> Factordles.</p><div class='achs'><div class='achp' id='ach1p'></div><div class='acht' id='ach1t'>0/2</div></div><p>Challenger <span id='ach2r'>(Rank <span id='ach2'>1</span>/19)</span>:  Play a total of <span id='ach2d'>1</span> Hard Mode Factordle(s).</p><div class='achs'><div class='achp' id='ach2p'></div><div class='acht' id='ach2t'>0/1</div></div><p>Dedicated <span id='ach3r'>(Rank <span id='ach3'>1</span>/19)</span>:  Win <span id='ach3d'>2</span> Factordles in a row.</p><div class='achs'><div class='achp' id='ach3p'></div><div class='acht' id='ach3t'>0/2</div></div><p>Wordlelike <span id='ach4r'>(Rank <span id='ach4'>1</span>/13)</span>:  Win <span id='ach4d'>2</span> Factordles in a row in 6 guesses or less.</p><div class='achs'><div class='achp' id='ach4p'></div><div class='acht' id='ach4t'>0/2</div></div><p>Speedrunner <span id='ach5r'>(Rank <span id='ach5'>1</span>/16)</span>:  Win <span id='ach5d'>1</span> Factordle(s) in 3 guesses or less.</p><div class='achs'><div class='achp' id='ach5p'></div><div class='acht' id='ach5t'>0/1</div></div><p>Deucer <span id='ach6r'>(Rank <span id='ach6'>1</span>/10)</span>:  Win <span id='ach6d'>1</span> Factordle(s) in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach6p'></div><div class='acht' id='ach6t'>0/1</div></div><p>Ultimate Speedrunner <span id='ach7r'>(Rank <span id='ach7'>1</span>/12)</span>:  Win <span id='ach7d'>1</span> Hard Mode Factordle(s) in 4 guesses or less.</p><div class='achs'><div class='achp' id='ach7p'></div><div class='acht' id='ach7t'>0/1</div></div><p>Actually, Not Hard At All <span id='ach8r'>(Rank <span id='ach8'>1</span>/2)</span>:  Win <span id='ach8d'>1</span> Hard Mode Factordle(s) in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach8p'></div><div class='acht' id='ach8t'>0/1</div></div><p>Perfectionist <span id='ach9r'>(Rank <span id='ach9'>1</span>/23)</span>:  Over your last 20 Normal Mode Factordle plays, win in an average of <span id='ach9d'>6.0</span> guesses.</p><div class='achs'><div class='achp' id='ach9p'></div><div class='acht' id='ach9t'>Current Average: 67</div></div><p>Overdrive <span id='ach10r'>(Rank <span id='ach10'>1</span>/23)</span>:  Over your last 20 Hard Mode Factordle plays, win in an average of <span id='ach10d'>6.9</span> guesses.</p><div class='achs'><div class='achp' id='ach10p'></div><div class='acht' id='ach10t'>Current Average: 67</div></div><p><i>A loss is considered to be 9 guesses for the two achievements above.</i></p>";
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Achievements (<a onclick=closetutorial()>Close Window</a>)</p><hr><div class='achs'><div class='achp' id='achprogp'></div><div class='acht' id='aprog'><span id='aprog1'>0</span>/169 Achievement Ranks (<span id='aprog2'>0% Complete</span>)</div></div><hr><p>Endurant <span id='ach1r'>(Rank <span id='ach1'>1</span>/32)</span>:  Play a total of <span id='ach1d'>2</span> Factordles.</p><div class='achs'><div class='achp' id='ach1p'></div><div class='acht' id='ach1t'>0/2</div></div><p>Challenger <span id='ach2r'>(Rank <span id='ach2'>1</span>/19)</span>:  Play a total of <span id='ach2d'>1</span> Hard Mode Factordle(s).</p><div class='achs'><div class='achp' id='ach2p'></div><div class='acht' id='ach2t'>0/1</div></div><p>Dedicated <span id='ach3r'>(Rank <span id='ach3'>1</span>/19)</span>:  Win <span id='ach3d'>2</span> Factordles in a row.</p><div class='achs'><div class='achp' id='ach3p'></div><div class='acht' id='ach3t'>0/2</div></div><p>Wordlelike <span id='ach4r'>(Rank <span id='ach4'>1</span>/13)</span>:  Win <span id='ach4d'>2</span> Normal Mode Factordles in a row in 6 guesses or less.</p><div class='achs'><div class='achp' id='ach4p'></div><div class='acht' id='ach4t'>0/2</div></div><p>Speedrunner <span id='ach5r'>(Rank <span id='ach5'>1</span>/16)</span>:  Win <span id='ach5d'>1</span> Factordle(s) in 3 guesses or less.</p><div class='achs'><div class='achp' id='ach5p'></div><div class='acht' id='ach5t'>0/1</div></div><p>Deucer <span id='ach6r'>(Rank <span id='ach6'>1</span>/10)</span>:  Win <span id='ach6d'>1</span> Factordle(s) in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach6p'></div><div class='acht' id='ach6t'>0/1</div></div><p>Ultimate Speedrunner <span id='ach7r'>(Rank <span id='ach7'>1</span>/12)</span>:  Win <span id='ach7d'>1</span> Hard Mode Factordle(s) in 4 guesses or less.</p><div class='achs'><div class='achp' id='ach7p'></div><div class='acht' id='ach7t'>0/1</div></div><p>Actually, Not Hard At All <span id='ach8r'>(Rank <span id='ach8'>1</span>/2)</span>:  Win <span id='ach8d'>1</span> Hard Mode Factordle(s) in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach8p'></div><div class='acht' id='ach8t'>0/1</div></div><p>Perfectionist <span id='ach9r'>(Rank <span id='ach9'>1</span>/23)</span>:  Over your last 50 Normal Mode Factordle plays, win in an average of <span id='ach9d'>6.0</span> guesses.</p><div class='achs'><div class='achp' id='ach9p'></div><div class='acht' id='ach9t'>Current Average: 67</div></div><p>Overdrive <span id='ach10r'>(Rank <span id='ach10'>1</span>/23)</span>:  Over your last 50 Hard Mode Factordle plays, win in an average of <span id='ach10d'>6.9</span> guesses.</p><div class='achs'><div class='achp' id='ach10p'></div><div class='acht' id='ach10t'>Current Average: 67</div></div><p><i>A loss is considered to be 9 guesses for the two achievements above.</i></p>";
   var achprog = parseInt(achstat[0])+parseInt(achstat[1])+parseInt(achstat[2])+parseInt(achstat[3])+parseInt(achstat[4])+parseInt(achstat[5])+parseInt(achstat[6])+parseInt(achstat[7])+parseInt(achstat[8])+parseInt(achstat[9]);
   document.getElementById('aprog1').innerHTML=achprog;
   if (achprog == 169) {
