@@ -289,6 +289,8 @@ function reset() {
   localStorage.setItem("maxstreak6", 0);
   localStorage.setItem("achset", "00000000000000000000");
   localStorage.setItem("dm", 0);
+  localStorage.setItem("guesses", "");
+  localStorage.setItem("status", "");
 }
 
 if (localStorage.getItem("dm") == null) {
@@ -552,9 +554,9 @@ function push(a) {
     if (parseInt(localStorage.getItem("daystreak")) > parseInt(localStorage.getItem("maxdaystreak"))) {
       localStorage.setItem("maxdaystreak", parseInt(localStorage.getItem("daystreak")));
     }
-    if (guesses+1 > 6 && localStorage.getItem('streak6') < 12) {
+    if (guesses+1 > 6 && localStorage.getItem('streak6') < 32 && localStorage.getItem('h') == 0) {
       localStorage.setItem("streak6", 0);
-    } else {
+    } else if (localStorage.getItem('h') == 0) {
       localStorage.setItem("streak6", parseInt(localStorage.getItem("streak6"))+1);
       if (parseInt(localStorage.getItem("streak6")) > parseInt(localStorage.getItem("maxstreak6"))) {
         localStorage.setItem("maxstreak6", parseInt(localStorage.getItem("streak6")));
@@ -621,7 +623,9 @@ function push(a) {
       if (parseInt(localStorage.getItem("daystreak")) > parseInt(localStorage.getItem("maxdaystreak"))) {
         localStorage.setItem("maxdaystreak", parseInt(localStorage.getItem("daystreak")));
       }
-      localStorage.setItem("streak6", 0);
+      if (localStorage.getItem('streak6') < 32 && localStorage.getItem('h') == 0) {
+        localStorage.setItem("streak6", 0);
+      }
       if (localStorage.getItem('h') == 1) {
         if (localStorage.getItem('avgh').length >= 20) {
           localStorage.setItem('avgh', localStorage.getItem('avgh').substring(1)+"9")
@@ -1443,7 +1447,7 @@ function achscan() {
 }
 function achievements() {
   achscan();
-  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Achievements (<a onclick=closetutorial()>Close Window</a>)</p><hr><div class='achs'><div class='achp' id='achprogp'></div><div class='acht' id='aprog'><span id='aprog1'>0</span>/88 Achievement Ranks (<span id='aprog2'>0% Complete</span>)</div></div><hr><p>Endurant <span id='ach1r'>(Rank <span id='ach1'>1</span>/14)</span>:  Play a total of <span id='ach1d'>2</span> Factordles.</p><div class='achs'><div class='achp' id='ach1p'></div><div class='acht' id='ach1t'>0/2</div></div><p>Challenger <span id='ach2r'>(Rank <span id='ach2'>1</span>/8)</span>:  Play a total of <span id='ach2d'>1</span> Hard Mode Factordle(s).</p><div class='achs'><div class='achp' id='ach2p'></div><div class='acht' id='ach2t'>0/1</div></div><p>Frequenter <span id='ach3r'>(Rank <span id='ach3'>1</span>/9)</span>:  Play Factordle for <span id='ach3d'>3</span> days in a row.</p><div class='achs'><div class='achp' id='ach3p'></div><div class='acht' id='ach3t'>0/3</div></div><p>Dedicated <span id='ach4r'>(Rank <span id='ach4'>1</span>/8)</span>:  Obtain a <span id='ach4d'>2</span> day winstreak.</p><div class='achs'><div class='achp' id='ach4p'></div><div class='acht' id='ach4t'>0/2</div></div><p>Wordlelike <span id='ach5r'>(Rank <span id='ach5'>1</span>/7)</span>:  Win <span id='ach5d'>2</span> Factordles in a row in 6 guesses or less.</p><div class='achs'><div class='achp' id='ach5p'></div><div class='acht' id='ach5t'>0/2</div></div><p>Speedrunner <span id='ach6r'>(Rank <span id='ach6'>1</span>/7)</span>:  Win <span id='ach6d'>1</span> Factordle(s) in 3 guesses or less.</p><div class='achs'><div class='achp' id='ach6p'></div><div class='acht' id='ach6t'>0/1</div></div><p>Deucer <span id='ach7r'>(Rank <span id='ach7'>1</span>/3)</span>:  Win <span id='ach7d'>1</span> Factordle(s) in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach7p'></div><div class='acht' id='ach7t'>0/1</div></div><p>Ultimate Speedrunner <span id='ach8r'>(Rank <span id='ach8'>1</span>/6)</span>:  Win <span id='ach8d'>1</span> Hard Mode Factordle(s) in 4 guesses or less.</p><div class='achs'><div class='achp' id='ach8p'></div><div class='acht' id='ach8t'>0/1</div></div><p>Perfectionist <span id='ach9r'>(Rank <span id='ach9'>1</span>/12)</span>:  Over your last 20 Normal Mode Factordle plays, win in an average of <span id='ach9d'>6.0</span> guesses.</p><div class='achs'><div class='achp' id='ach9p'></div><div class='acht' id='ach9t'>Current Average: 67</div></div><p>Overdrive <span id='ach10r'>(Rank <span id='ach10'>1</span>/14)</span>:  Over your last 20 Hard Mode Factordle plays, win in an average of <span id='ach10d'>6.9</span> guesses.</p><div class='achs'><div class='achp' id='ach10p'></div><div class='acht' id='ach10t'>Current Average: 67</div></div><p><i>A loss is considered to be 9 guesses for the two achievements above.</i></p>";
+  document.getElementById('tutorial').innerHTML = "<p id='ttitle'>Achievements (<a onclick=closetutorial()>Close Window</a>)</p><hr><div class='achs'><div class='achp' id='achprogp'></div><div class='acht' id='aprog'><span id='aprog1'>0</span>/88 Achievement Ranks (<span id='aprog2'>0% Complete</span>)</div></div><hr><p>Endurant <span id='ach1r'>(Rank <span id='ach1'>1</span>/14)</span>:  Play a total of <span id='ach1d'>2</span> Factordles.</p><div class='achs'><div class='achp' id='ach1p'></div><div class='acht' id='ach1t'>0/2</div></div><p>Challenger <span id='ach2r'>(Rank <span id='ach2'>1</span>/8)</span>:  Play a total of <span id='ach2d'>1</span> Hard Mode Factordle(s).</p><div class='achs'><div class='achp' id='ach2p'></div><div class='acht' id='ach2t'>0/1</div></div><p>Frequenter <span id='ach3r'>(Rank <span id='ach3'>1</span>/9)</span>:  Play Factordle for <span id='ach3d'>3</span> days in a row.</p><div class='achs'><div class='achp' id='ach3p'></div><div class='acht' id='ach3t'>0/3</div></div><p>Dedicated <span id='ach4r'>(Rank <span id='ach4'>1</span>/8)</span>:  Obtain a <span id='ach4d'>2</span> day winstreak.</p><div class='achs'><div class='achp' id='ach4p'></div><div class='acht' id='ach4t'>0/2</div></div><p>Wordlelike <span id='ach5r'>(Rank <span id='ach5'>1</span>/7)</span>:  Win <span id='ach5d'>2</span> Normal Mode Factordles in a row in 6 guesses or less.</p><div class='achs'><div class='achp' id='ach5p'></div><div class='acht' id='ach5t'>0/2</div></div><p>Speedrunner <span id='ach6r'>(Rank <span id='ach6'>1</span>/7)</span>:  Win <span id='ach6d'>1</span> Factordle(s) in 3 guesses or less.</p><div class='achs'><div class='achp' id='ach6p'></div><div class='acht' id='ach6t'>0/1</div></div><p>Deucer <span id='ach7r'>(Rank <span id='ach7'>1</span>/3)</span>:  Win <span id='ach7d'>1</span> Factordle(s) in 2 guesses or less.</p><div class='achs'><div class='achp' id='ach7p'></div><div class='acht' id='ach7t'>0/1</div></div><p>Ultimate Speedrunner <span id='ach8r'>(Rank <span id='ach8'>1</span>/6)</span>:  Win <span id='ach8d'>1</span> Hard Mode Factordle(s) in 4 guesses or less.</p><div class='achs'><div class='achp' id='ach8p'></div><div class='acht' id='ach8t'>0/1</div></div><p>Perfectionist <span id='ach9r'>(Rank <span id='ach9'>1</span>/12)</span>:  Over your last 20 Normal Mode Factordle plays, win in an average of <span id='ach9d'>6.0</span> guesses.</p><div class='achs'><div class='achp' id='ach9p'></div><div class='acht' id='ach9t'>Current Average: 67</div></div><p>Overdrive <span id='ach10r'>(Rank <span id='ach10'>1</span>/14)</span>:  Over your last 20 Hard Mode Factordle plays, win in an average of <span id='ach10d'>6.9</span> guesses.</p><div class='achs'><div class='achp' id='ach10p'></div><div class='acht' id='ach10t'>Current Average: 67</div></div><p><i>A loss is considered to be 9 guesses for the two achievements above.</i></p>";
   var achprog = parseInt(achstat[0])+parseInt(achstat[1])+parseInt(achstat[2])+parseInt(achstat[3])+parseInt(achstat[4])+parseInt(achstat[5])+parseInt(achstat[6])+parseInt(achstat[7])+parseInt(achstat[8])+parseInt(achstat[9]);
   document.getElementById('aprog1').innerHTML=achprog;
   if (achprog == 88) {
