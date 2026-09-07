@@ -1489,7 +1489,7 @@ function achievements() {
     document.getElementById('ach2d').innerHTML = ach2set[parseInt(achstat[1])];
     document.getElementById('ach2p').style.width = (800*(atotalh)/ach2set[parseInt(achstat[1])])+'px';
     document.getElementById('ach2t').innerHTML = (atotalh)+"/"+ach2set[parseInt(achstat[1])];
-    document.getElementById('ach2r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[1])/14)-0.5)-200*(parseInt(achstat[1])/14)+300)+', '+(-225*Math.abs((parseInt(achstat[1])/14)-0.5)+175*(parseInt(achstat[1])/14)+112.5)+', 0)';
+    document.getElementById('ach2r').style.color = 'rgb('+(-200*Math.abs((parseInt(achstat[1])/8)-0.5)-200*(parseInt(achstat[1])/8)+300)+', '+(-225*Math.abs((parseInt(achstat[1])/8)-0.5)+175*(parseInt(achstat[1])/8)+112.5)+', 0)';
   }
   if (achstat[2] == "9") {
     document.getElementById('ach3').innerHTML = '9';
